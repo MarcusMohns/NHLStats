@@ -1,11 +1,9 @@
-import { useState } from "react";
-
+import MainContent from "./NhlContent/MainContent.tsx";
 function App() {
   return (
-    <div>
-      {/* <button className="bg-sky-500 hover:bg-sky-700">Save changes</button> */}
-      {/* <Header /> */}
-      {/* <NhlContent /> }
+    <div className="flex justify-center align-center">
+      {/* <Navbar /> */}
+      <MainContent />
       {/* <Footer /> */}
     </div>
   );
