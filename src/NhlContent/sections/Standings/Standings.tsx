@@ -54,6 +54,7 @@ const Standings = () => {
   const buttons = ["League", "Division", "Conference"];
 
   const sortedTeams = useMemo(
+    // Sort teams under into Western Eastern etc when standings state changes (when fetchStandings is called)
     () =>
       standings &&
       standings.reduce(
@@ -75,11 +76,12 @@ const Standings = () => {
   );
 
   useEffect(() => {
+    // Fetch our data and set it to our standings state on first render
     fetchStandings(setStandings, setError);
   }, []);
 
   return (
-    <section className="w-5/8">
+    <section className="">
       <div className="buttons">
         {buttons.map((button) => (
           <button
