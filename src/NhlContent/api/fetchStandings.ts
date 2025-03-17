@@ -1,4 +1,4 @@
-import { StandingsType } from "../sections/Standings/Standings";
+import { StandingsType } from "../sections/standings/Standings";
 const fetchStandings = async (
   setStandings: (standings: StandingsType[]) => void,
   setError: (error: {
