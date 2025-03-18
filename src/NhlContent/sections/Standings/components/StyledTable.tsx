@@ -48,6 +48,12 @@ const StyledTable = ({
     }
   };
 
+  const isDivisionsTable =
+    tableName === "Metropolitan" ||
+    tableName === "Pacific" ||
+    tableName === "Atlantic" ||
+    tableName === "Central";
+
   return (
     <>
       <h2 className="m-4 mx-2 text-2xl font-bold uppercase leading-none tracking-tight">
@@ -79,7 +85,13 @@ const StyledTable = ({
           {standings.map((standing) => (
             <tr
               key={standing.teamAbbrev.default}
-              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer"
+              className={`bg-white dark:bg-gray-800  border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer ${
+                // 3rd place or up in the division qualifies you to the playoffs
+                isDivisionsTable &&
+                standing.rank === 3 &&
+                "border-b border-lime-500"
+              } 
+         `}
             >
               <td className="text-center">{standing.rank}</td>
               <th className="flex items-center px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
