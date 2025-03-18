@@ -1,14 +1,14 @@
-import type { StandingsType } from "../Standings.tsx";
+import type { TeamType } from "../Standings.tsx";
 import StyledTable from "../components/StyledTable.tsx";
 import { useState, useCallback } from "react";
 
 type ConferenceTableProps = {
-  eastern: StandingsType[];
-  western: StandingsType[];
+  eastern: TeamType[];
+  western: TeamType[];
   headers: string[];
 };
 type ConferenceStateType = {
-  standings: StandingsType[];
+  standings: TeamType[];
   sortedBy: String;
 };
 
@@ -34,7 +34,7 @@ const ConferenceTable = ({
   }, []);
 
   const handleEasternSort = useCallback(
-    (newState: StandingsType[], sortBy: string) => {
+    (newState: TeamType[], sortBy: string) => {
       console.log("wait a minute");
       setEasternState((prevState) =>
         prevState.sortedBy === sortBy
@@ -46,7 +46,7 @@ const ConferenceTable = ({
   );
 
   const handleWesternSort = useCallback(
-    (newState: StandingsType[], sortBy: string) => {
+    (newState: TeamType[], sortBy: string) => {
       setWesternState((prevState) =>
         prevState.sortedBy === sortBy
           ? reverseStandings(prevState)

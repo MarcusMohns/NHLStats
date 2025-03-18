@@ -1,6 +1,4 @@
-import { StandingsType } from "../sections/standings/Standings";
 const fetchStandings = async (
-  setStandings: (standings: StandingsType[]) => void,
   setError: (error: {
     error: boolean;
     text: string;
@@ -20,7 +18,7 @@ const fetchStandings = async (
     console.log(response);
     const data = await response.json();
     console.log(data);
-    setStandings(data.standings);
+    return data.standings;
   } catch (error: unknown) {
     console.error("Error getting standings:", error);
     setError({

@@ -1,16 +1,16 @@
-import type { StandingsType } from "../Standings.tsx";
+import type { TeamType } from "../Standings.tsx";
 import StyledTable from "../components/StyledTable.tsx";
 import { useCallback, useState } from "react";
 
 type DivisionTableProps = {
-  central: StandingsType[];
-  atlantic: StandingsType[];
-  metropolitan: StandingsType[];
-  pacific: StandingsType[];
+  central: TeamType[];
+  atlantic: TeamType[];
+  metropolitan: TeamType[];
+  pacific: TeamType[];
   headers: string[];
 };
 type DivisionStateType = {
-  standings: StandingsType[];
+  standings: TeamType[];
   sortedBy: String;
 };
 
@@ -48,7 +48,7 @@ const DivisionTable = ({
   }, []);
 
   const handleCentralSort = useCallback(
-    (newStandings: StandingsType[], sortBy: string) => {
+    (newStandings: TeamType[], sortBy: string) => {
       setCentralState((prevState) =>
         prevState.sortedBy === sortBy
           ? reverseStandings(prevState)
@@ -59,7 +59,7 @@ const DivisionTable = ({
   );
 
   const handleAtlanticSort = useCallback(
-    (newStandings: StandingsType[], sortBy: string) => {
+    (newStandings: TeamType[], sortBy: string) => {
       setAtlanticState((prevState) =>
         prevState.sortedBy === sortBy
           ? reverseStandings(prevState)
@@ -70,7 +70,7 @@ const DivisionTable = ({
   );
 
   const handleMetropolitanSort = useCallback(
-    (newStandings: StandingsType[], sortBy: string) => {
+    (newStandings: TeamType[], sortBy: string) => {
       setMetropolitanState((prevState) =>
         prevState.sortedBy === sortBy
           ? reverseStandings(prevState)
@@ -81,7 +81,7 @@ const DivisionTable = ({
   );
 
   const handlePacificSort = useCallback(
-    (newStandings: StandingsType[], sortBy: string) => {
+    (newStandings: TeamType[], sortBy: string) => {
       setPacificState((prevState) =>
         prevState.sortedBy === sortBy
           ? reverseStandings(prevState)

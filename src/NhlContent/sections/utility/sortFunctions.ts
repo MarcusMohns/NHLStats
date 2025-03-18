@@ -1,42 +1,33 @@
-import { StandingsType } from "../standings/Standings";
+import { TeamType } from "../standings/Standings";
 
-export const sortByGamesPlayed = (standings: StandingsType[]) =>
+export const sortByGamesPlayed = (standings: TeamType[]) =>
   standings.toSorted(
-    (a: StandingsType, b: StandingsType) => b.gamesPlayed - a.gamesPlayed
+    (a: TeamType, b: TeamType) => b.gamesPlayed - a.gamesPlayed
   );
-export const sortByRank = (standings: StandingsType[]) =>
-  standings.toSorted((a: StandingsType, b: StandingsType) => b.rank - a.rank);
+export const sortByRank = (standings: TeamType[]) =>
+  standings.toSorted((a: TeamType, b: TeamType) => b.rank - a.rank);
 
-export const sortByPoints = (standings: StandingsType[]) =>
-  standings.toSorted(
-    (a: StandingsType, b: StandingsType) => b.points - a.points
-  );
-export const sortByWins = (standings: StandingsType[]) =>
-  standings.toSorted((a: StandingsType, b: StandingsType) => b.wins - a.wins);
+export const sortByPoints = (standings: TeamType[]) =>
+  standings.toSorted((a: TeamType, b: TeamType) => b.points - a.points);
+export const sortByWins = (standings: TeamType[]) =>
+  standings.toSorted((a: TeamType, b: TeamType) => b.wins - a.wins);
 
-export const sortByLosses = (standings: StandingsType[]) =>
-  standings.toSorted(
-    (a: StandingsType, b: StandingsType) => b.losses - a.losses
-  );
+export const sortByLosses = (standings: TeamType[]) =>
+  standings.toSorted((a: TeamType, b: TeamType) => b.losses - a.losses);
 
-export const sortByOTLosses = (standings: StandingsType[]) =>
-  standings.toSorted(
-    (a: StandingsType, b: StandingsType) => b.otLosses - a.otLosses
-  );
+export const sortByOTLosses = (standings: TeamType[]) =>
+  standings.toSorted((a: TeamType, b: TeamType) => b.otLosses - a.otLosses);
 
-export const sortByGoalDifferential = (standings: StandingsType[]) =>
+export const sortByGoalDifferential = (standings: TeamType[]) =>
   standings.toSorted(
-    (a: StandingsType, b: StandingsType) =>
-      b.goalDifferential - a.goalDifferential
+    (a: TeamType, b: TeamType) => b.goalDifferential - a.goalDifferential
   );
 
-export const sortByLast10 = (standings: StandingsType[]) =>
-  standings.toSorted(
-    (a: StandingsType, b: StandingsType) => b.l10Wins - a.l10Wins
-  );
+export const sortByLast10 = (standings: TeamType[]) =>
+  standings.toSorted((a: TeamType, b: TeamType) => b.l10Wins - a.l10Wins);
 
-export const sortByStreak = (standings: StandingsType[]) =>
-  standings.toSorted((a: StandingsType, b: StandingsType) => {
+export const sortByStreak = (standings: TeamType[]) =>
+  standings.toSorted((a: TeamType, b: TeamType) => {
     const streakPriority = (streakCode: string) => {
       switch (streakCode) {
         case "W":
@@ -56,7 +47,7 @@ export const sortByStreak = (standings: StandingsType[]) =>
     // this is done by assigning a priority to each type of streak and
     // comparing the priorities
     if (primarySort !== 0) {
-      // If both teams have a the same streak return 0
+      // If both teams have a the same streak return 0 (treated equally)
       return primarySort;
     } else if (b.streakCode === "L" || a.streakCode === "L") {
       // If a and b are both on losing streaks sort them inversely (smaller -> bigger) - losing more is bad

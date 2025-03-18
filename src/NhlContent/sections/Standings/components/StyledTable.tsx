@@ -1,4 +1,4 @@
-import type { StandingsType } from "../Standings.tsx";
+import type { TeamType } from "../Standings.tsx";
 import {
   sortByRank,
   sortByGamesPlayed,
@@ -12,8 +12,8 @@ import {
 } from "../../utility/sortFunctions.ts";
 
 type StyledTableProps = {
-  standings: StandingsType[];
-  handleSort: (newState: StandingsType[], sortBy: string) => void;
+  standings: TeamType[];
+  handleSort: (newState: TeamType[], sortBy: string) => void;
   headers: string[];
   tableName: string;
 };

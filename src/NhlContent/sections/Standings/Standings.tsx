@@ -6,7 +6,7 @@ import ConferenceTable from "./tables/ConferenceTable.tsx";
 import DivisionTable from "./tables/DivisionTable.tsx";
 import Alert from "../../components/Alert.tsx";
 
-export type StandingsType = {
+export type TeamType = {
   rank: number;
   teamName: { default: string };
   teamAbbrev: { default: string };
@@ -24,13 +24,21 @@ export type StandingsType = {
   streakCount: number;
   conferenceName: string;
   divisionName: string;
+  wildCardSequence: number;
+};
+
+type StandingsType = {
+  League: TeamType[];
+  Western: TeamType[];
+  Eastern: TeamType[];
+  Central: TeamType[];
+  Atlantic: TeamType[];
+  Metropolitan: TeamType[];
+  Pacific: TeamType[];
 };
 
 const Standings = () => {
-  const [standings, setStandings] = useState<StandingsType[] | null>(
-    null
-    // this will be null until the api call is made
-  );
+  const [standings, setStandings] = useState<StandingsType | null>(null);
   const [selectedTable, setSelectedTable] = useState<string>("League");
   const [error, setError] = useState<{
     error: boolean;
@@ -54,42 +62,50 @@ const Standings = () => {
 
   const buttons = ["League", "Division", "Conference"];
 
-  const sortedTeams = useMemo(
-    // Sort teams under the different tables and give them a rank wheneer standings state change (when fetchStandings is called)
-    () =>
-      standings &&
-      standings.reduce(
-        (acc: Record<string, StandingsType[]>, team: StandingsType) => {
-          acc.League.push({
-            ...team,
-            rank: acc.League.length + 1,
-          });
-          acc[team.conferenceName].push({
-            ...team,
-            rank: acc[team.conferenceName].length + 1,
-          });
-          acc[team.divisionName].push({
-            ...team,
-            rank: acc[team.divisionName].length + 1,
-          });
-          return acc;
-        },
-        {
-          League: [],
-          Western: [],
-          Eastern: [],
-          Central: [],
-          Atlantic: [],
-          Metropolitan: [],
-          Pacific: [],
-        }
-      ),
-    [standings]
-  );
+  // const top3Central = sortedTeams && sortedTeams.Central.slice(3);
+  // const top3Atlantic = sortedTeams && sortedTeams.Atlantic.slice(3);
+  // const top3Metropolitan = sortedTeams && sortedTeams.Metropolitan.slice(3);
+  // const top3Pacific = sortedTeams && sortedTeams.Pacific.slice(3);
+  // const notTop3Western =
+  //   sortedTeams && sortedTeams.Western.slice(3, sortedTeams.Western.length);
+  // const notTop3Eastern =
+  //   sortedTeams && sortedTeams.Western.slice(3, sortedTeams.Eastern.length);
 
   useEffect(() => {
-    // Fetch our data and set it to our standings state on first render
-    fetchStandings(setStandings, setError);
+    const fetchStandingsData = async () => {
+      const standingsData = await fetchStandings(setError);
+      setStandings(
+        () =>
+          standingsData &&
+          standingsData.reduce(
+            (acc: Record<string, TeamType[]>, team: TeamType) => {
+              acc.League.push({
+                ...team,
+                rank: acc.League.length + 1,
+              });
+              acc[team.conferenceName].push({
+                ...team,
+                rank: acc[team.conferenceName].length + 1,
+              });
+              acc[team.divisionName].push({
+                ...team,
+                rank: acc[team.divisionName].length + 1,
+              });
+              return acc;
+            },
+            {
+              League: [],
+              Western: [],
+              Eastern: [],
+              Central: [],
+              Atlantic: [],
+              Metropolitan: [],
+              Pacific: [],
+            }
+          )
+      );
+    };
+    fetchStandingsData();
   }, []);
 
   return (
@@ -110,25 +126,25 @@ const Standings = () => {
         ))}
       </div>
       {!error.error ? (
-        sortedTeams ? (
+        standings ? (
           <div className="tables">
             {selectedTable === "League" && (
-              <LeagueTable league={sortedTeams.League} headers={headers} />
+              <LeagueTable league={standings.League} headers={headers} />
             )}
             {selectedTable === "Conference" && (
               <ConferenceTable
-                eastern={sortedTeams.Eastern}
-                western={sortedTeams.Western}
+                eastern={standings.Eastern}
+                western={standings.Western}
                 headers={headers}
               />
             )}
 
             {selectedTable === "Division" && (
               <DivisionTable
-                central={sortedTeams.Central}
-                atlantic={sortedTeams.Atlantic}
-                metropolitan={sortedTeams.Metropolitan}
-                pacific={sortedTeams.Pacific}
+                central={standings.Central}
+                atlantic={standings.Atlantic}
+                metropolitan={standings.Metropolitan}
+                pacific={standings.Pacific}
                 headers={headers}
               />
             )}
