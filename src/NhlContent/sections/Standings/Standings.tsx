@@ -7,6 +7,7 @@ import DivisionTable from "./tables/DivisionTable.tsx";
 import Alert from "../../components/Alert.tsx";
 
 export type StandingsType = {
+  rank: number;
   teamName: { default: string };
   teamAbbrev: { default: string };
   teamLogo: string;
@@ -54,16 +55,27 @@ const Standings = () => {
   const buttons = ["League", "Division", "Conference"];
 
   const sortedTeams = useMemo(
-    // Sort teams under into Western Eastern etc when standings state changes (when fetchStandings is called)
+    // Sort teams under the different tables and give them a rank wheneer standings state change (when fetchStandings is called)
     () =>
       standings &&
       standings.reduce(
         (acc: Record<string, StandingsType[]>, team: StandingsType) => {
-          acc[team.conferenceName].push(team);
-          acc[team.divisionName].push(team);
+          acc.League.push({
+            ...team,
+            rank: acc.League.length + 1,
+          });
+          acc[team.conferenceName].push({
+            ...team,
+            rank: acc[team.conferenceName].length + 1,
+          });
+          acc[team.divisionName].push({
+            ...team,
+            rank: acc[team.divisionName].length + 1,
+          });
           return acc;
         },
         {
+          League: [],
           Western: [],
           Eastern: [],
           Central: [],
@@ -98,10 +110,10 @@ const Standings = () => {
         ))}
       </div>
       {!error.error ? (
-        sortedTeams && standings ? (
+        sortedTeams ? (
           <div className="tables">
             {selectedTable === "League" && (
-              <LeagueTable standings={standings} headers={headers} />
+              <LeagueTable league={sortedTeams.League} headers={headers} />
             )}
             {selectedTable === "Conference" && (
               <ConferenceTable

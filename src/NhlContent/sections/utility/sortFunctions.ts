@@ -4,6 +4,9 @@ export const sortByGamesPlayed = (standings: StandingsType[]) =>
   standings.toSorted(
     (a: StandingsType, b: StandingsType) => b.gamesPlayed - a.gamesPlayed
   );
+export const sortByRank = (standings: StandingsType[]) =>
+  standings.toSorted((a: StandingsType, b: StandingsType) => b.rank - a.rank);
+
 export const sortByPoints = (standings: StandingsType[]) =>
   standings.toSorted(
     (a: StandingsType, b: StandingsType) => b.points - a.points
