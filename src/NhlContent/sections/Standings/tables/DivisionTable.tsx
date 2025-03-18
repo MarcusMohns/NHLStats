@@ -1,6 +1,6 @@
 import type { StandingsType } from "../Standings.tsx";
 import StyledTable from "../components/StyledTable.tsx";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 type DivisionTableProps = {
   central: StandingsType[];
@@ -8,6 +8,10 @@ type DivisionTableProps = {
   metropolitan: StandingsType[];
   pacific: StandingsType[];
   headers: string[];
+};
+type DivisionStateType = {
+  standings: StandingsType[];
+  sortedBy: String;
 };
 
 const DivisionTable = ({
@@ -17,83 +21,101 @@ const DivisionTable = ({
   pacific,
   headers,
 }: DivisionTableProps) => {
-  // todo create usereducer prolly
-  const [centralState, setCentralState] = useState<StandingsType[]>(central);
-  const [atlanticState, setAtlanticState] = useState<StandingsType[]>(atlantic);
-  const [metropolitanState, setMetropolitanState] =
-    useState<StandingsType[]>(metropolitan);
-  const [pacificState, setPacificState] = useState<StandingsType[]>(pacific);
-
-  const [centralSortedBy, setCentralSortedBy] = useState<string>("Points");
-  const [atlanticSortedBy, setAtlanticSortedBy] = useState<string>("Points");
-  const [metropolitanSortedBy, setMetropolitanSortedBy] =
-    useState<string>("Points");
-  const [pacificSortedBy, setPacificSortedBy] = useState<string>("Points");
-
-  const handleCentralSort = (newState: StandingsType[], sortBy: string) => {
-    if (centralSortedBy === sortBy) {
-      setCentralState(centralState.toReversed());
-    } else {
-      setCentralSortedBy(sortBy);
-      setCentralState(newState);
+  const [centralState, setCentralState] = useState<DivisionStateType>({
+    standings: central,
+    sortedBy: "Points",
+  });
+  const [atlanticState, setAtlanticState] = useState<DivisionStateType>({
+    standings: atlantic,
+    sortedBy: "Points",
+  });
+  const [metropolitanState, setMetropolitanState] = useState<DivisionStateType>(
+    {
+      standings: metropolitan,
+      sortedBy: "Points",
     }
-  };
+  );
+  const [pacificState, setPacificState] = useState<DivisionStateType>({
+    standings: pacific,
+    sortedBy: "Points",
+  });
 
-  const handleAtlanticSort = (newState: StandingsType[], sortBy: string) => {
-    if (atlanticSortedBy === sortBy) {
-      setAtlanticState(atlanticState.toReversed());
-    } else {
-      setAtlanticSortedBy(sortBy);
-      setAtlanticState(newState);
-    }
-  };
+  const reverseStandings = useCallback((state: DivisionStateType) => {
+    return {
+      standings: state.standings.toReversed(),
+      sortedBy: state.sortedBy,
+    };
+  }, []);
 
-  const handleMetropolitanSort = (
-    newState: StandingsType[],
-    sortBy: string
-  ) => {
-    if (metropolitanSortedBy === sortBy) {
-      setMetropolitanState(metropolitanState.toReversed());
-    } else {
-      setMetropolitanSortedBy(sortBy);
-      setMetropolitanState(newState);
-    }
-  };
+  const handleCentralSort = useCallback(
+    (newStandings: StandingsType[], sortBy: string) => {
+      setCentralState((prevState) =>
+        prevState.sortedBy === sortBy
+          ? reverseStandings(prevState)
+          : { standings: newStandings, sortedBy: sortBy }
+      );
+    },
+    [setCentralState, reverseStandings]
+  );
 
-  const handlePacificSort = (newState: StandingsType[], sortBy: string) => {
-    if (pacificSortedBy === sortBy) {
-      setPacificState(pacificState.toReversed());
-    } else {
-      setPacificSortedBy(sortBy);
-      setPacificState(newState);
-    }
-  };
+  const handleAtlanticSort = useCallback(
+    (newStandings: StandingsType[], sortBy: string) => {
+      setAtlanticState((prevState) =>
+        prevState.sortedBy === sortBy
+          ? reverseStandings(prevState)
+          : { standings: newStandings, sortedBy: sortBy }
+      );
+    },
+    [setAtlanticState, reverseStandings]
+  );
+
+  const handleMetropolitanSort = useCallback(
+    (newStandings: StandingsType[], sortBy: string) => {
+      setMetropolitanState((prevState) =>
+        prevState.sortedBy === sortBy
+          ? reverseStandings(prevState)
+          : { standings: newStandings, sortedBy: sortBy }
+      );
+    },
+    [setMetropolitanState, reverseStandings]
+  );
+
+  const handlePacificSort = useCallback(
+    (newStandings: StandingsType[], sortBy: string) => {
+      setPacificState((prevState) =>
+        prevState.sortedBy === sortBy
+          ? reverseStandings(prevState)
+          : { standings: newStandings, sortedBy: sortBy }
+      );
+    },
+    [setPacificState, reverseStandings]
+  );
 
   return (
     <>
       <StyledTable
-        standings={centralState}
+        standings={centralState.standings}
         handleSort={handleCentralSort}
         headers={headers}
-        title={"Central"}
+        tableName={"Central"}
       />
       <StyledTable
-        standings={atlanticState}
+        standings={atlanticState.standings}
         handleSort={handleAtlanticSort}
         headers={headers}
-        title={"Atlantic"}
+        tableName={"Atlantic"}
       />
       <StyledTable
-        standings={metropolitanState}
+        standings={metropolitanState.standings}
         handleSort={handleMetropolitanSort}
         headers={headers}
-        title={"Metropolitan"}
+        tableName={"Metropolitan"}
       />
       <StyledTable
-        standings={pacificState}
+        standings={pacificState.standings}
         handleSort={handlePacificSort}
         headers={headers}
-        title={"Pacific"}
+        tableName={"Pacific"}
       />
     </>
   );

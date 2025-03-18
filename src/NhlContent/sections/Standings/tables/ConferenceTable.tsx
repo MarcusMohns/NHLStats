@@ -1,11 +1,15 @@
 import type { StandingsType } from "../Standings.tsx";
 import StyledTable from "../components/StyledTable.tsx";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 type ConferenceTableProps = {
   eastern: StandingsType[];
   western: StandingsType[];
   headers: string[];
+};
+type ConferenceStateType = {
+  standings: StandingsType[];
+  sortedBy: String;
 };
 
 const ConferenceTable = ({
@@ -13,42 +17,58 @@ const ConferenceTable = ({
   western,
   headers,
 }: ConferenceTableProps) => {
-  const [easternState, setEasternState] = useState<StandingsType[]>(eastern);
-  const [westernState, setWesternState] = useState<StandingsType[]>(western);
+  const [easternState, setEasternState] = useState<ConferenceStateType>({
+    standings: eastern,
+    sortedBy: "Points",
+  });
+  const [westernState, setWesternState] = useState<ConferenceStateType>({
+    standings: western,
+    sortedBy: "Points",
+  });
 
-  const [easternSortedBy, setEasternSortedBy] = useState<string>("Points");
-  const [westernSortedBy, setWesternSortedBy] = useState<string>("Points");
+  const reverseStandings = useCallback((state: ConferenceStateType) => {
+    return {
+      standings: state.standings.toReversed(),
+      sortedBy: state.sortedBy,
+    };
+  }, []);
 
-  const handleEasternSort = (newState: StandingsType[], sortBy: string) => {
-    if (easternSortedBy === sortBy) {
-      setEasternState(easternState.toReversed());
-    } else {
-      setEasternSortedBy(sortBy);
-      setEasternState(newState);
-    }
-  };
-  const handleWesternSort = (newState: StandingsType[], sortBy: string) => {
-    if (westernSortedBy === sortBy) {
-      setWesternState(westernState.toReversed());
-    } else {
-      setWesternSortedBy(sortBy);
-      setWesternState(newState);
-    }
-  };
+  const handleEasternSort = useCallback(
+    (newState: StandingsType[], sortBy: string) => {
+      console.log("wait a minute");
+      setEasternState((prevState) =>
+        prevState.sortedBy === sortBy
+          ? reverseStandings(prevState)
+          : { standings: newState, sortedBy: sortBy }
+      );
+    },
+    [setEasternState, reverseStandings]
+  );
+
+  const handleWesternSort = useCallback(
+    (newState: StandingsType[], sortBy: string) => {
+      setWesternState((prevState) =>
+        prevState.sortedBy === sortBy
+          ? reverseStandings(prevState)
+          : { standings: newState, sortedBy: sortBy }
+      );
+    },
+    [setWesternState, reverseStandings]
+  );
 
   return (
     <>
       <StyledTable
-        standings={easternState}
+        standings={easternState.standings}
         handleSort={handleEasternSort}
         headers={headers}
-        title={"Eastern"}
+        tableName={"Eastern"}
       />
       <StyledTable
-        standings={westernState}
+        standings={westernState.standings}
         handleSort={handleWesternSort}
         headers={headers}
-        title={"Western"}
+        tableName={"Western"}
       />
     </>
   );

@@ -1,5 +1,6 @@
 import type { StandingsType } from "../Standings.tsx";
 import {
+  sortByRank,
   sortByGamesPlayed,
   sortByPoints,
   sortByWins,
@@ -14,16 +15,18 @@ type StyledTableProps = {
   standings: StandingsType[];
   handleSort: (newState: StandingsType[], sortBy: string) => void;
   headers: string[];
-  title: string;
+  tableName: string;
 };
 const StyledTable = ({
   standings,
   headers,
-  title,
+  tableName,
   handleSort,
 }: StyledTableProps) => {
   const handleSortByHeader = (header: string) => {
     switch (header) {
+      case "Rank":
+        return handleSort(sortByRank(standings), header);
       case "Games Played":
         return handleSort(sortByGamesPlayed(standings), header);
       case "Points":
@@ -48,7 +51,7 @@ const StyledTable = ({
   return (
     <>
       <h2 className="m-4 mx-2 text-2xl font-bold uppercase leading-none tracking-tight">
-        {title}
+        {tableName}
       </h2>
       <table
         className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -58,7 +61,7 @@ const StyledTable = ({
           <tr>
             {headers.map((header) => (
               <th className="text-center p-2" key={header}>
-                {header === "Team" || header === "Rank" ? (
+                {header === "Team" ? (
                   header
                 ) : (
                   <button
@@ -73,12 +76,12 @@ const StyledTable = ({
           </tr>
         </thead>
         <tbody>
-          {standings.map((standing, idx) => (
+          {standings.map((standing) => (
             <tr
               key={standing.teamAbbrev.default}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer"
             >
-              <td className="text-center">{idx + 1}</td>
+              <td className="text-center">{standing.rank}</td>
               <th className="flex items-center px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 <img
                   src={standing.teamLogo}
