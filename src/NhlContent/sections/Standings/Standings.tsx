@@ -4,6 +4,7 @@ import fetchStandings from "../../api/fetchStandings.ts";
 import LeagueTable from "./tables/LeagueTable.tsx";
 import ConferenceTable from "./tables/ConferenceTable.tsx";
 import DivisionTable from "./tables/DivisionTable.tsx";
+import WildCardTable from "./tables/WildCardTable.tsx";
 import Alert from "../../components/Alert.tsx";
 
 export type TeamType = {
@@ -60,7 +61,7 @@ const Standings = () => {
     "Streak",
   ];
 
-  const buttons = ["League", "Division", "Conference"];
+  const buttons = ["League", "Division", "Conference", "Wild Card"];
 
   // const top3Central = sortedTeams && sortedTeams.Central.slice(3);
   // const top3Atlantic = sortedTeams && sortedTeams.Atlantic.slice(3);
@@ -72,6 +73,7 @@ const Standings = () => {
   //   sortedTeams && sortedTeams.Western.slice(3, sortedTeams.Eastern.length);
 
   useEffect(() => {
+    // On first render fetch the standings data and sort the teams into League, Conference, Division - then set to state
     const fetchStandingsData = async () => {
       const standingsData = await fetchStandings(setError);
       setStandings(
@@ -148,6 +150,7 @@ const Standings = () => {
                 headers={headers}
               />
             )}
+            {selectedTable === "Wild Card" && <WildCardTable />}
           </div>
         ) : (
           <div> Loading</div>
