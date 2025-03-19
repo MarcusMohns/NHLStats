@@ -1,26 +1,32 @@
 import type { TeamType } from "../Standings.tsx";
 import StyledTable from "../components/StyledTable.tsx";
 import { useState, useCallback } from "react";
+import { reverseStandings } from "../../utility/sortFunctions.ts";
 
 type LeagueTableProps = {
   league: TeamType[];
   headers: string[];
+  selectedStandings: string;
 };
 type LeagueStateType = {
   standings: TeamType[];
   sortedBy: String;
 };
-const LeagueTable = ({ league, headers }: LeagueTableProps) => {
+const LeagueTable = ({
+  league,
+  headers,
+  selectedStandings,
+}: LeagueTableProps) => {
   const [leagueState, setLeagueState] = useState<LeagueStateType>({
     standings: league,
     sortedBy: "Points",
   });
 
-  const handleLeagueSort = useCallback(
-    (newState: TeamType[], sortBy: string) => {
+  const handleSort = useCallback(
+    (argument: string, newState: TeamType[], sortBy: string) => {
       setLeagueState((prevState) =>
         prevState.sortedBy === sortBy
-          ? { ...prevState, standings: prevState.standings.toReversed() }
+          ? reverseStandings(prevState)
           : { standings: newState, sortedBy: sortBy }
       );
     },
@@ -30,9 +36,10 @@ const LeagueTable = ({ league, headers }: LeagueTableProps) => {
   return (
     <StyledTable
       standings={leagueState.standings}
-      handleSort={handleLeagueSort}
+      handleSort={handleSort}
       headers={headers}
       tableName={"League"}
+      selectedStandings={selectedStandings}
     />
   );
 };

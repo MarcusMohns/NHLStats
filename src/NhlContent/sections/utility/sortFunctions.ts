@@ -57,3 +57,13 @@ export const sortByStreak = (standings: TeamType[]) =>
       return b.streakCount - a.streakCount;
     }
   });
+
+export const reverseStandings = (state: {
+  standings: TeamType[];
+  sortedBy: String;
+}) => {
+  return {
+    standings: state.standings.toReversed(),
+    sortedBy: state.sortedBy,
+  };
+};

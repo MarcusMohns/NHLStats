@@ -40,7 +40,7 @@ type StandingsType = {
 
 const Standings = () => {
   const [standings, setStandings] = useState<StandingsType | null>(null);
-  const [selectedTable, setSelectedTable] = useState<string>("League");
+  const [selectedStandings, setSelectedStandings] = useState<string>("League");
   const [error, setError] = useState<{
     error: boolean;
     text: string;
@@ -62,15 +62,6 @@ const Standings = () => {
   ];
 
   const buttons = ["League", "Division", "Conference", "Wild Card"];
-
-  // const top3Central = sortedTeams && sortedTeams.Central.slice(3);
-  // const top3Atlantic = sortedTeams && sortedTeams.Atlantic.slice(3);
-  // const top3Metropolitan = sortedTeams && sortedTeams.Metropolitan.slice(3);
-  // const top3Pacific = sortedTeams && sortedTeams.Pacific.slice(3);
-  // const notTop3Western =
-  //   sortedTeams && sortedTeams.Western.slice(3, sortedTeams.Western.length);
-  // const notTop3Eastern =
-  //   sortedTeams && sortedTeams.Western.slice(3, sortedTeams.Eastern.length);
 
   useEffect(() => {
     // On first render fetch the standings data and sort the teams into League, Conference, Division - then set to state
@@ -116,9 +107,9 @@ const Standings = () => {
         {buttons.map((button) => (
           <button
             key={button}
-            onClick={() => setSelectedTable(button)}
+            onClick={() => setSelectedStandings(button)}
             className={
-              button === selectedTable
+              button === selectedStandings
                 ? "bg-blue-500 text-white font-semibold py-2 px-4 m-1 border border-blue-500 hover:border-transparent rounded"
                 : "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 m-1 border border-blue-500 hover:border-transparent rounded"
             }
@@ -130,27 +121,45 @@ const Standings = () => {
       {!error.error ? (
         standings ? (
           <div className="tables">
-            {selectedTable === "League" && (
-              <LeagueTable league={standings.League} headers={headers} />
+            {selectedStandings === "League" && (
+              <LeagueTable
+                league={standings.League}
+                headers={headers}
+                selectedStandings={selectedStandings}
+              />
             )}
-            {selectedTable === "Conference" && (
+            {selectedStandings === "Conference" && (
               <ConferenceTable
                 eastern={standings.Eastern}
                 western={standings.Western}
                 headers={headers}
+                selectedStandings={selectedStandings}
               />
             )}
 
-            {selectedTable === "Division" && (
+            {selectedStandings === "Division" && (
               <DivisionTable
                 central={standings.Central}
                 atlantic={standings.Atlantic}
                 metropolitan={standings.Metropolitan}
                 pacific={standings.Pacific}
                 headers={headers}
+                selectedStandings={selectedStandings}
               />
             )}
-            {selectedTable === "Wild Card" && <WildCardTable />}
+            {/* rendered slightly different, needs parts of the other tables */}
+            {selectedStandings === "Wild Card" && (
+              <WildCardTable
+                central={standings.Central}
+                atlantic={standings.Atlantic}
+                metropolitan={standings.Metropolitan}
+                pacific={standings.Pacific}
+                eastern={standings.Eastern}
+                western={standings.Western}
+                headers={headers}
+                selectedStandings={selectedStandings}
+              />
+            )}
           </div>
         ) : (
           <div> Loading</div>

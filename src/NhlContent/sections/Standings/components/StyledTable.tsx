@@ -13,46 +13,42 @@ import {
 
 type StyledTableProps = {
   standings: TeamType[];
-  handleSort: (newState: TeamType[], sortBy: string) => void;
+  handleSort: (argument: string, newState: TeamType[], sortBy: string) => void;
   headers: string[];
   tableName: string;
+  selectedStandings: string;
 };
 const StyledTable = ({
   standings,
   headers,
   tableName,
   handleSort,
+  selectedStandings,
 }: StyledTableProps) => {
   const handleSortByHeader = (header: string) => {
     switch (header) {
       case "Rank":
-        return handleSort(sortByRank(standings), header);
+        return handleSort(tableName, sortByRank(standings), header);
       case "Games Played":
-        return handleSort(sortByGamesPlayed(standings), header);
+        return handleSort(tableName, sortByGamesPlayed(standings), header);
       case "Points":
-        return handleSort(sortByPoints(standings), header);
+        return handleSort(tableName, sortByPoints(standings), header);
       case "Wins":
-        return handleSort(sortByWins(standings), header);
+        return handleSort(tableName, sortByWins(standings), header);
       case "Losses":
-        return handleSort(sortByLosses(standings), header);
+        return handleSort(tableName, sortByLosses(standings), header);
       case "OT Losses":
-        return handleSort(sortByOTLosses(standings), header);
+        return handleSort(tableName, sortByOTLosses(standings), header);
       case "Diff":
-        return handleSort(sortByGoalDifferential(standings), header);
+        return handleSort(tableName, sortByGoalDifferential(standings), header);
       case "L10":
-        return handleSort(sortByLast10(standings), header);
+        return handleSort(tableName, sortByLast10(standings), header);
       case "Streak":
-        return handleSort(sortByStreak(standings), header);
+        return handleSort(tableName, sortByStreak(standings), header);
       default:
         return standings;
     }
   };
-
-  const isDivisionsTable =
-    tableName === "Metropolitan" ||
-    tableName === "Pacific" ||
-    tableName === "Atlantic" ||
-    tableName === "Central";
 
   return (
     <>
@@ -82,13 +78,18 @@ const StyledTable = ({
           </tr>
         </thead>
         <tbody>
-          {standings.map((standing) => (
+          {standings.map((standing, idx) => (
             <tr
               key={standing.teamAbbrev.default}
               className={`bg-white dark:bg-gray-800  border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer ${
                 // 3rd place or up in the division qualifies you to the playoffs
-                isDivisionsTable &&
+                selectedStandings === "Division" &&
                 standing.rank === 3 &&
+                "border-b border-lime-500"
+              } ${
+                selectedStandings === "Wild Card" &&
+                (tableName === "Eastern" || tableName === "Western") &&
+                idx === 1 &&
                 "border-b border-lime-500"
               } 
          `}
