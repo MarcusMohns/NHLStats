@@ -1,29 +1,42 @@
 import { useEffect, useState } from "react";
 
-export const Modal = ({ handleModalOpen }: { handleModalOpen: () => void }) => {
+type ModalProps = {
+  handleCloseModal: () => void;
+};
+
+const Modal = ({ handleCloseModal }: ModalProps) => {
   const [transition, setTransition] = useState<boolean>(false);
   useEffect(() => {
     setTransition(true);
   }, []);
 
+  const transitionDuration: number = 700;
+
+  const transitionAndCloseModal = () => {
+    setTransition(false);
+    setTimeout(() => {
+      handleCloseModal();
+    }, transitionDuration);
+  };
+
   return (
     <div
-      className={`modal relative z-10  transition ease-in-out duration-200 transition-opacity ${
+      className={`modal relative z-10 transition ease-in-out duration-200 transition-opacity ${
         transition ? "opacity-100" : "opacity-0"
       }`}
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
-      onClick={handleModalOpen}
+      onClick={transitionAndCloseModal}
     >
       <div className="fixed inset-0 bg-gray-500/75 " aria-hidden="true"></div>
 
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div className="fixed inset-0 z-10 w-screen w-100 overflow-y-auto transform">
         <div
-          className={`flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 `}
+          className={`flex min-h-full items-end justify-center p-4 text-center sm:items-center  `}
         >
           <div
-            className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg transition ease-in-out duration-500 transition-opacity ${
+            className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all bottom-15 sm:w-full sm:max-w-lg transition ease-in-out duration-${transitionDuration} transition-opacity ${
               transition ? "opacity-100" : "opacity-0"
             }`}
           >
