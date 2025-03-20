@@ -28,9 +28,8 @@ const StyledTable = ({
   selectedStandings,
 }: StyledTableProps) => {
   const tooltipRefs = useRef<Array<HTMLDialogElement | null>>([]);
-
   const toggleTooltip = (argument: string, idx: number) => {
-    if (tooltipRefs.current !== null && tooltipRefs.current[idx] !== null) {
+    if (tooltipRefs.current[idx] !== null) {
       argument === "show"
         ? tooltipRefs.current[idx].show()
         : tooltipRefs.current[idx].close();
@@ -60,7 +59,7 @@ const StyledTable = ({
       case "Streak":
         return handleSort(tableName, sortByStreak(standings), header);
       default:
-        return standings;
+        return handleSort(tableName, sortByRank(standings), header);
     }
   };
 
@@ -95,12 +94,12 @@ const StyledTable = ({
                   </p>
                 </button>
                 <dialog
-                  id={`tooltip-${header}`}
-                  ref={(el) => (tooltipRefs.current[idx] = el)}
-                  key={`${header}-tooltip`}
-                  className="absolute"
+                  ref={(el) => {
+                    tooltipRefs.current[idx] = el;
+                  }}
+                  className="bg-gray-802000 border border-gray-200 rounded-sm p-2 text-black m-auto"
                 >
-                  <p>This is a tooltip {header}.</p>
+                  <p>{header}</p>
                 </dialog>
               </th>
             ))}
