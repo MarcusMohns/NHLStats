@@ -7,6 +7,12 @@ export const sortByGamesPlayed = (standings: TeamType[]) =>
 export const sortByRank = (standings: TeamType[]) =>
   standings.toSorted((a: TeamType, b: TeamType) => b.rank - a.rank);
 
+export const sortByTeamName = (standings: TeamType[]) => {
+  return standings.toSorted((a: TeamType, b: TeamType) =>
+    a.teamName.default.localeCompare(b.teamName.default)
+  );
+};
+
 export const sortByPoints = (standings: TeamType[]) =>
   standings.toSorted((a: TeamType, b: TeamType) => b.points - a.points);
 export const sortByWins = (standings: TeamType[]) =>
