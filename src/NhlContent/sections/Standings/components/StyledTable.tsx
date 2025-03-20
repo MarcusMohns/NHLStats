@@ -1,21 +1,13 @@
 import type { TeamType } from "../Standings.tsx";
-import {
-  sortByRank,
-  sortByTeamName,
-  sortByGamesPlayed,
-  sortByPoints,
-  sortByWins,
-  sortByLosses,
-  sortByOTLosses,
-  sortByGoalDifferential,
-  sortByLast10,
-  sortByStreak,
-} from "../../utility/sortFunctions.ts";
 import { useRef } from "react";
 
 type StyledTableProps = {
   standings: TeamType[];
-  handleSort: (argument: string, newState: TeamType[], sortBy: string) => void;
+  handleSort: (
+    argument: string,
+    oldStandings: TeamType[],
+    sortBy: string
+  ) => void;
   headers: { full: string[]; abbreviated: string[] };
   tableName: string;
   selectedStandings: string;
@@ -33,33 +25,6 @@ const StyledTable = ({
       argument === "show"
         ? tooltipRefs.current[idx].show()
         : tooltipRefs.current[idx].close();
-    }
-  };
-
-  const handleSortByHeader = (header: string) => {
-    switch (header) {
-      case "Rank":
-        return handleSort(tableName, sortByRank(standings), header);
-      case "Team":
-        return handleSort(tableName, sortByTeamName(standings), header);
-      case "Games Played":
-        return handleSort(tableName, sortByGamesPlayed(standings), header);
-      case "Points":
-        return handleSort(tableName, sortByPoints(standings), header);
-      case "Wins":
-        return handleSort(tableName, sortByWins(standings), header);
-      case "Losses":
-        return handleSort(tableName, sortByLosses(standings), header);
-      case "OT Losses":
-        return handleSort(tableName, sortByOTLosses(standings), header);
-      case "Goal Difference":
-        return handleSort(tableName, sortByGoalDifferential(standings), header);
-      case "Last 10":
-        return handleSort(tableName, sortByLast10(standings), header);
-      case "Streak":
-        return handleSort(tableName, sortByStreak(standings), header);
-      default:
-        return handleSort(tableName, sortByRank(standings), header);
     }
   };
 
@@ -83,7 +48,7 @@ const StyledTable = ({
               >
                 <button
                   className="cursor-pointer"
-                  onClick={() => handleSortByHeader(header)}
+                  onClick={() => handleSort(tableName, standings, header)}
                   onMouseOver={() => toggleTooltip("show", idx)}
                   onMouseOut={() => toggleTooltip("close", idx)}
                 >

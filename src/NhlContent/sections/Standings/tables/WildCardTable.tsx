@@ -1,5 +1,5 @@
 import { TeamType } from "../Standings";
-import { reverseStandings } from "../../utility/sortFunctions";
+import { reverseStandings, sortFunctions } from "../../utility/sortFunctions";
 import {
   Dispatch,
   SetStateAction,
@@ -91,7 +91,8 @@ const WildCardTable = ({
   });
 
   const handleSort = useCallback(
-    (argument: string, newStandings: TeamType[], sortBy: string) => {
+    (argument: string, oldStandings: TeamType[], sortBy: string) => {
+      const newStandings = sortFunctions[sortBy](oldStandings);
       let stateSetter: Dispatch<SetStateAction<WildCardStateType>> | undefined;
       switch (argument) {
         case "Central":
@@ -111,7 +112,6 @@ const WildCardTable = ({
           break;
         case "Eastern":
           stateSetter = setUnqualifiedEast;
-
           break;
         default:
           throw new Error(`Invalid argument: ${argument}`);

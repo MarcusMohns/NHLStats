@@ -1,7 +1,10 @@
 import type { TeamType } from "../Standings.tsx";
 import StyledTable from "../components/StyledTable.tsx";
 import { useState, useCallback, Dispatch, SetStateAction } from "react";
-import { reverseStandings } from "../../utility/sortFunctions.ts";
+import {
+  reverseStandings,
+  sortFunctions,
+} from "../../utility/sortFunctions.ts";
 
 type ConferenceTableProps = {
   eastern: TeamType[];
@@ -31,7 +34,8 @@ const ConferenceTable = ({
   });
 
   const handleSort = useCallback(
-    (argument: string, newStandings: TeamType[], sortBy: string) => {
+    (argument: string, oldStandings: TeamType[], sortBy: string) => {
+      const newStandings = sortFunctions[sortBy](oldStandings);
       let stateSetter:
         | Dispatch<SetStateAction<ConferenceStateType>>
         | undefined;

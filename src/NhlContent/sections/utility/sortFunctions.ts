@@ -73,3 +73,18 @@ export const reverseStandings = (state: {
     sortedBy: state.sortedBy,
   };
 };
+
+export const sortFunctions: {
+  [key: string]: (standings: TeamType[]) => TeamType[];
+} = {
+  Rank: sortByRank,
+  Team: sortByTeamName,
+  "Games Played": sortByGamesPlayed,
+  Points: sortByPoints,
+  Wins: sortByWins,
+  Losses: sortByLosses,
+  "OT Losses": sortByOTLosses,
+  "Goal Difference": sortByGoalDifferential,
+  "Last 10": sortByLast10,
+  Streak: sortByStreak,
+};
