@@ -97,7 +97,7 @@ const StyledTable = ({
                   ref={(el) => {
                     tooltipRefs.current[idx] = el;
                   }}
-                  className="bg-gray-802000 border border-gray-200 rounded-sm p-2 text-black m-auto"
+                  className="sm:block lg:hidden bg-gray-802000 border border-gray-200 rounded-sm p-2 text-black m-auto"
                 >
                   <p>{header}</p>
                 </dialog>
