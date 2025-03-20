@@ -8,9 +8,10 @@ type DivisionTableProps = {
   atlantic: TeamType[];
   metropolitan: TeamType[];
   pacific: TeamType[];
-  headers: string[];
+  headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
 };
+
 type DivisionStateType = {
   standings: TeamType[];
   sortedBy: String;

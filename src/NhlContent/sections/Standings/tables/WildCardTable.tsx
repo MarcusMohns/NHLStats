@@ -16,7 +16,7 @@ type WildCardTableProps = {
   pacific: TeamType[];
   western: TeamType[];
   eastern: TeamType[];
-  headers: string[];
+  headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
 };
 type WildCardStateType = {

@@ -38,7 +38,7 @@ type StandingsType = {
   Pacific: TeamType[];
 };
 
-const Standings = () => {
+const Standings = ({}) => {
   const [standings, setStandings] = useState<StandingsType | null>(null);
   const [selectedStandings, setSelectedStandings] = useState<string>("League");
   const [error, setError] = useState<{
@@ -48,18 +48,32 @@ const Standings = () => {
     name: string;
   }>({ error: false, text: "", message: "", name: "" });
 
-  const headers = [
-    "Rank",
-    "Team",
-    "Points",
-    "Games Played",
-    "Wins",
-    "Losses",
-    "OT Losses",
-    "Diff",
-    "L10",
-    "Streak",
-  ];
+  const headers = {
+    full: [
+      "Rank",
+      "Team",
+      "Points",
+      "Games Played",
+      "Wins",
+      "Losses",
+      "OT Losses",
+      "Goal Difference",
+      "Last 10",
+      "Streak",
+    ],
+    abbreviated: [
+      "R",
+      "Team",
+      "Pts",
+      "GP",
+      "W",
+      "L",
+      "OTL",
+      "GD",
+      "L10",
+      "Streak",
+    ],
+  };
 
   const buttons = ["League", "Division", "Conference", "Wild Card"];
 

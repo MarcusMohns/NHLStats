@@ -1,6 +1,7 @@
 import type { TeamType } from "../Standings.tsx";
 import {
   sortByRank,
+  sortByTeamName,
   sortByGamesPlayed,
   sortByPoints,
   sortByWins,
@@ -10,11 +11,12 @@ import {
   sortByLast10,
   sortByStreak,
 } from "../../utility/sortFunctions.ts";
+import { useRef } from "react";
 
 type StyledTableProps = {
   standings: TeamType[];
   handleSort: (argument: string, newState: TeamType[], sortBy: string) => void;
-  headers: string[];
+  headers: { full: string[]; abbreviated: string[] };
   tableName: string;
   selectedStandings: string;
 };
@@ -25,10 +27,22 @@ const StyledTable = ({
   handleSort,
   selectedStandings,
 }: StyledTableProps) => {
+  const tooltipRefs = useRef<Array<HTMLDialogElement | null>>([]);
+
+  const toggleTooltip = (argument: string, idx: number) => {
+    if (tooltipRefs.current !== null && tooltipRefs.current[idx] !== null) {
+      argument === "show"
+        ? tooltipRefs.current[idx].show()
+        : tooltipRefs.current[idx].close();
+    }
+  };
+
   const handleSortByHeader = (header: string) => {
     switch (header) {
       case "Rank":
         return handleSort(tableName, sortByRank(standings), header);
+      case "Team":
+        return handleSort(tableName, sortByTeamName(standings), header);
       case "Games Played":
         return handleSort(tableName, sortByGamesPlayed(standings), header);
       case "Points":
@@ -39,9 +53,9 @@ const StyledTable = ({
         return handleSort(tableName, sortByLosses(standings), header);
       case "OT Losses":
         return handleSort(tableName, sortByOTLosses(standings), header);
-      case "Diff":
+      case "Goal Difference":
         return handleSort(tableName, sortByGoalDifferential(standings), header);
-      case "L10":
+      case "Last 10":
         return handleSort(tableName, sortByLast10(standings), header);
       case "Streak":
         return handleSort(tableName, sortByStreak(standings), header);
@@ -61,18 +75,33 @@ const StyledTable = ({
       >
         <thead className="bg-gray-200">
           <tr>
-            {headers.map((header) => (
-              <th className="text-center p-2" key={header}>
-                {header === "Team" ? (
-                  header
-                ) : (
-                  <button
-                    className="outline cursor-pointer"
-                    onClick={() => handleSortByHeader(header)}
-                  >
-                    {header}
-                  </button>
-                )}
+            {headers.full.map((header, idx) => (
+              <th
+                key={header}
+                className={`text-center p-2 relative  ${
+                  header === "Last 10" && "hidden md:table-cell"
+                }`}
+              >
+                <button
+                  className="cursor-pointer"
+                  onClick={() => handleSortByHeader(header)}
+                  onMouseOver={() => toggleTooltip("show", idx)}
+                  onMouseOut={() => toggleTooltip("close", idx)}
+                >
+                  {/* Show full sized header on larger screens, abbreviated on smaller */}
+                  <p className="hidden lg:block">{header}</p>
+                  <p className="sm:block lg:hidden">
+                    {headers.abbreviated[idx]}
+                  </p>
+                </button>
+                <dialog
+                  id={`tooltip-${header}`}
+                  ref={(el) => (tooltipRefs.current[idx] = el)}
+                  key={`${header}-tooltip`}
+                  className="absolute"
+                >
+                  <p>This is a tooltip {header}.</p>
+                </dialog>
               </th>
             ))}
           </tr>
@@ -82,7 +111,7 @@ const StyledTable = ({
             <tr
               key={standing.teamAbbrev.default}
               className={`bg-white dark:bg-gray-800  border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer ${
-                // 3rd place or up in the division qualifies you to the playoffs
+                // 3rd place or up in the division qualifies you to the playoffs so add a border for them
                 selectedStandings === "Division" &&
                 standing.rank === 3 &&
                 "border-b border-lime-500"
@@ -95,10 +124,10 @@ const StyledTable = ({
          `}
             >
               <td className="text-center">{standing.rank}</td>
-              <th className="flex items-center px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <th className="flex items-center px-2 py-3 font-medium text-gray-900 dark:text-white">
                 <img
                   src={standing.teamLogo}
-                  className="w-12 mx-2"
+                  className="w-10 mr-2"
                   alt={`${standing.teamName.default} logo`}
                 />
                 {standing.teamName.default}
@@ -109,7 +138,9 @@ const StyledTable = ({
               <td className="text-center">{standing.losses}</td>
               <td className="text-center">{standing.otLosses}</td>
               <td className="text-center">{standing.goalDifferential}</td>
-              <td className="text-center">
+              <td
+                className={`text-center hidden md:table-cell vertical-align: center`}
+              >
                 {standing.l10Wins} - {standing.l10Losses} -{" "}
                 {standing.l10OtLosses}
               </td>

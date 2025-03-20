@@ -5,7 +5,7 @@ import { reverseStandings } from "../../utility/sortFunctions.ts";
 
 type LeagueTableProps = {
   league: TeamType[];
-  headers: string[];
+  headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
 };
 type LeagueStateType = {

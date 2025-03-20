@@ -6,9 +6,10 @@ import { reverseStandings } from "../../utility/sortFunctions.ts";
 type ConferenceTableProps = {
   eastern: TeamType[];
   western: TeamType[];
-  headers: string[];
+  headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
 };
+
 type ConferenceStateType = {
   standings: TeamType[];
   sortedBy: String;
