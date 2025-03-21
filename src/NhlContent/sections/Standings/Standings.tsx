@@ -71,7 +71,7 @@ const Standings = ({}) => {
       "OTL",
       "GD",
       "L10",
-      "Streak",
+      "STK",
     ],
   };
 
@@ -116,7 +116,7 @@ const Standings = ({}) => {
   }, []);
 
   return (
-    <section className="">
+    <section className="standings">
       <div className="buttons">
         {buttons.map((button) => (
           <button

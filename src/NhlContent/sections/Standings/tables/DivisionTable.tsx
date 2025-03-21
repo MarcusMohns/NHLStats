@@ -48,7 +48,7 @@ const DivisionTable = ({
   });
 
   const handleSort = useCallback(
-    (argument: string, oldStandings: TeamType[], sortBy: string) => {
+    (oldStandings: TeamType[], sortBy: string, argument: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
       let stateSetter: Dispatch<SetStateAction<DivisionStateType>> | undefined;
       switch (argument) {

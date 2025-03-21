@@ -26,7 +26,7 @@ const LeagueTable = ({
   });
 
   const handleSort = useCallback(
-    (argument: string, oldStandings: TeamType[], sortBy: string) => {
+    (oldStandings: TeamType[], sortBy: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
       setLeagueState((prevState) =>
         prevState.sortedBy === sortBy

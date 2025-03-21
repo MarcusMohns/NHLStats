@@ -4,9 +4,9 @@ import { useRef } from "react";
 type StyledTableProps = {
   standings: TeamType[];
   handleSort: (
-    argument: string,
     oldStandings: TeamType[],
-    sortBy: string
+    sortBy: string,
+    argument: string
   ) => void;
   headers: { full: string[]; abbreviated: string[] };
   tableName: string;
@@ -42,13 +42,13 @@ const StyledTable = ({
             {headers.full.map((header, idx) => (
               <th
                 key={header}
-                className={`text-center p-2 relative  ${
-                  header === "Last 10" && "hidden md:table-cell"
+                className={`text-center p-2 relative ${
+                  header === "Last 10" ? "hidden md:table-cell" : ""
                 }`}
               >
                 <button
                   className="cursor-pointer"
-                  onClick={() => handleSort(tableName, standings, header)}
+                  onClick={() => handleSort(standings, header, tableName)}
                   onMouseOver={() => toggleTooltip("show", idx)}
                   onMouseOut={() => toggleTooltip("close", idx)}
                 >
@@ -62,7 +62,8 @@ const StyledTable = ({
                   ref={(el) => {
                     tooltipRefs.current[idx] = el;
                   }}
-                  className="sm:block lg:hidden bg-gray-802000 border border-gray-200 rounded-sm p-2 text-black m-auto"
+                  // className="sm:inherited lg:hidden bg-gray-802000 border border-gray-200 rounded-sm p-2 text-black m-auto"
+                  className="dialog bg-gray-802000 border border-gray-200 rounded-sm p-2 text-black m-auto"
                 >
                   <p>{header}</p>
                 </dialog>
