@@ -1,44 +1,24 @@
-import { useEffect, useState } from "react";
-
 type ModalProps = {
+  open: boolean;
   handleCloseModal: () => void;
 };
 
-const Modal = ({ handleCloseModal }: ModalProps) => {
-  const [transition, setTransition] = useState<boolean>(false);
-  useEffect(() => {
-    setTransition(true);
-  }, []);
-
-  const transitionDuration: number = 700;
-
-  const transitionAndCloseModal = () => {
-    setTransition(false);
-    setTimeout(() => {
-      handleCloseModal();
-    }, transitionDuration);
-  };
-
-  return (
+const Modal = ({ handleCloseModal, open }: ModalProps) => {
+  return open ? (
     <div
-      className={`modal relative z-10 transition ease-in-out duration-200 transition-opacity ${
-        transition ? "opacity-100" : "opacity-0"
-      }`}
+      className={`modal relative z-10 transition ease-in-out duration-200 transition-opacity`}
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
-      onClick={transitionAndCloseModal}
+      onClick={handleCloseModal}
     >
       <div className="fixed inset-0 bg-gray-500/75 " aria-hidden="true"></div>
-
       <div className="fixed inset-0 z-10 w-screen w-100 overflow-y-auto transform">
         <div
           className={`flex min-h-full items-end justify-center p-4 text-center sm:items-center  `}
         >
           <div
-            className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all bottom-15 sm:w-full sm:max-w-lg transition ease-in-out duration-${transitionDuration} transition-opacity ${
-              transition ? "opacity-100" : "opacity-0"
-            }`}
+            className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all bottom-15 sm:w-full sm:max-w-lg transition ease-in-out transition-opacity`}
           >
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
@@ -94,7 +74,7 @@ const Modal = ({ handleCloseModal }: ModalProps) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Modal;

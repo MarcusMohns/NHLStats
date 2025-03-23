@@ -9,7 +9,7 @@ import {
 } from "react";
 import StyledTable from "../components/StyledTable";
 
-type WildCardTableProps = {
+type WildCardTablePropTypes = {
   central: TeamType[];
   atlantic: TeamType[];
   metropolitan: TeamType[];
@@ -18,6 +18,7 @@ type WildCardTableProps = {
   eastern: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
+  handleOpenModal: () => void;
 };
 type WildCardStateType = {
   standings: TeamType[];
@@ -33,7 +34,8 @@ const WildCardTable = ({
   eastern,
   headers,
   selectedStandings,
-}: WildCardTableProps) => {
+  handleOpenModal,
+}: WildCardTablePropTypes) => {
   const topThreeCentral = central.slice(0, 3);
   const topThreeAtlantic = atlantic.slice(0, 3);
   const topThreeMetropolitan = metropolitan.slice(0, 3);
@@ -133,49 +135,44 @@ const WildCardTable = ({
     ]
   );
 
+  const tableProps = {
+    handleSort,
+    headers,
+    selectedStandings,
+    handleOpenModal,
+  };
+
   return (
     <>
       <StyledTable
         standings={unqualifiedEast.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Eastern"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
       <StyledTable
         standings={qualifiedAtlantic.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Atlantic"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
       <StyledTable
         standings={qualifiedMetropolitan.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Metropolitan"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
       <StyledTable
         standings={unqualifiedWest.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Western"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
       <StyledTable
         standings={qualifiedCentral.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Central"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
       <StyledTable
         standings={qualifiedPacific.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Pacific"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
     </>
   );

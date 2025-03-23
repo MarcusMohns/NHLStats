@@ -6,13 +6,14 @@ import {
   sortFunctions,
 } from "../../utility/sortFunctions.ts";
 
-type DivisionTableProps = {
+type DivisionTablePropTypes = {
   central: TeamType[];
   atlantic: TeamType[];
   metropolitan: TeamType[];
   pacific: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
+  handleOpenModal: () => void;
 };
 
 type DivisionStateType = {
@@ -27,7 +28,8 @@ const DivisionTable = ({
   pacific,
   headers,
   selectedStandings,
-}: DivisionTableProps) => {
+  handleOpenModal,
+}: DivisionTablePropTypes) => {
   const [centralState, setCentralState] = useState<DivisionStateType>({
     standings: central,
     sortedBy: "Points",
@@ -82,35 +84,34 @@ const DivisionTable = ({
     ]
   );
 
+  const tableProps = {
+    handleSort,
+    headers,
+    selectedStandings,
+    handleOpenModal,
+  };
+
   return (
     <>
       <StyledTable
         standings={centralState.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Central"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
       <StyledTable
         standings={atlanticState.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Atlantic"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
       <StyledTable
         standings={metropolitanState.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Metropolitan"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
       <StyledTable
         standings={pacificState.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Pacific"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
     </>
   );

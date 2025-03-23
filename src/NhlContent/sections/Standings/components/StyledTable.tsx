@@ -1,6 +1,5 @@
 import type { TeamType } from "../Standings.tsx";
 import { useRef } from "react";
-import Modal from "../../../components/Modal.tsx";
 
 type StyledTableProps = {
   standings: TeamType[];
@@ -12,6 +11,7 @@ type StyledTableProps = {
   headers: { full: string[]; abbreviated: string[] };
   tableName: string;
   selectedStandings: string;
+  handleOpenModal: () => void;
 };
 const StyledTable = ({
   standings,
@@ -19,6 +19,7 @@ const StyledTable = ({
   tableName,
   handleSort,
   selectedStandings,
+  handleOpenModal,
 }: StyledTableProps) => {
   const tooltipRefs = useRef<Array<HTMLDialogElement | null>>([]);
   const toggleTooltip = (argument: string, idx: number) => {
@@ -72,13 +73,15 @@ const StyledTable = ({
           </tr>
         </thead>
         <tbody>
-          {standings.map((standing, idx) => (
+          {standings.map((team, idx) => (
+            // render all the teams in the standings
             <tr
-              key={standing.teamAbbrev.default}
+              key={team.teamAbbrev.default}
+              onClick={handleOpenModal}
               className={`bg-white dark:bg-gray-800  border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer ${
                 // 3rd place or up in the division qualifies you to the playoffs so add a border for them
                 selectedStandings === "Division" &&
-                standing.rank === 3 &&
+                team.rank === 3 &&
                 "border-b border-lime-500"
               } ${
                 selectedStandings === "Wild Card" &&
@@ -88,34 +91,33 @@ const StyledTable = ({
               } 
          `}
             >
-              <td className="text-center">{standing.rank}</td>
+              <td className="text-center">{team.rank}</td>
               <th className="flex items-center px-2 py-3 font-medium text-gray-900 dark:text-white">
                 <img
-                  src={standing.teamLogo}
+                  src={team.teamLogo}
                   className="w-10 mr-2"
-                  alt={`${standing.teamName.default} logo`}
+                  alt={`${team.teamName.default} logo`}
                 />
-                {standing.teamName.default}
+                {team.teamName.default}
               </th>
-              <td className="text-center">{standing.points}</td>
-              <td className="text-center">{standing.gamesPlayed}</td>
-              <td className="text-center">{standing.wins}</td>
-              <td className="text-center">{standing.losses}</td>
-              <td className="text-center">{standing.otLosses}</td>
-              <td className="text-center">{standing.goalDifferential}</td>
+              <td className="text-center">{team.points}</td>
+              <td className="text-center">{team.gamesPlayed}</td>
+              <td className="text-center">{team.wins}</td>
+              <td className="text-center">{team.losses}</td>
+              <td className="text-center">{team.otLosses}</td>
+              <td className="text-center">{team.goalDifferential}</td>
               <td
                 className={`text-center hidden md:table-cell vertical-align: center`}
               >
-                {standing.l10Wins} - {standing.l10Losses} -{" "}
-                {standing.l10OtLosses}
+                {team.l10Wins} - {team.l10Losses} - {team.l10OtLosses}
               </td>
               <td className="text-center">
-                {standing.streakCode}
-                {standing.streakCount >= 3
-                  ? standing.streakCode === "W"
-                    ? `${standing.streakCount}🔥`
-                    : `${standing.streakCount}❄️`
-                  : standing.streakCount}
+                {team.streakCode}
+                {team.streakCount >= 3
+                  ? team.streakCode === "W"
+                    ? `${team.streakCount}🔥`
+                    : `${team.streakCount}❄️`
+                  : team.streakCount}
               </td>
             </tr>
           ))}

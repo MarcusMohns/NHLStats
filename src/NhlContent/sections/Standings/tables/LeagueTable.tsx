@@ -6,10 +6,11 @@ import {
   sortFunctions,
 } from "../../utility/sortFunctions.ts";
 
-type LeagueTableProps = {
+type LeagueTablePropTypes = {
   league: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
+  handleOpenModal: () => void;
 };
 type LeagueStateType = {
   standings: TeamType[];
@@ -19,7 +20,8 @@ const LeagueTable = ({
   league,
   headers,
   selectedStandings,
-}: LeagueTableProps) => {
+  handleOpenModal,
+}: LeagueTablePropTypes) => {
   const [leagueState, setLeagueState] = useState<LeagueStateType>({
     standings: league,
     sortedBy: "Points",
@@ -44,6 +46,7 @@ const LeagueTable = ({
       headers={headers}
       tableName={"League"}
       selectedStandings={selectedStandings}
+      handleOpenModal={handleOpenModal}
     />
   );
 };

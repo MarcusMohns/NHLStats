@@ -6,11 +6,12 @@ import {
   sortFunctions,
 } from "../../utility/sortFunctions.ts";
 
-type ConferenceTableProps = {
+type ConferenceTablePropTypes = {
   eastern: TeamType[];
   western: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
+  handleOpenModal: () => void;
 };
 
 type ConferenceStateType = {
@@ -23,7 +24,8 @@ const ConferenceTable = ({
   western,
   headers,
   selectedStandings,
-}: ConferenceTableProps) => {
+  handleOpenModal,
+}: ConferenceTablePropTypes) => {
   const [easternState, setEasternState] = useState<ConferenceStateType>({
     standings: eastern,
     sortedBy: "Points",
@@ -58,21 +60,24 @@ const ConferenceTable = ({
     [setEasternState, setWesternState, reverseStandings]
   );
 
+  const tableProps = {
+    handleSort,
+    headers,
+    selectedStandings,
+    handleOpenModal,
+  };
+
   return (
     <>
       <StyledTable
         standings={easternState.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Eastern"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
       <StyledTable
         standings={westernState.standings}
-        handleSort={handleSort}
-        headers={headers}
         tableName={"Western"}
-        selectedStandings={selectedStandings}
+        {...tableProps}
       />
     </>
   );

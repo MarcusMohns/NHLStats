@@ -6,6 +6,7 @@ import ConferenceTable from "./tables/ConferenceTable.tsx";
 import DivisionTable from "./tables/DivisionTable.tsx";
 import WildCardTable from "./tables/WildCardTable.tsx";
 import Alert from "../../components/Alert.tsx";
+import Modal from "../../components/Modal.tsx";
 
 export type TeamType = {
   rank: number;
@@ -38,7 +39,7 @@ type StandingsType = {
   Pacific: TeamType[];
 };
 
-const Standings = ({}) => {
+const Standings = () => {
   const [standings, setStandings] = useState<StandingsType | null>(null);
   const [selectedStandings, setSelectedStandings] = useState<string>("League");
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -48,6 +49,14 @@ const Standings = ({}) => {
     message: string;
     name: string;
   }>({ error: false, text: "", message: "", name: "" });
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+  const handleOpenModal = () => {
+    setModalOpen(true);
+    console.log("Modal Opened!", modalOpen);
+  };
 
   const headers = {
     full: [
@@ -154,8 +163,15 @@ const Standings = ({}) => {
   //   fetchStandingsData();
   // }, []);
 
+  const standingsProps = {
+    handleOpenModal,
+    headers,
+    selectedStandings,
+  };
+
   return (
     <section className="standings">
+      <Modal open={modalOpen} handleCloseModal={handleCloseModal} />
       <div className="buttons">
         {buttons.map((button) => (
           <button
@@ -175,18 +191,13 @@ const Standings = ({}) => {
         standings ? (
           <div className="tables">
             {selectedStandings === "League" && (
-              <LeagueTable
-                league={standings.League}
-                headers={headers}
-                selectedStandings={selectedStandings}
-              />
+              <LeagueTable league={standings.League} {...standingsProps} />
             )}
             {selectedStandings === "Conference" && (
               <ConferenceTable
                 eastern={standings.Eastern}
                 western={standings.Western}
-                headers={headers}
-                selectedStandings={selectedStandings}
+                {...standingsProps}
               />
             )}
 
@@ -196,8 +207,7 @@ const Standings = ({}) => {
                 atlantic={standings.Atlantic}
                 metropolitan={standings.Metropolitan}
                 pacific={standings.Pacific}
-                headers={headers}
-                selectedStandings={selectedStandings}
+                {...standingsProps}
               />
             )}
             {/* rendered slightly different, needs parts of the other tables */}
@@ -209,8 +219,7 @@ const Standings = ({}) => {
                 pacific={standings.Pacific}
                 eastern={standings.Eastern}
                 western={standings.Western}
-                headers={headers}
-                selectedStandings={selectedStandings}
+                {...standingsProps}
               />
             )}
           </div>
