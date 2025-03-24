@@ -10,7 +10,7 @@ type LeagueTablePropTypes = {
   league: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
-  handleOpenModal: () => void;
+  handleOpenModal: (team: TeamType) => void;
 };
 type LeagueStateType = {
   standings: TeamType[];

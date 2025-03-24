@@ -18,7 +18,7 @@ type WildCardTablePropTypes = {
   eastern: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
-  handleOpenModal: () => void;
+  handleOpenModal: (team: TeamType) => void;
 };
 type WildCardStateType = {
   standings: TeamType[];

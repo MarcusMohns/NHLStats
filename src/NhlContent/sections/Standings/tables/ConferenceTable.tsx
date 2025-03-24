@@ -11,7 +11,7 @@ type ConferenceTablePropTypes = {
   western: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedStandings: string;
-  handleOpenModal: () => void;
+  handleOpenModal: (team: TeamType) => void;
 };
 
 type ConferenceStateType = {

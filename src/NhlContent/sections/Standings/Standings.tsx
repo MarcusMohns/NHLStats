@@ -6,7 +6,7 @@ import ConferenceTable from "./tables/ConferenceTable.tsx";
 import DivisionTable from "./tables/DivisionTable.tsx";
 import WildCardTable from "./tables/WildCardTable.tsx";
 import Alert from "../../components/Alert.tsx";
-import Modal from "../../components/Modal.tsx";
+import TeamStatsModal from "./components/TeamStatsModal.tsx";
 
 export type TeamType = {
   rank: number;
@@ -27,6 +27,7 @@ export type TeamType = {
   conferenceName: string;
   divisionName: string;
   wildCardSequence: number;
+  winPctg: number;
 };
 
 type StandingsType = {
@@ -42,7 +43,13 @@ type StandingsType = {
 const Standings = () => {
   const [standings, setStandings] = useState<StandingsType | null>(null);
   const [selectedStandings, setSelectedStandings] = useState<string>("League");
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modal, setModal] = useState<{
+    open: boolean;
+    team: TeamType | null;
+  }>({
+    open: false,
+    team: null,
+  });
   const [error, setError] = useState<{
     error: boolean;
     text: string;
@@ -51,11 +58,10 @@ const Standings = () => {
   }>({ error: false, text: "", message: "", name: "" });
 
   const handleCloseModal = () => {
-    setModalOpen(false);
+    setModal((prevModal) => ({ ...prevModal, open: false }));
   };
-  const handleOpenModal = () => {
-    setModalOpen(true);
-    console.log("Modal Opened!", modalOpen);
+  const handleOpenModal = (team: TeamType) => {
+    setModal({ open: true, team: { ...team } });
   };
 
   const headers = {
@@ -171,7 +177,9 @@ const Standings = () => {
 
   return (
     <section className="standings">
-      <Modal open={modalOpen} handleCloseModal={handleCloseModal} />
+      {modal.open && (
+        <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
+      )}
       <div className="buttons">
         {buttons.map((button) => (
           <button

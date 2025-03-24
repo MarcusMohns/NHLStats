@@ -11,7 +11,7 @@ type StyledTableProps = {
   headers: { full: string[]; abbreviated: string[] };
   tableName: string;
   selectedStandings: string;
-  handleOpenModal: () => void;
+  handleOpenModal: (team: TeamType) => void;
 };
 const StyledTable = ({
   standings,
@@ -77,7 +77,7 @@ const StyledTable = ({
             // render all the teams in the standings
             <tr
               key={team.teamAbbrev.default}
-              onClick={handleOpenModal}
+              onClick={() => handleOpenModal(team)}
               className={`bg-white dark:bg-gray-800  border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer ${
                 // 3rd place or up in the division qualifies you to the playoffs so add a border for them
                 selectedStandings === "Division" &&

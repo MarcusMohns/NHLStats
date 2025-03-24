@@ -13,7 +13,7 @@ export const sortByTeamName = (standings: TeamType[]) => {
   );
 };
 
-export const sortByPoints = (standings: TeamType[]) =>
+export const sortByPoints = (standings: TeamType[] | any[]) =>
   standings.toSorted((a: TeamType, b: TeamType) => b.points - a.points);
 export const sortByWins = (standings: TeamType[]) =>
   standings.toSorted((a: TeamType, b: TeamType) => b.wins - a.wins);
