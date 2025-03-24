@@ -34,7 +34,7 @@ const ConferenceTable = ({
   });
 
   const handleSort = useCallback(
-    (argument: string, oldStandings: TeamType[], sortBy: string) => {
+    (oldStandings: TeamType[], sortBy: string, argument: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
       let stateSetter:
         | Dispatch<SetStateAction<ConferenceStateType>>
