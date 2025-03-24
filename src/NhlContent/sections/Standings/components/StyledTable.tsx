@@ -1,5 +1,6 @@
 import type { TeamType } from "../Standings.tsx";
 import { useRef } from "react";
+import Modal from "../../../components/Modal.tsx";
 
 type StyledTableProps = {
   standings: TeamType[];
