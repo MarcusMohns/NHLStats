@@ -32,7 +32,7 @@ const StyledTable = ({
 
   return (
     <>
-      <h2 className="m-4 mx-2 text-2xl font-bold uppercase leading-none tracking-tight">
+      <h2 className="m-2 border-y-2  border-black text-3xl font-bold uppercase leading-tight tracking-wide text-gray-800">
         {tableName}
       </h2>
       <table

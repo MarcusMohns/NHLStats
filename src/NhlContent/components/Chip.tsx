@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 const Chip = ({
   color,
@@ -11,7 +11,7 @@ const Chip = ({
 }) => {
   return (
     <div
-      className={`flex justify-center items-center text-${color} bg-${bgColor}-500 rounded-full px-2 text-sm font-semibold`}
+      className={`flex justify-center items-center text-${color} bg-${bgColor}-500 rounded-full px-2 text-xs font-semibold text-sm`}
     >
       {children}
     </div>

@@ -4,7 +4,7 @@ import UpcomingMatches from "./sections/UpcomingMatches.tsx";
 
 const MainContent = () => {
   return (
-    <main className="flex flex-col justify-center align-center lg:flex-row w-full">
+    <main className="flex flex-col justify-center align-center lg:flex-row w-full p-10">
       <Leaderboard />
       <Standings />
       <UpcomingMatches />
