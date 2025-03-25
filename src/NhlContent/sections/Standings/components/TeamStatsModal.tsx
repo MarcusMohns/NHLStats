@@ -3,14 +3,16 @@ import { sortByPoints } from "../../utility/sortFunctions";
 import { TeamType } from "../Standings";
 import Modal from "../../../components/Modal";
 import Chip from "../../../components/Chip";
+import SkaterCard from "./SkaterCard";
+import PlayerCardSkeleton from "./PlayerCardSkeleton";
+import GoalieCard from "./GoalieCard";
 
 type ModalProps = {
   handleCloseModal: () => void;
   team: TeamType;
-  rank: number;
 };
 
-type PlayerType = {
+export type SkaterType = {
   assists: number;
   avgShiftsPerGame: number;
   avgTimeOnIcePerGame: number;
@@ -32,21 +34,42 @@ type PlayerType = {
   shorthandedGoals: number;
   shots: number;
 };
+
+export type GoalieType = {
+  assists: number;
+  firstName: { default: string };
+  gamesPlayed: number;
+  gamesStarted: number;
+  goals: number;
+  goalsAgainst: number;
+  goalsAgainstAverage: number;
+  headshot: string;
+  lastName: { default: string };
+  losses: number;
+  overtimeLosses: number;
+  penaltyMinutes: number;
+  playerId: number;
+  points: number;
+  savePercentage: number;
+  saves: number;
+  shotsAgainst: number;
+  shutouts: number;
+  ties: number;
+  timeOnIce: number;
+  wins: number;
+};
+
 export type TeamStatsType = {
-  skaters: PlayerType[];
-  goalies: PlayerType[];
+  skaters: SkaterType[];
+  goalies: GoalieType[];
   gameType: number;
   season: string;
+  topThreeSkaters: SkaterType[];
+  topGoalie: GoalieType;
 };
 
 const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
   const [modalData, setModalData] = useState<TeamStatsType | null>(null);
-
-  const playersByPoints = modalData?.skaters
-    ? sortByPoints(modalData.skaters)
-    : null;
-
-  const top3Players = playersByPoints?.slice(0, 3);
 
   const Chips = [
     { name: "Rank", value: team.rank },
@@ -55,21 +78,34 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
     { name: "Division", value: team.divisionName },
     {
       name: "Win Percentage",
-      value: (team.winPctg * 100).toFixed(1) + "%",
+      value: `${(team.winPctg * 100).toFixed(1)}%`,
     },
   ];
-
-  // console.log(playersByPoints[0]);
-
   useEffect(() => {
     const fetchTeams = async () => {
       const response = await fetch(
         `https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/20242025/2`
       );
       const data = await response.json();
-      setModalData(data);
+
+      const playersByPoints = sortByPoints(data.skaters);
+      const goaliesByPercentage = sortByPoints(data.goalies);
+
+      const topThreeSkaters = playersByPoints.slice(0, 3);
+      const topGoalie = goaliesByPercentage[0];
+
+      setModalData({
+        ...data,
+        topThreeSkaters: topThreeSkaters,
+        topGoalie: topGoalie,
+      });
     };
-    fetchTeams();
+
+    try {
+      fetchTeams();
+    } catch {
+      console.error("uh oh..");
+    }
   }, []);
 
   return (
@@ -84,7 +120,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
         />
         <div className="flex flex-column gap-1 flex-wrap">
           {Chips.map((chip) => (
-            <Chip color="white" bgColor="slate">
+            <Chip color="white" bgColor="slate" key={chip.name}>
               <p>
                 {chip.name}: {chip.value}
               </p>
@@ -94,29 +130,28 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
       </div>
       <div className="flex flex-col">
         <div>
-          <h2>Top 3 Point Scorers</h2>
-          {top3Players?.map((player) => (
-            <div className="flex flex-row shadow-sm bg-slate-100 p-2 mt-2">
-              <img
-                className="w-20 h-20 rounded-full bg-gray-300 "
-                src={player.headshot}
-              />
-              <div className="flex flex-col items-center">
-                <div className="flex items-center justify-center text-center w-full text-md text-gray-900 uppercase font-medium mr-20 mb-2">
-                  {player.firstName.default} {player.lastName.default}{" "}
-                </div>
-                <div className="flex flex-row flex-wrap">
-                  <div className="flex mx-5">Points: {player.points} </div>
-                  <div className="flex mx-5">Goals: {player.goals}</div>
-                  <div className="flex mx-5">Assists: {player.assists} </div>
-                  <div className="flex mx-5">
-                    Plus/Minus: {player.plusMinus}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+          <h2 className="font-medium text-left ml-2 text-xl text-gray-800">
+            Top Point Scorers
+          </h2>
+          {modalData
+            ? modalData.topThreeSkaters.map((player) => (
+                <SkaterCard player={player} key={player.playerId} />
+              ))
+            : new Array(3)
+                .fill("")
+                .map((_, index) => <PlayerCardSkeleton key={index} />)}
         </div>
+        <h2 className="font-medium text-left ml-2 text-xl text-gray-800">
+          Top Goalie
+        </h2>
+        {modalData ? (
+          <GoalieCard
+            player={modalData.goalies[0]}
+            key={modalData.goalies[0].playerId}
+          />
+        ) : (
+          <PlayerCardSkeleton key={`GoalieSkeleton`} />
+        )}
       </div>
     </Modal>
   );
