@@ -187,7 +187,7 @@ const Standings = () => {
             <button
               onClick={() => setSelectedStandings(button)}
               className={`p-3 inline-flex items-center justify-center border-y-2 border-black hover:text-black hover:bg-black hover:border-black dark:hover:text-white group ${
-                button === selectedStandings && "bg-cyan-800 text-white"
+                button === selectedStandings && "bg-cyan-900 text-white"
               } ${
                 button === buttons.at(-1) &&
                 "border-r-2 rounded-tr-sm rounded-br-sm"
