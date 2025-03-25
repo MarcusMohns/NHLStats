@@ -5,6 +5,7 @@ import {
   reverseStandings,
   sortFunctions,
 } from "../../utility/sortFunctions.ts";
+import startViewTransitionWrapper from "../../utility/startViewTransitionWrapper.ts";
 
 type DivisionTablePropTypes = {
   central: TeamType[];
@@ -69,10 +70,12 @@ const DivisionTable = ({
         default:
           throw new Error(`Invalid argument: ${argument}`);
       }
-      stateSetter((prevState) =>
-        prevState.sortedBy === sortBy
-          ? reverseStandings(prevState)
-          : { standings: newStandings, sortedBy: sortBy }
+      startViewTransitionWrapper(() =>
+        stateSetter((prevState) =>
+          prevState.sortedBy === sortBy
+            ? reverseStandings(prevState)
+            : { standings: newStandings, sortedBy: sortBy }
+        )
       );
     },
     [

@@ -5,6 +5,7 @@ import {
   reverseStandings,
   sortFunctions,
 } from "../../utility/sortFunctions.ts";
+import startViewTransitionWrapper from "../../utility/startViewTransitionWrapper.ts";
 
 type LeagueTablePropTypes = {
   league: TeamType[];
@@ -30,10 +31,12 @@ const LeagueTable = ({
   const handleSort = useCallback(
     (oldStandings: TeamType[], sortBy: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
-      setLeagueState((prevState) =>
-        prevState.sortedBy === sortBy
-          ? reverseStandings(prevState)
-          : { standings: newStandings, sortedBy: sortBy }
+      startViewTransitionWrapper(() =>
+        setLeagueState((prevState) =>
+          prevState.sortedBy === sortBy
+            ? reverseStandings(prevState)
+            : { standings: newStandings, sortedBy: sortBy }
+        )
       );
     },
     [setLeagueState]

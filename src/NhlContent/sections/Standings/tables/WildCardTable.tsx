@@ -8,6 +8,7 @@ import {
   useMemo,
 } from "react";
 import StyledTable from "../components/StyledTable";
+import startViewTransitionWrapper from "../../utility/startViewTransitionWrapper";
 
 type WildCardTablePropTypes = {
   central: TeamType[];
@@ -118,10 +119,12 @@ const WildCardTable = ({
         default:
           throw new Error(`Invalid argument: ${argument}`);
       }
-      stateSetter((prevState) =>
-        prevState.sortedBy === sortBy
-          ? reverseStandings(prevState)
-          : { standings: newStandings, sortedBy: sortBy }
+      startViewTransitionWrapper(() =>
+        stateSetter((prevState) =>
+          prevState.sortedBy === sortBy
+            ? reverseStandings(prevState)
+            : { standings: newStandings, sortedBy: sortBy }
+        )
       );
     },
     [

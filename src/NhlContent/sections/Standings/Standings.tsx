@@ -7,6 +7,8 @@ import DivisionTable from "./tables/DivisionTable.tsx";
 import WildCardTable from "./tables/WildCardTable.tsx";
 import Alert from "../../components/Alert.tsx";
 import TeamStatsModal from "./components/TeamStatsModal.tsx";
+import { flushSync } from "react-dom";
+import startViewTransitionWrapper from "../utility/startViewTransitionWrapper.ts";
 
 export type TeamType = {
   rank: number;
@@ -57,11 +59,21 @@ const Standings = () => {
     name: string;
   }>({ error: false, text: "", message: "", name: "" });
 
+  const handleSetSelectedStandings = (standing: string) => {
+    startViewTransitionWrapper(() => setSelectedStandings(standing));
+  };
+
   const handleCloseModal = () => {
     setModal((prevModal) => ({ ...prevModal, open: false }));
   };
   const handleOpenModal = (team: TeamType) => {
-    setModal({ open: true, team: { ...team } });
+    document.startViewTransition
+      ? document.startViewTransition(() => {
+          flushSync(() => {
+            setModal({ open: true, team: { ...team } });
+          });
+        })
+      : setModal({ open: true, team: { ...team } });
   };
 
   const headers = {
@@ -185,7 +197,7 @@ const Standings = () => {
         {buttons.map((button) => (
           <li className="">
             <button
-              onClick={() => setSelectedStandings(button)}
+              onClick={() => handleSetSelectedStandings(button)}
               className={`p-3 inline-flex items-center justify-center border-y-2 border-black hover:text-black hover:bg-black hover:border-black dark:hover:text-white group ${
                 button === selectedStandings && "bg-cyan-900 text-white"
               } ${
