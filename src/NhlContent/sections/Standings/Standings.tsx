@@ -177,24 +177,31 @@ const Standings = () => {
 
   return (
     <section className="standings">
-      {modal.open && (
+      {modal.open && modal.team && (
         <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
       )}
-      <div className="buttons">
+
+      <ul className="flex flex-wrap text-sm font-medium text-center border-gray-200 dark:border-gray-700 mb-3">
         {buttons.map((button) => (
-          <button
-            key={button}
-            onClick={() => setSelectedStandings(button)}
-            className={
-              button === selectedStandings
-                ? "bg-blue-500 text-white font-semibold py-2 px-4 m-1 border border-blue-500 hover:border-transparent rounded"
-                : "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 m-1 border border-blue-500 hover:border-transparent rounded"
-            }
-          >
-            {button}
-          </button>
+          <li className="">
+            <button
+              onClick={() => setSelectedStandings(button)}
+              className={`p-3 inline-flex items-center justify-center border-y-2 border-black hover:text-black hover:bg-black hover:border-black dark:hover:text-white group ${
+                button === selectedStandings && "bg-cyan-800 text-white"
+              } ${
+                button === buttons.at(-1) &&
+                "border-r-2 rounded-tr-sm rounded-br-sm"
+              }
+              ${
+                button === buttons.at(0) &&
+                "border-l-2 rounded-bl-sm rounded-tl-sm"
+              }`}
+            >
+              {button}
+            </button>
+          </li>
         ))}
-      </div>
+      </ul>
       {!error.error ? (
         standings ? (
           <div className="tables">
