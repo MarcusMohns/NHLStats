@@ -14,13 +14,14 @@ const Modal = ({ closeModal, children }: ModalType) => {
       aria-modal="true"
       onClick={closeModal}
     >
-      <div className="fixed inset-0 bg-gray-500/75 " aria-hidden="true" />
+      <div className="fixed inset-0 bg-gray-500/75" aria-hidden="true" />
       <div className="fixed inset-0 z-10 w-screen w-100 overflow-y-auto transform">
         <div
           className={`flex min-h-full items-center justify-center text-center`}
         >
           <div
             className={`flex flex-col p-3 overflow-hidden rounded-lg bg-white shadow-2xl sm:w-full sm:max-w-lg`}
+            onClick={(e) => e.stopPropagation()}
           >
             <CloseButton onClick={closeModal} />
             {children}
