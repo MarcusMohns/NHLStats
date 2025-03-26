@@ -195,7 +195,7 @@ const Standings = () => {
 
       <ul className="flex flex-wrap text-sm font-medium text-center border-gray-200 dark:border-gray-700 mb-3">
         {buttons.map((button) => (
-          <li className="">
+          <li className="" key={button}>
             <button
               onClick={() => handleSetSelectedStandings(button)}
               className={`p-3 inline-flex items-center justify-center border-y-2 border-black hover:text-black hover:bg-black hover:border-black dark:hover:text-white group ${
@@ -259,7 +259,9 @@ const Standings = () => {
           text={error.text}
           name={error.name}
           messageHeader={"Error"}
-          color={"red"}
+          bgColor="bg-red-100"
+          borderColor="border-red-500"
+          textColor="text-red-700"
         />
       )}
     </section>

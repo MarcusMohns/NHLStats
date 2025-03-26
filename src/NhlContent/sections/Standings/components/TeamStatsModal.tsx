@@ -74,12 +74,12 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
   const Chips = [
     { name: "Rank", value: team.rank },
     { name: "Points", value: team.points },
-    { name: "Conference", value: team.conferenceName },
-    { name: "Division", value: team.divisionName },
     {
       name: "Win Percentage",
       value: `${(team.winPctg * 100).toFixed(1)}%`,
     },
+    { name: "Conference", value: team.conferenceName },
+    { name: "Division", value: team.divisionName },
   ];
   useEffect(() => {
     const fetchTeams = async () => {
@@ -120,7 +120,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
         />
         <div className="flex flex-column gap-1 flex-wrap">
           {Chips.map((chip) => (
-            <Chip color="white" bgColor="slate" key={chip.name}>
+            <Chip color="text-white" bgColor="bg-slate-500" key={chip.name}>
               <p>
                 {chip.name}: {chip.value}
               </p>

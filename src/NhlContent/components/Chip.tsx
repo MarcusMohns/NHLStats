@@ -11,7 +11,7 @@ const Chip = ({
 }) => {
   return (
     <div
-      className={`flex justify-center items-center text-${color} bg-${bgColor}-500 rounded-full px-2 text-xs font-semibold text-sm`}
+      className={`flex justify-center items-center ${color} ${bgColor} rounded-full px-2 text-xs font-semibold text-sm`}
     >
       {children}
     </div>
