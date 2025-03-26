@@ -44,7 +44,7 @@ const StyledTable = ({
             {headers.full.map((header, idx) => (
               <th
                 key={header}
-                className={`text-center p-2 relative ${
+                className={`text-center p-2 relative select-none ${
                   header === "Last 10" ? "hidden md:table-cell" : ""
                 }`}
               >
@@ -78,7 +78,7 @@ const StyledTable = ({
             <tr
               key={team.teamAbbrev.default}
               onClick={() => handleOpenModal(team)}
-              className={`bg-white dark:bg-gray-800  border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer ${
+              className={`bg-white dark:bg-gray-800  border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer select-none ${
                 // 3rd place or up in the division qualifies you to the playoffs so add a border for them
                 selectedStandings === "Division" &&
                 team.rank === 3 &&
