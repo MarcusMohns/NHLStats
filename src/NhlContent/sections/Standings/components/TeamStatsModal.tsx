@@ -6,10 +6,93 @@ import Chip from "../../../components/Chip";
 import SkaterCard from "./SkaterCard";
 import PlayerCardSkeleton from "./PlayerCardSkeleton";
 import GoalieCard from "./GoalieCard";
+import TeamThisWeekSchedule from "./TeamThisWeekSchedule";
 
 type ModalProps = {
   handleCloseModal: () => void;
   team: TeamType;
+};
+
+export type GameType = {
+  id: number;
+  season: number;
+  gameType: number;
+  gameDate: string;
+  venue: {
+    default: string;
+    es?: string;
+    fr?: string;
+  };
+  neutralSite: boolean;
+  startTimeUTC: string;
+  easternUTCOffset: string;
+  venueUTCOffset: string;
+  venueTimezone: string;
+  gameState: string;
+  gameScheduleState: string;
+  tvBroadcasts: {
+    id: number;
+    market: string;
+    countryCode: string;
+    network: string;
+    sequenceNumber: number;
+  }[];
+  awayTeam: {
+    id: number;
+    commonName: {
+      default: string;
+    };
+    placeName: {
+      default: string;
+      fr?: string;
+    };
+    placeNameWithPreposition: {
+      default: string;
+      fr?: string;
+    };
+    abbrev: string;
+    logo: string;
+    darkLogo: string;
+    awaySplitSquad: boolean;
+    radioLink?: string;
+    hotelLink?: string;
+    hotelDesc?: string;
+    score?: number;
+  };
+  homeTeam: {
+    id: number;
+    commonName: {
+      default: string;
+    };
+    placeName: {
+      default: string;
+      fr?: string;
+    };
+    placeNameWithPreposition: {
+      default: string;
+      fr?: string;
+    };
+    abbrev: string;
+    logo: string;
+    darkLogo: string;
+    homeSplitSquad: boolean;
+    radioLink?: string;
+    hotelLink?: string;
+    hotelDesc?: string;
+    score?: number;
+  };
+  periodDescriptor: {
+    number: number;
+    periodType: string;
+    maxRegulationPeriods: number;
+  };
+  ticketsLink?: string;
+  ticketsLinkFr?: string;
+  gameCenterLink: string;
+  threeMinRecap?: string;
+  threeMinRecapFr?: string;
+  condensedGame?: string;
+  condensedGameFr?: string;
 };
 
 export type SkaterType = {
@@ -63,13 +146,14 @@ export type TeamStatsType = {
   skaters: SkaterType[];
   goalies: GoalieType[];
   gameType: number;
+  games: GameType[];
   season: string;
-  topThreeSkaters: SkaterType[];
+  topSkaters: SkaterType[];
   topGoalie: GoalieType;
 };
 
 const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
-  const [modalData, setModalData] = useState<TeamStatsType | null>(null);
+  const [modal, setModal] = useState<TeamStatsType | null>(null);
 
   const Chips = [
     { name: "Rank", value: team.rank },
@@ -82,27 +166,31 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
     { name: "Division", value: team.divisionName },
   ];
   useEffect(() => {
-    const fetchTeams = async () => {
-      const response = await fetch(
+    const fetchTeamsAndWeeklyStats = async () => {
+      const teamResponse = await fetch(
         `https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/20242025/2`
       );
-      const data = await response.json();
+      const gamesThisWeekResponse = await fetch(
+        `https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`
+      );
 
-      const playersByPoints = sortByPoints(data.skaters);
-      const goaliesByPercentage = sortByPoints(data.goalies);
+      const teamData = await teamResponse.json();
+      const gamesThisWeekData = await gamesThisWeekResponse.json();
 
-      const topThreeSkaters = playersByPoints.slice(0, 3);
+      const playersByPoints = sortByPoints(teamData.skaters);
+      const goaliesByPercentage = sortByPoints(teamData.goalies);
+      const topSkaters = playersByPoints.slice(0, 2);
       const topGoalie = goaliesByPercentage[0];
 
-      setModalData({
-        ...data,
-        topThreeSkaters: topThreeSkaters,
+      setModal({
+        ...teamData,
+        topSkaters: topSkaters,
         topGoalie: topGoalie,
+        games: gamesThisWeekData.games,
       });
     };
-
     try {
-      fetchTeams();
+      fetchTeamsAndWeeklyStats();
     } catch {
       console.error("uh oh..");
     }
@@ -120,7 +208,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
         />
         <div className="flex flex-column gap-1 flex-wrap">
           {Chips.map((chip) => (
-            <Chip color="text-white" bgColor="bg-slate-500" key={chip.name}>
+            <Chip color="text-white" bgColor="bg-cyan-800" key={chip.name}>
               <p>
                 {chip.name}: {chip.value}
               </p>
@@ -133,26 +221,46 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
           <h2 className="font-medium text-left ml-2 text-xl text-gray-800">
             Top Point Scorers
           </h2>
-          {modalData
-            ? modalData.topThreeSkaters.map((player) => (
+          {modal
+            ? modal.topSkaters.map((player) => (
                 <SkaterCard player={player} key={player.playerId} />
               ))
-            : new Array(3)
+            : new Array(2)
                 .fill("")
                 .map((_, index) => <PlayerCardSkeleton key={index} />)}
         </div>
         <h2 className="font-medium text-left ml-2 text-xl text-gray-800">
           Top Goalie
         </h2>
-        {modalData ? (
+        {modal ? (
           <GoalieCard
-            player={modalData.goalies[0]}
-            key={modalData.goalies[0].playerId}
+            player={modal.goalies[0]}
+            key={modal.goalies[0].playerId}
           />
         ) : (
           <PlayerCardSkeleton key={`GoalieSkeleton`} />
         )}
       </div>
+      <h2 className="font-medium text-left ml-2 text-xl text-gray-800">
+        This Weeks Games
+      </h2>
+      {modal
+        ? modal.games.map((game) => (
+            <>
+              <TeamThisWeekSchedule
+                game={game}
+                teamAbbrev={team.teamAbbrev.default}
+              />
+            </>
+          ))
+        : new Array(3)
+            .fill("")
+            .map((_, index) => (
+              <div
+                className="flex flex-row shadow-md p-2 my-1.5 h-10 animate-pulse bg-gray-100"
+                key={index}
+              />
+            ))}
     </Modal>
   );
 };

@@ -1,6 +1,6 @@
 const PlayerCardSkeleton = () => {
   return (
-    <div className="flex flex-row shadow-sm bg-slate-100 p-2 mt-2 w-full h-24 animate-pulse">
+    <div className="flex flex-row shadow-sm bg-slate-100 p-2 mt-2 w-full h-24 w-24 animate-pulse">
       <img className="animate-pulse w-31 h-20 rounded-full bg-gray-300 " />
       <div className="flex flex-col items-center justify-center">
         <div className="flex bg-gray-300 text-md text-gray-900 uppercase font-bold mb-2 w-40 animate-pulse"></div>
