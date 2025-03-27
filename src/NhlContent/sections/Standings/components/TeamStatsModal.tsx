@@ -246,12 +246,11 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
       </h2>
       {modal
         ? modal.games.map((game) => (
-            <>
-              <TeamThisWeekSchedule
-                game={game}
-                teamAbbrev={team.teamAbbrev.default}
-              />
-            </>
+            <TeamThisWeekSchedule
+              key={game.id}
+              game={game}
+              teamAbbrev={team.teamAbbrev.default}
+            />
           ))
         : new Array(3)
             .fill("")

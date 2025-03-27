@@ -36,7 +36,7 @@ const StyledTable = ({
         {tableName}
       </h2>
       <table
-        className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        className="w-full shadow-lg divide-y divide-gray-200 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
         cellSpacing="5"
       >
         <thead className="bg-gray-200">
@@ -72,13 +72,17 @@ const StyledTable = ({
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody
+          className="font-medium 
+        text-gray-700
+        divide-y divide-gray-200"
+        >
           {standings.map((team, idx) => (
             // render all the teams in the standings
             <tr
               key={team.teamAbbrev.default}
               onClick={() => handleOpenModal(team)}
-              className={`bg-white dark:bg-gray-800  border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer select-none ${
+              className={`hover:bg-gray-200 cursor-pointer select-none ${
                 // 3rd place or up in the division qualifies you to the playoffs so add a border for them
                 selectedStandings === "Division" &&
                 team.rank === 3 &&
@@ -92,13 +96,19 @@ const StyledTable = ({
          `}
             >
               <td className="text-center">{team.rank}</td>
-              <th className="flex items-center px-2 py-3 font-medium text-gray-900 dark:text-white">
+              <th className="flex flex-wrap justify-center sm:justify-start items-center sm:px-2 py-2 sm:py-3 font-medium w-fit">
                 <img
                   src={team.teamLogo}
-                  className="w-10 mr-2"
+                  className="h-8 w-8 sm:h-12 sm:w-12"
                   alt={`${team.teamName.default} logo`}
                 />
-                {team.teamName.default}
+                <p className="hidden md:block text-center">
+                  {" "}
+                  {team.teamName.default}
+                </p>
+                <p className="sm:block md:hidden text-center">
+                  {team.teamCommonName.default}
+                </p>
               </th>
               <td className="text-center">{team.points}</td>
               <td className="text-center">{team.gamesPlayed}</td>

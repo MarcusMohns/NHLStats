@@ -14,6 +14,7 @@ export type TeamType = {
   rank: number;
   teamName: { default: string };
   teamAbbrev: { default: string };
+  teamCommonName: { default: string };
   teamLogo: string;
   points: number;
   gamesPlayed: number;
