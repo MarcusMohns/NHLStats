@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
 import fetchStandings from "../../api/fetchStandings.ts";
-import initialStandingsState from "../../api/initialStandingsState.ts";
 import LeagueTable from "./tables/LeagueTable.tsx";
 import ConferenceTable from "./tables/ConferenceTable.tsx";
 import DivisionTable from "./tables/DivisionTable.tsx";
@@ -109,12 +108,11 @@ const Standings = () => {
   useEffect(() => {
     // On first render fetch the standings data and sort the teams into League, Conference, Division - then set to state
     const fetchStandingsData = async () => {
-      const standingsData = initialStandingsState;
-      // const standingsData = await fetchStandings(setError);
+      const standingsData = await fetchStandings(setError);
       setStandings(
         () =>
           standingsData &&
-          (standingsData.reduce(
+          standingsData.reduce(
             (acc: Record<string, TeamType[]>, team: TeamType) => {
               acc.League.push({
                 ...team,
@@ -139,48 +137,11 @@ const Standings = () => {
               Metropolitan: [],
               Pacific: [],
             }
-          ) as StandingsType)
+          )
       );
     };
     fetchStandingsData();
   }, []);
-  // useEffect(() => {
-  //   // On first render fetch the standings data and sort the teams into League, Conference, Division - then set to state
-  //   const fetchStandingsData = async () => {
-  //     const standingsData = await fetchStandings(setError);
-  //     setStandings(
-  //       () =>
-  //         standingsData &&
-  //         standingsData.reduce(
-  //           (acc: Record<string, TeamType[]>, team: TeamType) => {
-  //             acc.League.push({
-  //               ...team,
-  //               rank: acc.League.length + 1,
-  //             });
-  //             acc[team.conferenceName].push({
-  //               ...team,
-  //               rank: acc[team.conferenceName].length + 1,
-  //             });
-  //             acc[team.divisionName].push({
-  //               ...team,
-  //               rank: acc[team.divisionName].length + 1,
-  //             });
-  //             return acc;
-  //           },
-  //           {
-  //             League: [],
-  //             Western: [],
-  //             Eastern: [],
-  //             Central: [],
-  //             Atlantic: [],
-  //             Metropolitan: [],
-  //             Pacific: [],
-  //           }
-  //         )
-  //     );
-  //   };
-  //   fetchStandingsData();
-  // }, []);
 
   const standingsProps = {
     handleOpenModal,
