@@ -32,14 +32,14 @@ const StyledTable = ({
 
   return (
     <>
-      <h2 className="m-2 border-y-2 border-gray-400 py-1 px-2 text-2xl font-bold uppercase leading-tight tracking-wide text-gray-800">
+      <h2 className="dark:bg-gray-800 dark:text-white m-2 border-y-2 border-gray-400 py-1 px-2 text-2xl font-bold uppercase leading-tight tracking-wide">
         {tableName}
       </h2>
       <table
-        className="w-full shadow-lg divide-y divide-gray-200 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        className="dark:text-white dark:bg-gray-800 w-full shadow-lg divide-y divide-gray-200 text-sm text-left rtl:text-right"
         cellSpacing="5"
       >
-        <thead className="bg-gray-200">
+        <thead className="">
           <tr>
             {headers.full.map((header, idx) => (
               <th
@@ -75,6 +75,7 @@ const StyledTable = ({
         <tbody
           className="font-medium 
         text-gray-700
+        dark:text-white
         divide-y divide-gray-200"
         >
           {standings.map((team, idx) => (
