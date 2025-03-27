@@ -4,7 +4,7 @@ import Schedule from "./sections/schedule/Schedule.tsx";
 
 const MainContent = () => {
   return (
-    <main className="bg-stone-100 flex flex-col justify-center align-center lg:flex-row w-full p-10">
+    <main className="bg-gray-100 flex flex-col justify-center align-center lg:flex-row w-full">
       <Leaderboard />
       <Standings />
       <Schedule />
