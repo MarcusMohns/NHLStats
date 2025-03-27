@@ -32,11 +32,11 @@ const StyledTable = ({
 
   return (
     <>
-      <h2 className="dark:bg-gray-800 dark:text-white m-2 border-y-2 border-gray-400 py-1 px-2 text-2xl font-bold uppercase leading-tight tracking-wide">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
         {tableName}
       </h2>
       <table
-        className="dark:text-white dark:bg-gray-800 w-full shadow-lg divide-y divide-gray-200 text-sm text-left rtl:text-right"
+        className="dark:text-white dark:bg-stone-900 shadow-lg dark:shadow-stone-800 white w-full text-sm text-left rtl:text-right"
         cellSpacing="5"
       >
         <thead className="">
@@ -44,7 +44,7 @@ const StyledTable = ({
             {headers.full.map((header, idx) => (
               <th
                 key={header}
-                className={`text-center p-2 relative select-none ${
+                className={`text-gray-400 bg-gray-300 dark:bg-stone-800 dark:text-stone-300 text-center p-2 relative select-none ${
                   header === "Last 10" ? "hidden md:table-cell" : ""
                 }`}
               >
@@ -76,14 +76,14 @@ const StyledTable = ({
           className="font-medium 
         text-gray-700
         dark:text-white
-        divide-y divide-gray-200"
+    "
         >
           {standings.map((team, idx) => (
             // render all the teams in the standings
             <tr
               key={team.teamAbbrev.default}
               onClick={() => handleOpenModal(team)}
-              className={`hover:bg-gray-200 cursor-pointer select-none ${
+              className={`font-bold hover:bg-stone-200 dark:hover:bg-stone-800 cursor-pointer select-none border-b border-stone-300 dark:border-stone-800 ${
                 // 3rd place or up in the division qualifies you to the playoffs so add a border for them
                 selectedStandings === "Division" &&
                 team.rank === 3 &&
@@ -97,14 +97,22 @@ const StyledTable = ({
          `}
             >
               <td className="text-center">{team.rank}</td>
-              <th className="flex flex-wrap justify-center sm:justify-start items-center sm:px-2 py-2 sm:py-3 font-medium w-fit">
+              <th className="flex flex-wrap justify-center sm:justify-start items-center sm:px-2 py-2 sm:py-3 w-fit">
                 <img
-                  src={team.teamLogo}
-                  className="h-8 w-8 sm:h-12 sm:w-12"
+                  src={
+                    // Response doesn't have their dark mode logos and the Capitals logo they use is the old one
+                    team.teamName.default === "Washington Capitals"
+                      ? team.teamLogo
+                      : localStorage.getItem("darkMode")
+                      ? localStorage.getItem("darkMode") === "true"
+                        ? `https://assets.nhle.com/logos/nhl/svg/${team.teamAbbrev.default}_dark.svg`
+                        : team.teamLogo
+                      : team.teamLogo
+                  }
+                  className={`h-8 w-8 sm:h-12 sm:w-12`}
                   alt={`${team.teamName.default} logo`}
                 />
                 <p className="hidden md:block text-center">
-                  {" "}
                   {team.teamName.default}
                 </p>
                 <p className="sm:block md:hidden text-center">

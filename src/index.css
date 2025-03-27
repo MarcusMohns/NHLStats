@@ -3,4 +3,5 @@
 
 body {
   overflow-x: hidden;
+  font-family: "Inter", sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
 }
