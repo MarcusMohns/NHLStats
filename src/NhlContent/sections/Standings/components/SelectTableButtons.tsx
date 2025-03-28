@@ -9,12 +9,17 @@ const SelectTableButtons = ({
   handleSetSelectedStandings,
 }: SelectTableButtonsProps) => {
   return (
-    <ul className="flex flex-wrap text-md font-bold my-5 text-center w-max rounded-sm shadow-lg ring ring-stone-300 dark:ring-stone-800">
+    <ul
+      className="flex flex-wrap text-sm sm:text-base  font-bold my-5 text-center rounded-sm shadow-lg sm:ml-3
+    ring ring-stone-300 dark:ring-stone-800 
+    w-full sm:w-max
+    bg-gray-200 dark:bg-stone-800"
+    >
       {buttons.map((button) => (
-        <li className="" key={button}>
+        <li className="w-1/4 h-full sm:w-max" key={button}>
           <button
             onClick={() => handleSetSelectedStandings(button)}
-            className={`p-3 hover:bg-gray-300 dark:hover:bg-stone-600 border-none dark:text-white
+            className={`sm:p-3 p-2 break-all w-full h-max hover:bg-gray-300 dark:hover:bg-stone-600 border-none dark:text-white
              ${
                button === selectedStandings
                  ? "bg-gray-300 dark:bg-stone-600"
