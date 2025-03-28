@@ -83,21 +83,17 @@ const StyledTable = ({
             <tr
               key={team.teamAbbrev.default}
               onClick={() => handleOpenModal(team)}
-              className={`font-bold hover:bg-stone-200 dark:hover:bg-stone-800 cursor-pointer select-none border-b border-stone-300 dark:border-stone-800 ${
-                // 3rd place or up in the division qualifies you to the playoffs so add a border for them
-                selectedStandings === "Division" &&
-                team.rank === 3 &&
-                "border-b border-lime-500"
-              } ${
-                selectedStandings === "Wild Card" &&
-                (tableName === "Eastern" || tableName === "Western") &&
-                idx === 1 &&
-                "border-b border-lime-500"
-              } 
-         `}
+              className={`font-bold hover:bg-stone-200 dark:hover:bg-stone-800 cursor-pointer select-none border-b-2 ${
+                (selectedStandings === "Division" && team.rank === 3) ||
+                (selectedStandings === "Wild Card" &&
+                  (tableName === "Eastern" || tableName === "Western") &&
+                  idx === 1)
+                  ? "border-lime-600 dark:border-lime-500"
+                  : "border-stone-300 dark:border-stone-800"
+              }`}
             >
               <td className="text-center">{team.rank}</td>
-              <th className="flex flex-row flex-wrap sm:justify-start items-center sm:px-2 py-2 sm:py-3 w-fit">
+              <th className="flex flex-col sm:flex-row flex-wrap w-full sm:justify-start items-center sm:px-2 py-2 sm:py-3 w-fit">
                 <img
                   src={team.teamLogo}
                   className={`team-logo h-8 w-8 sm:h-12 sm:w-12 dark:hidden`}
