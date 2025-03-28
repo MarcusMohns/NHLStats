@@ -8,6 +8,7 @@ import Alert from "../../components/Alert.tsx";
 import TeamStatsModal from "./components/TeamStatsModal.tsx";
 import { flushSync } from "react-dom";
 import startViewTransitionWrapper from "../utility/startViewTransitionWrapper.ts";
+import SelectTableButtons from "./components/SelectTableButtons.tsx";
 
 export type TeamType = {
   rank: number;
@@ -154,28 +155,11 @@ const Standings = () => {
       {modal.open && modal.team && (
         <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
       )}
-
-      <ul className="flex flex-wrap text-sm font-medium text-center border-gray-200 dark:border-gray-700 mb-3">
-        {buttons.map((button) => (
-          <li className="" key={button}>
-            <button
-              onClick={() => handleSetSelectedStandings(button)}
-              className={`p-3 inline-flex items-center justify-center border-y-2 border-black hover:text-black hover:bg-black hover:border-black dark:hover:text-white group cursor-pointer ${
-                button === selectedStandings && "bg-cyan-900 text-white"
-              } ${
-                button === buttons.at(-1) &&
-                "border-r-2 rounded-tr-sm rounded-br-sm"
-              }
-              ${
-                button === buttons.at(0) &&
-                "border-l-2 rounded-bl-sm rounded-tl-sm"
-              }`}
-            >
-              {button}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <SelectTableButtons
+        buttons={buttons}
+        handleSetSelectedStandings={handleSetSelectedStandings}
+        selectedStandings={selectedStandings}
+      />
       {!error.error ? (
         standings ? (
           <div className="tables">

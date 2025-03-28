@@ -39,12 +39,12 @@ const StyledTable = ({
         className="dark:text-white dark:bg-stone-900 shadow-lg dark:shadow-stone-800 white w-full text-sm text-left rtl:text-right"
         cellSpacing="5"
       >
-        <thead className="">
+        <thead className="bg-gray-300 dark:bg-stone-800">
           <tr>
             {headers.full.map((header, idx) => (
               <th
                 key={header}
-                className={`text-gray-400 bg-gray-300 dark:bg-stone-800 dark:text-stone-300 text-center p-2 relative select-none ${
+                className={`text-stone-400 dark:text-stone-300 text-center p-2 relative select-none ${
                   header === "Last 10" ? "hidden md:table-cell" : ""
                 }`}
               >
