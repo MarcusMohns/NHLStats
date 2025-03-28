@@ -16,6 +16,7 @@ export type TeamType = {
   teamAbbrev: { default: string };
   teamCommonName: { default: string };
   teamLogo: string;
+  teamLogoDark: string;
   points: number;
   gamesPlayed: number;
   wins: number;
@@ -115,17 +116,22 @@ const Standings = () => {
           standingsData &&
           standingsData.reduce(
             (acc: Record<string, TeamType[]>, team: TeamType) => {
+              const teamLogoDark = `https://assets.nhle.com/logos/nhl/svg/${team.teamAbbrev.default}_dark.svg`;
+              // Dark Logo is missing from the API call for some reason, add it manually for now.
               acc.League.push({
                 ...team,
                 rank: acc.League.length + 1,
+                teamLogoDark,
               });
               acc[team.conferenceName].push({
                 ...team,
                 rank: acc[team.conferenceName].length + 1,
+                teamLogoDark,
               });
               acc[team.divisionName].push({
                 ...team,
                 rank: acc[team.divisionName].length + 1,
+                teamLogoDark,
               });
               return acc;
             },

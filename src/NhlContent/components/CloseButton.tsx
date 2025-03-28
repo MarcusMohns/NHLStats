@@ -4,7 +4,7 @@ const CloseButton = ({ onClick }: { onClick: () => void }) => {
       onClick={onClick}
       type="button"
       autoFocus
-      className="text-gray-400 self-start bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1 ml-auto"
+      className="text-gray-400 self-start bg-transparent hover:bg-gray-200 hover:text-gray-900 dark:text-gray-200 dark:hover:bg-stone-400 rounded-lg text-sm p-1 ml-auto"
     >
       <svg
         className="w-5 h-5 cursor-pointer"

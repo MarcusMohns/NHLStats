@@ -198,13 +198,17 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
 
   return (
     <Modal closeModal={handleCloseModal}>
-      <h1 className="text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+      <h1 className="text-2xl/7 font-bold text-gray-900 dark:text-white sm:truncate sm:text-3xl sm:tracking-tight">
         {team.teamName.default}
       </h1>
       <div className="m-2 flex flex-row p-2">
         <img
-          className="w-30 rounded-sm shadow-xl bg-slate-200 mr-2"
           src={team.teamLogo}
+          className="w-30 rounded-sm shadow-xl bg-slate-200 dark:hidden mr-2"
+        />
+        <img
+          src={team.teamLogoDark}
+          className="w-30 rounded-sm shadow-xl bg-stone-800 hidden dark:block mr-2"
         />
         <div className="flex flex-column gap-1 flex-wrap">
           {Chips.map((chip) => (
@@ -217,8 +221,8 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
         </div>
       </div>
       <div className="flex flex-col">
-        <div>
-          <h2 className="font-medium text-left ml-2 text-xl text-gray-800">
+        <div className="top-skater-stats">
+          <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
             Top Point Scorers
           </h2>
           {modal
@@ -229,19 +233,21 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
                 .fill("")
                 .map((_, index) => <PlayerCardSkeleton key={index} />)}
         </div>
-        <h2 className="font-medium text-left ml-2 text-xl text-gray-800">
-          Top Goalie
-        </h2>
-        {modal ? (
-          <GoalieCard
-            player={modal.goalies[0]}
-            key={modal.goalies[0].playerId}
-          />
-        ) : (
-          <PlayerCardSkeleton key={`GoalieSkeleton`} />
-        )}
+        <div className="top-goalie-stats">
+          <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
+            Top Goalie
+          </h2>
+          {modal ? (
+            <GoalieCard
+              player={modal.goalies[0]}
+              key={modal.goalies[0].playerId}
+            />
+          ) : (
+            <PlayerCardSkeleton key={`GoalieSkeleton`} />
+          )}
+        </div>
       </div>
-      <h2 className="font-medium text-left ml-2 text-xl text-gray-800">
+      <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
         This Weeks Games
       </h2>
       {modal
@@ -256,7 +262,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
             .fill("")
             .map((_, index) => (
               <div
-                className="flex flex-row shadow-md p-2 my-1.5 h-10 animate-pulse bg-gray-100"
+                className="flex flex-row shadow-md p-2 my-1.5 h-10 animate-pulse bg-gray-100 dark:bg-stone-800"
                 key={index}
               />
             ))}

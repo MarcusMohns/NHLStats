@@ -17,12 +17,12 @@ const TeamThisWeekSchedule = ({
       game.homeTeam.score && game.awayTeam.score
         ? teamAbbrev === game.homeTeam.abbrev
           ? game.homeTeam.score > game.awayTeam.score
-            ? "bg-green-200"
-            : "bg-red-200"
+            ? "bg-green-200 dark:bg-green-800"
+            : "bg-red-200 dark:bg-red-500"
           : game.homeTeam.score < game.awayTeam.score
-          ? "bg-green-200"
-          : "bg-red-200"
-        : "bg-gray-100"
+          ? "bg-green-200 dark:bg-green-800"
+          : "bg-red-200 dark:bg-red-500"
+        : "bg-gray-100 dark:bg-stone-800"
     }
     `}
     >
@@ -30,15 +30,35 @@ const TeamThisWeekSchedule = ({
       <div className="match w-full flex flex-row self-center justify-center align-center">
         <div className="team flex flex-row">
           <p className="team-name">{game.homeTeam.abbrev}</p>
-          <img src={game.homeTeam.logo} className="w-10" />
-          <p className="home-team-score">
+          <img
+            src={game.homeTeam.logo}
+            className="w-10 dark:hidden"
+            alt={game.homeTeam.abbrev}
+          />
+          <img
+            src={game.homeTeam.darkLogo}
+            className="w-10 hidden dark:block"
+            alt={game.homeTeam.abbrev}
+          />
+          <p className="home-team-score min-w-2">
             {game.homeTeam.score ? game.homeTeam.score : "-"}
           </p>
         </div>
         <p className="mx-2">vs</p>
         <div className="team flex flex-row">
-          <p className="">{game.awayTeam.score ? game.awayTeam.score : "-"}</p>
-          <img src={game.awayTeam.logo} className="w-10" />
+          <p className="away-team-score min-w-2">
+            {game.awayTeam.score ? game.awayTeam.score : "-"}
+          </p>
+          <img
+            src={game.awayTeam.logo}
+            className="w-10 dark:hidden"
+            alt={game.awayTeam.abbrev}
+          />
+          <img
+            src={game.awayTeam.darkLogo}
+            className="w-10 hidden dark:block"
+            alt={game.awayTeam.abbrev}
+          />
           <p>{game.awayTeam.abbrev}</p>
         </div>
       </div>

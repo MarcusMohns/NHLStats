@@ -97,19 +97,20 @@ const StyledTable = ({
          `}
             >
               <td className="text-center">{team.rank}</td>
-              <th className="flex flex-wrap justify-center sm:justify-start items-center sm:px-2 py-2 sm:py-3 w-fit">
+              <th className="flex flex-row flex-wrap sm:justify-start items-center sm:px-2 py-2 sm:py-3 w-fit">
+                <img
+                  src={team.teamLogo}
+                  className={`team-logo h-8 w-8 sm:h-12 sm:w-12 dark:hidden`}
+                  alt={`${team.teamName.default} logo`}
+                />
                 <img
                   src={
-                    // Response doesn't have their dark mode logos and the Capitals logo they use is the old one
+                    // Capitals dark logo is outdated so skip it for now
                     team.teamName.default === "Washington Capitals"
                       ? team.teamLogo
-                      : localStorage.getItem("darkMode")
-                      ? localStorage.getItem("darkMode") === "true"
-                        ? `https://assets.nhle.com/logos/nhl/svg/${team.teamAbbrev.default}_dark.svg`
-                        : team.teamLogo
-                      : team.teamLogo
+                      : team.teamLogoDark
                   }
-                  className={`h-8 w-8 sm:h-12 sm:w-12`}
+                  className={`team-logo-dark h-8 w-8 sm:h-12 sm:w-12 hidden dark:block `}
                   alt={`${team.teamName.default} logo`}
                 />
                 <p className="hidden md:block text-center">
