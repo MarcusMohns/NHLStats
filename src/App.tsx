@@ -2,11 +2,12 @@ import MainContent from "./NhlContent/MainContent.tsx";
 import { useState } from "react";
 function App() {
   const darkThemeMediaQuery = localStorage.getItem("darkMode")
-    ? JSON.parse(localStorage.getItem("darkMode") as string)
-    : window.matchMedia("(prefers-color-scheme: dark)");
-  const [darkMode, setDarkMode] = useState<boolean>(
-    darkThemeMediaQuery.matches
-  );
+    ? localStorage.getItem("darkMode") === "true"
+      ? true
+      : false
+    : window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const [darkMode, setDarkMode] = useState<boolean>(darkThemeMediaQuery);
   const handleDarkModeChange = () => {
     localStorage.setItem("darkMode", JSON.stringify(!darkMode));
     setDarkMode((prevState) => !prevState);
