@@ -296,7 +296,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
           <p>{error.text}</p>---<p>{error.message}</p>
           <button
             onClick={fetchAndSetTeamsAndWeeklyStats}
-            className="border border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer "
+            className="border font-bold m-2 border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer "
           >
             Retry
           </button>
