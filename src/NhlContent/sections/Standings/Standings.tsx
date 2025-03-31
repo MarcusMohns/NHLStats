@@ -35,6 +35,7 @@ export type TeamType = {
 };
 
 type StandingsType = {
+  [key: string]: TeamType[];
   League: TeamType[];
   Western: TeamType[];
   Eastern: TeamType[];
@@ -42,6 +43,13 @@ type StandingsType = {
   Atlantic: TeamType[];
   Metropolitan: TeamType[];
   Pacific: TeamType[];
+};
+
+type ErrorType = {
+  error: boolean;
+  text: string;
+  message: string;
+  name: string;
 };
 
 const Standings = () => {
@@ -54,16 +62,18 @@ const Standings = () => {
     open: false,
     team: null,
   });
-  const [error, setError] = useState<{
-    error: boolean;
-    text: string;
-    message: string;
-    name: string;
-  }>({ error: false, text: "", message: "", name: "" });
+  const [error, setError] = useState<ErrorType>({
+    error: false,
+    text: "",
+    message: "",
+    name: "",
+  });
 
   const handleSetSelectedStandings = (standing: string) => {
     startViewTransitionWrapper(() => setSelectedStandings(standing));
   };
+
+  const handleSetError = (error: ErrorType) => setError(error);
 
   const handleCloseModal = () => {
     setModal((prevModal) => ({ ...prevModal, open: false }));
@@ -107,47 +117,48 @@ const Standings = () => {
 
   const buttons = ["League", "Division", "Conference", "Wild Card"];
 
-  useEffect(() => {
-    // On first render fetch the standings data and sort the teams into League, Conference, Division - then set to state
-    const fetchStandingsData = async () => {
-      const standingsData = await fetchStandings(setError);
-      setStandings(
-        () =>
-          standingsData &&
-          standingsData.reduce(
-            (acc: Record<string, TeamType[]>, team: TeamType) => {
-              const teamLogoDark = `https://assets.nhle.com/logos/nhl/svg/${team.teamAbbrev.default}_dark.svg`;
-              // Dark Logo is missing from the API call for some reason, add it manually for now.
-              acc.League.push({
-                ...team,
-                rank: acc.League.length + 1,
-                teamLogoDark,
-              });
-              acc[team.conferenceName].push({
-                ...team,
-                rank: acc[team.conferenceName].length + 1,
-                teamLogoDark,
-              });
-              acc[team.divisionName].push({
-                ...team,
-                rank: acc[team.divisionName].length + 1,
-                teamLogoDark,
-              });
-              return acc;
-            },
-            {
-              League: [],
-              Western: [],
-              Eastern: [],
-              Central: [],
-              Atlantic: [],
-              Metropolitan: [],
-              Pacific: [],
-            }
-          )
+  const fetchAndSetStandings = async () => {
+    const standingsData = await fetchStandings(handleSetError);
+    if (!standingsData) {
+      return;
+    } else {
+      setStandings(() =>
+        standingsData.reduce(
+          // Add the teams into correct League, Conference and Division - then set to state
+          (acc: StandingsType, team: TeamType) => {
+            const teamLogoDark = `https://assets.nhle.com/logos/nhl/svg/${team.teamAbbrev.default}_dark.svg`;
+            const teamAndDarkLogo = { ...team, teamLogoDark };
+            // Dark Logo is missing from the API call for some reason, add it manually for now.
+            acc.League.push({
+              ...teamAndDarkLogo,
+              rank: acc.League.length + 1,
+            });
+            acc[team.conferenceName].push({
+              ...teamAndDarkLogo,
+              rank: acc[team.conferenceName].length + 1,
+            });
+            acc[team.divisionName].push({
+              ...teamAndDarkLogo,
+              rank: acc[team.divisionName].length + 1,
+            });
+            return acc;
+          },
+          {
+            League: [],
+            Western: [],
+            Eastern: [],
+            Central: [],
+            Atlantic: [],
+            Metropolitan: [],
+            Pacific: [],
+          }
+        )
       );
-    };
-    fetchStandingsData();
+    }
+  };
+
+  useEffect(() => {
+    fetchAndSetStandings();
   }, []);
 
   const standingsProps = {
@@ -207,14 +218,19 @@ const Standings = () => {
         )
       ) : (
         <Alert
-          message={error.message}
-          text={error.text}
-          name={error.name}
-          messageHeader={"Error"}
+          messageHeader={`${"Error"} (${error.name})`}
           bgColor="bg-red-100"
           borderColor="border-red-500"
           textColor="text-red-700"
-        />
+        >
+          <p>{error.text}</p>---<p>{error.message}</p>
+          <button
+            onClick={fetchAndSetStandings}
+            className="border border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer "
+          >
+            Retry
+          </button>
+        </Alert>
       )}
     </section>
   );

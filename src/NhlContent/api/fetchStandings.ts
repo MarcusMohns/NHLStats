@@ -14,10 +14,9 @@ const fetchStandings = async (
     headers,
   };
   try {
+    setError({ error: false, text: "", message: "", name: "" });
     const response = await fetch(url, options);
-    console.log(response);
     const data = await response.json();
-    console.log(data);
     return data.standings;
   } catch (error: unknown) {
     console.error("Error getting standings:", error);
@@ -27,7 +26,6 @@ const fetchStandings = async (
       message: (error as Error).message,
       name: (error as Error).name,
     });
-    // setLoading(false);
   }
 };
 
