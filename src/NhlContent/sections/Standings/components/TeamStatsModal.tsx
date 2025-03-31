@@ -203,7 +203,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
       handleSetError({
         error: true,
         text: "Something went wrong displaying team info 🙁",
-        message: "Error handling and setting data",
+        message: (e as Error).message,
         name: "fetchAndSetTeamsAndWeeklyStats",
       });
     }
