@@ -45,7 +45,7 @@ type StandingsType = {
   Pacific: TeamType[];
 };
 
-type ErrorType = {
+export type ErrorType = {
   error: boolean;
   text: string;
   message: string;
@@ -118,30 +118,42 @@ const Standings = () => {
   const buttons = ["League", "Division", "Conference", "Wild Card"];
 
   const fetchAndSetStandings = async () => {
-    const standingsData = await fetchStandings(handleSetError);
-    if (!standingsData) {
-      return;
-    } else {
-      setStandings(() =>
+    try {
+      const standingsData = await fetchStandings(handleSetError);
+      if (!standingsData) {
+        throw new Error("No Standings Data");
+      }
+      setStandings(
         standingsData.reduce(
           // Add the teams into correct League, Conference and Division - then set to state
           (acc: StandingsType, team: TeamType) => {
-            const teamLogoDark = `https://assets.nhle.com/logos/nhl/svg/${team.teamAbbrev.default}_dark.svg`;
-            const teamAndDarkLogo = { ...team, teamLogoDark };
-            // Dark Logo is missing from the API call for some reason, add it manually for now.
-            acc.League.push({
-              ...teamAndDarkLogo,
-              rank: acc.League.length + 1,
-            });
-            acc[team.conferenceName].push({
-              ...teamAndDarkLogo,
-              rank: acc[team.conferenceName].length + 1,
-            });
-            acc[team.divisionName].push({
-              ...teamAndDarkLogo,
-              rank: acc[team.divisionName].length + 1,
-            });
-            return acc;
+            try {
+              const teamLogoDark = `https://assets.nhle.com/logos/nhl/svg/${team.teamAbbrev.default}_dark.svg`;
+              const teamAndDarkLogo = { ...team, teamLogoDark };
+              // Dark Logo is missing from the API call for some reason, add it manually for now.
+              acc.League.push({
+                ...teamAndDarkLogo,
+                rank: acc.League.length + 1,
+              });
+              acc[team.conferenceName].push({
+                ...teamAndDarkLogo,
+                rank: acc[team.conferenceName].length + 1,
+              });
+              acc[team.divisionName].push({
+                ...teamAndDarkLogo,
+                rank: acc[team.divisionName].length + 1,
+              });
+              return acc;
+            } catch (e: unknown) {
+              console.error(e);
+              handleSetError({
+                error: true,
+                text: "Something went wrong displaying standings 🙁",
+                message: "Unexpected error in reduce function",
+                name: "FetchAndSetStandings",
+              });
+              return acc;
+            }
           },
           {
             League: [],
@@ -154,6 +166,13 @@ const Standings = () => {
           }
         )
       );
+    } catch (e: unknown) {
+      handleSetError({
+        error: true,
+        text: "Something went wrong getting standings 🙁",
+        message: (e as Error).message,
+        name: "FetchAndSetStandings",
+      });
     }
   };
 
