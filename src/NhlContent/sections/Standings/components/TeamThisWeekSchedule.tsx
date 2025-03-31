@@ -15,16 +15,16 @@ const TeamThisWeekSchedule = ({
     <div
       className={`flex flex-row shadow-md font-medium my-1 p-2 w-full
     ${
-      game.gameState === "FINAL" && game.homeTeam.score && game.awayTeam.score
-        ? game.homeTeam.score === game.awayTeam.score
-          ? "bg-gray-100 dark:bg-stone-800"
-          : teamAbbrev === game.homeTeam.abbrev
+      game.gameOutcome &&
+      game.homeTeam.score !== undefined &&
+      game.awayTeam.score !== undefined
+        ? teamAbbrev === game.homeTeam.abbrev
           ? game.homeTeam.score > game.awayTeam.score
-            ? "bg-green-200 dark:bg-green-800"
-            : "bg-red-200 dark:bg-red-500"
-          : game.homeTeam.score < game.awayTeam.score
-          ? "bg-green-200 dark:bg-green-800"
-          : "bg-red-200 dark:bg-red-500"
+            ? "bg-green-200 dark:bg-green-800 win"
+            : "bg-red-200 dark:bg-red-500 loss"
+          : game.awayTeam.score > game.homeTeam.score
+          ? "bg-green-200 dark:bg-green-800 win"
+          : "bg-red-200 dark:bg-red-500 loss"
         : "bg-gray-100 dark:bg-stone-800"
     }
     `}

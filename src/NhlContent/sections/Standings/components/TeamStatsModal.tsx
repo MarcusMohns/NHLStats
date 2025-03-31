@@ -18,6 +18,7 @@ export type GameType = {
   season: number;
   gameType: number;
   gameDate: string;
+  gameOutcome?: { lastPeriodType: string };
   venue: {
     default: string;
     es?: string;
