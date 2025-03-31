@@ -11,6 +11,7 @@ import startViewTransitionWrapper from "../utility/startViewTransitionWrapper.ts
 import SelectTableButtons from "./components/SelectTableButtons.tsx";
 
 export type TeamType = {
+  clinchIndicator?: string;
   rank: number;
   teamName: { default: string };
   teamAbbrev: { default: string };

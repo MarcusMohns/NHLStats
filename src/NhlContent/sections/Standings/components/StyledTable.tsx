@@ -29,7 +29,7 @@ const StyledTable = ({
         : tooltipRefs.current[idx].close();
     }
   };
-
+  console.log(standings);
   return (
     <>
       <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
@@ -111,6 +111,11 @@ const StyledTable = ({
                 />
                 <p className="hidden md:block text-center">
                   {team.teamName.default}
+                  {team.clinchIndicator === "x"
+                    ? "✔️"
+                    : team.clinchIndicator === "e"
+                    ? "❌"
+                    : ""}
                 </p>
                 <p className="sm:block md:hidden text-center">
                   {team.teamCommonName.default}
