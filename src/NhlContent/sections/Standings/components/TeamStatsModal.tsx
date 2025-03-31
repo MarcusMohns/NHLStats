@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { sortByPoints } from "../../utility/sortFunctions";
-import { TeamType } from "../Standings";
+import { TeamType, ErrorType } from "../Standings";
 import Modal from "../../../components/Modal";
 import Chip from "../../../components/Chip";
+import Alert from "../../../components/Alert";
 import SkaterCard from "./SkaterCard";
 import PlayerCardSkeleton from "./PlayerCardSkeleton";
 import GoalieCard from "./GoalieCard";
 import TeamThisWeekSchedule from "./TeamThisWeekSchedule";
+import fetchThisWeeksGamesForTeam from "../../../api/fetchThisWeeksGamesForTeam";
+import fetchTeam from "../../../api/fetchTeam";
 
 type ModalProps = {
   handleCloseModal: () => void;
@@ -155,6 +158,14 @@ export type TeamStatsType = {
 
 const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
   const [modal, setModal] = useState<TeamStatsType | null>(null);
+  const [error, setError] = useState<ErrorType>({
+    error: false,
+    text: "",
+    message: "",
+    name: "",
+  });
+
+  const handleSetError = (error: ErrorType) => setError(error);
 
   const Chips = [
     { name: "Rank", value: team.rank },
@@ -166,17 +177,15 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
     { name: "Conference", value: team.conferenceName },
     { name: "Division", value: team.divisionName },
   ];
-  useEffect(() => {
-    const fetchTeamsAndWeeklyStats = async () => {
-      const teamResponse = await fetch(
-        `https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/20242025/2`
-      );
-      const gamesThisWeekResponse = await fetch(
-        `https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`
-      );
 
-      const teamData = await teamResponse.json();
-      const gamesThisWeekData = await gamesThisWeekResponse.json();
+  const fetchAndSetTeamsAndWeeklyStats = async () => {
+    try {
+      const teamData = await fetchTeam(team, handleSetError);
+      const gamesThisWeekData = await fetchThisWeeksGamesForTeam(
+        team,
+        handleSetError
+      );
+      if (!teamData || !gamesThisWeekData) throw Error("Error getting data");
 
       const playersByPoints = sortByPoints(teamData.skaters);
       const goaliesByPercentage = sortByPoints(teamData.goalies);
@@ -189,84 +198,110 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
         topGoalie: topGoalie,
         games: gamesThisWeekData.games,
       });
-    };
-    try {
-      fetchTeamsAndWeeklyStats();
-    } catch {
-      console.error("uh oh..");
+    } catch (e) {
+      console.log(e);
+      handleSetError({
+        error: true,
+        text: "Something went wrong displaying team info 🙁",
+        message: "Error handling and setting data",
+        name: "fetchAndSetTeamsAndWeeklyStats",
+      });
     }
+  };
+
+  useEffect(() => {
+    fetchAndSetTeamsAndWeeklyStats();
   }, []);
 
   return (
     <Modal closeModal={handleCloseModal}>
-      <h1 className="text-2xl/7 font-bold text-gray-900 dark:text-white sm:truncate sm:text-3xl sm:tracking-tight">
-        {team.teamName.default}
-      </h1>
-      <div className="m-2 flex flex-row p-2">
-        <img
-          src={team.teamLogo}
-          className="w-30 rounded-sm shadow-xl bg-slate-200 dark:hidden mr-2"
-        />
-        <img
-          src={team.teamLogoDark}
-          className="w-30 rounded-sm shadow-xl bg-stone-800 hidden dark:block mr-2"
-        />
-        <div className="flex flex-column gap-1 flex-wrap">
-          {Chips.map((chip) => (
-            <Chip color="text-white" bgColor="bg-cyan-800" key={chip.name}>
-              <p>
-                {chip.name}: {chip.value}
-              </p>
-            </Chip>
-          ))}
-        </div>
-      </div>
-      <div className="flex flex-col">
-        <div className="top-skater-stats">
+      {!error.error ? (
+        <div>
+          <h1 className="text-2xl/7 font-bold text-gray-900 dark:text-white sm:truncate sm:text-3xl sm:tracking-tight">
+            {team.teamName.default}
+          </h1>
+          <div className="m-2 flex flex-row p-2">
+            <img
+              src={team.teamLogo}
+              className="w-30 rounded-sm shadow-xl bg-slate-200 dark:hidden mr-2"
+            />
+            <img
+              src={team.teamLogoDark}
+              className="w-30 rounded-sm shadow-xl bg-stone-800 hidden dark:block mr-2"
+            />
+            <div className="flex flex-column gap-1 flex-wrap">
+              {Chips.map((chip) => (
+                <Chip color="text-white" bgColor="bg-cyan-800" key={chip.name}>
+                  <p>
+                    {chip.name}: {chip.value}
+                  </p>
+                </Chip>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <div className="top-skater-stats">
+              <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
+                Top Point Scorers
+              </h2>
+              {modal
+                ? modal.topSkaters.map((player) => (
+                    <SkaterCard player={player} key={player.playerId} />
+                  ))
+                : new Array(2)
+                    .fill("")
+                    .map((_, index) => <PlayerCardSkeleton key={index} />)}
+            </div>
+            <div className="top-goalie-stats">
+              <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
+                Top Goalie
+              </h2>
+              {modal ? (
+                <GoalieCard
+                  player={modal.goalies[0]}
+                  key={modal.goalies[0].playerId}
+                />
+              ) : (
+                <PlayerCardSkeleton key={`GoalieSkeleton`} />
+              )}
+            </div>
+          </div>
           <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
-            Top Point Scorers
+            This Weeks Games
           </h2>
           {modal
-            ? modal.topSkaters.map((player) => (
-                <SkaterCard player={player} key={player.playerId} />
+            ? modal.games.map((game) => (
+                <TeamThisWeekSchedule
+                  key={game.id}
+                  game={game}
+                  teamAbbrev={team.teamAbbrev.default}
+                />
               ))
-            : new Array(2)
+            : new Array(3)
                 .fill("")
-                .map((_, index) => <PlayerCardSkeleton key={index} />)}
+                .map((_, index) => (
+                  <div
+                    className="flex flex-row shadow-md p-2 my-1.5 h-10 animate-pulse bg-gray-100 dark:bg-stone-800"
+                    key={index}
+                  />
+                ))}
         </div>
-        <div className="top-goalie-stats">
-          <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
-            Top Goalie
-          </h2>
-          {modal ? (
-            <GoalieCard
-              player={modal.goalies[0]}
-              key={modal.goalies[0].playerId}
-            />
-          ) : (
-            <PlayerCardSkeleton key={`GoalieSkeleton`} />
-          )}
-        </div>
-      </div>
-      <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
-        This Weeks Games
-      </h2>
-      {modal
-        ? modal.games.map((game) => (
-            <TeamThisWeekSchedule
-              key={game.id}
-              game={game}
-              teamAbbrev={team.teamAbbrev.default}
-            />
-          ))
-        : new Array(3)
-            .fill("")
-            .map((_, index) => (
-              <div
-                className="flex flex-row shadow-md p-2 my-1.5 h-10 animate-pulse bg-gray-100 dark:bg-stone-800"
-                key={index}
-              />
-            ))}
+      ) : (
+        <Alert
+          messageHeader={`${"Error"} (${error.name})`}
+          bgColor="bg-red-100"
+          borderColor="border-red-500"
+          textColor="text-red-700"
+        >
+          <p>{error.text}</p>---<p>{error.message}</p>
+          <button
+            onClick={fetchAndSetTeamsAndWeeklyStats}
+            className="border border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer "
+          >
+            Retry
+          </button>
+        </Alert>
+      )}
     </Modal>
   );
 };
