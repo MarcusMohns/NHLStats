@@ -148,11 +148,6 @@ const WildCardTable = ({
   return (
     <>
       <StyledTable
-        standings={unqualifiedEast.standings}
-        tableName={"Eastern"}
-        {...tableProps}
-      />
-      <StyledTable
         standings={qualifiedAtlantic.standings}
         tableName={"Atlantic"}
         {...tableProps}
@@ -163,10 +158,11 @@ const WildCardTable = ({
         {...tableProps}
       />
       <StyledTable
-        standings={unqualifiedWest.standings}
-        tableName={"Western"}
+        standings={unqualifiedEast.standings}
+        tableName={"Eastern"}
         {...tableProps}
       />
+
       <StyledTable
         standings={qualifiedCentral.standings}
         tableName={"Central"}
@@ -175,6 +171,11 @@ const WildCardTable = ({
       <StyledTable
         standings={qualifiedPacific.standings}
         tableName={"Pacific"}
+        {...tableProps}
+      />
+      <StyledTable
+        standings={unqualifiedWest.standings}
+        tableName={"Western"}
         {...tableProps}
       />
     </>

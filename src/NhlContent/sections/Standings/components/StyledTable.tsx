@@ -111,15 +111,15 @@ const StyledTable = ({
                 />
                 <p className="hidden md:block text-center">
                   {team.teamName.default}
-                  {team.clinchIndicator === "x"
-                    ? "✔️"
-                    : team.clinchIndicator === "e"
-                    ? "❌"
-                    : ""}
                 </p>
                 <p className="sm:block md:hidden text-center">
                   {team.teamCommonName.default}
                 </p>
+                {team.clinchIndicator === "x"
+                  ? "✔️"
+                  : team.clinchIndicator === "e"
+                  ? "❌"
+                  : ""}
               </th>
               <td className="text-center">{team.points}</td>
               <td className="text-center">{team.gamesPlayed}</td>
