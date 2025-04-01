@@ -29,7 +29,6 @@ const StyledTable = ({
         : tooltipRefs.current[idx].close();
     }
   };
-  console.log(standings);
   return (
     <>
       <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
