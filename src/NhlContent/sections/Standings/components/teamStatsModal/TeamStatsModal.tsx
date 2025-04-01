@@ -165,8 +165,6 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
     name: "",
   });
 
-  const handleSetError = (error: ErrorType) => setError(error);
-
   const Chips = [
     { name: "Rank", value: team.rank },
     { name: "Points", value: team.points },
@@ -180,11 +178,8 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
 
   const fetchAndSetTeamsAndWeeklyStats = async () => {
     try {
-      const teamData = await fetchTeam(team, handleSetError);
-      const gamesThisWeekData = await fetchThisWeeksGamesForTeam(
-        team,
-        handleSetError
-      );
+      const teamData = await fetchTeam(team);
+      const gamesThisWeekData = await fetchThisWeeksGamesForTeam(team);
       if (!teamData || !gamesThisWeekData) throw Error("Error getting data");
 
       const playersByPoints = sortByPoints(teamData.skaters);
@@ -200,7 +195,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
       });
     } catch (e) {
       console.error(e);
-      handleSetError({
+      setError({
         error: true,
         text: "Something went wrong displaying team info 🙁",
         message: (e as Error).message,
@@ -217,7 +212,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
     <Modal closeModal={handleCloseModal}>
       {!error.error ? (
         <div>
-          <h1 className="text-2xl/7 font-bold text-gray-900 dark:text-white sm:truncate sm:text-3xl sm:tracking-tight">
+          <h1 className="text-2xl/7 font-bold  sm:truncate sm:text-3xl sm:tracking-tight">
             {team.teamName.default}
           </h1>
           <div className="m-2 flex flex-row p-2">
@@ -242,7 +237,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
           </div>
           <div className="flex flex-col">
             <div className="top-skater-stats">
-              <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
+              <h2 className="font-medium text-left ml-2 text-xl">
                 Top Point Scorers
               </h2>
               {modal
@@ -254,9 +249,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
                     .map((_, index) => <PlayerCardSkeleton key={index} />)}
             </div>
             <div className="top-goalie-stats">
-              <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
-                Top Goalie
-              </h2>
+              <h2 className="font-medium text-left ml-2 text-xl">Top Goalie</h2>
               {modal ? (
                 <GoalieCard
                   player={modal.goalies[0]}
@@ -267,7 +260,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
               )}
             </div>
           </div>
-          <h2 className="font-medium text-left ml-2 text-xl text-gray-800 dark:text-white">
+          <h2 className="font-medium text-left ml-2 text-xl">
             This Weeks Games
           </h2>
           {modal

@@ -74,8 +74,6 @@ const Standings = () => {
     startViewTransitionWrapper(() => setSelectedStandings(standing));
   };
 
-  const handleSetError = (error: ErrorType) => setError(error);
-
   const handleCloseModal = () => {
     setModal((prevModal) => ({ ...prevModal, open: false }));
   };
@@ -120,8 +118,9 @@ const Standings = () => {
 
   const fetchAndSetStandings = async () => {
     try {
-      const standingsData = await fetchStandings(handleSetError);
-      if (!standingsData) return;
+      const standingsData = await fetchStandings();
+      if (!standingsData) throw Error("No standings data");
+
       setStandings(
         standingsData.reduce(
           // Add the teams into correct League, Conference and Division - then set to state
@@ -146,7 +145,7 @@ const Standings = () => {
             } catch (e: unknown) {
               console.error(e);
               !error.error &&
-                handleSetError({
+                setError({
                   error: true,
                   text: "Something went wrong displaying standings 🙁",
                   message: "Unexpected error in reduce function",
@@ -168,7 +167,7 @@ const Standings = () => {
       );
     } catch (e: unknown) {
       !error.error &&
-        handleSetError({
+        setError({
           error: true,
           text: "Something went wrong setting standings 🙁",
           message: (e as Error).message,
@@ -188,7 +187,7 @@ const Standings = () => {
   };
 
   return (
-    <section className="standings">
+    <section className="standings min-w-max">
       {modal.open && modal.team && (
         <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
       )}
