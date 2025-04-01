@@ -1,5 +1,5 @@
 import { GameType } from "./TeamStatsModal";
-import { linkOutIcon } from "../../../components/svgs";
+import { linkOutIcon } from "../../../../components/svgs";
 
 type TeamThisWeekScheduleProps = {
   game: GameType;
@@ -10,7 +10,6 @@ const TeamThisWeekSchedule = ({
   game,
   teamAbbrev,
 }: TeamThisWeekScheduleProps) => {
-  console.log(game);
   return (
     <div
       className={`flex flex-row shadow-md font-medium my-1 p-2 w-full

@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { sortByPoints } from "../../utility/sortFunctions";
-import { TeamType, ErrorType } from "../Standings";
-import Modal from "../../../components/Modal";
-import Chip from "../../../components/Chip";
-import Alert from "../../../components/Alert";
+import { sortByPoints } from "../../../utility/sortFunctions";
+import { TeamType, ErrorType } from "../../Standings";
+import Modal from "../../../../components/Modal";
+import Chip from "../../../../components/Chip";
+import Alert from "../../../../components/Alert";
 import SkaterCard from "./SkaterCard";
 import PlayerCardSkeleton from "./PlayerCardSkeleton";
 import GoalieCard from "./GoalieCard";
 import TeamThisWeekSchedule from "./TeamThisWeekSchedule";
-import fetchThisWeeksGamesForTeam from "../../../api/fetchThisWeeksGamesForTeam";
-import fetchTeam from "../../../api/fetchTeam";
+import fetchThisWeeksGamesForTeam from "../../../../api/fetchThisWeeksGamesForTeam";
+import fetchTeam from "../../../../api/fetchTeam";
 
 type ModalProps = {
   handleCloseModal: () => void;
@@ -199,7 +199,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
         games: gamesThisWeekData.games,
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
       handleSetError({
         error: true,
         text: "Something went wrong displaying team info 🙁",
@@ -223,6 +223,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
           <div className="m-2 flex flex-row p-2">
             <img
               src={team.teamLogo}
+              alt={team.teamName.default}
               className="w-30 rounded-sm shadow-xl bg-slate-200 dark:hidden mr-2"
             />
             <img

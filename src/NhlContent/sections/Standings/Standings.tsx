@@ -5,7 +5,7 @@ import ConferenceTable from "./tables/ConferenceTable.tsx";
 import DivisionTable from "./tables/DivisionTable.tsx";
 import WildCardTable from "./tables/WildCardTable.tsx";
 import Alert from "../../components/Alert.tsx";
-import TeamStatsModal from "./components/TeamStatsModal.tsx";
+import TeamStatsModal from "./components/teamStatsModal/TeamStatsModal.tsx";
 import { flushSync } from "react-dom";
 import startViewTransitionWrapper from "../utility/startViewTransitionWrapper.ts";
 import SelectTableButtons from "./components/SelectTableButtons.tsx";
