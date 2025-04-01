@@ -121,9 +121,7 @@ const Standings = () => {
   const fetchAndSetStandings = async () => {
     try {
       const standingsData = await fetchStandings(handleSetError);
-      if (!standingsData) {
-        throw new Error("No Standings Data");
-      }
+      if (!standingsData) return;
       setStandings(
         standingsData.reduce(
           // Add the teams into correct League, Conference and Division - then set to state
@@ -147,12 +145,13 @@ const Standings = () => {
               return acc;
             } catch (e: unknown) {
               console.error(e);
-              handleSetError({
-                error: true,
-                text: "Something went wrong displaying standings 🙁",
-                message: "Unexpected error in reduce function",
-                name: "FetchAndSetStandings",
-              });
+              !error.error &&
+                handleSetError({
+                  error: true,
+                  text: "Something went wrong displaying standings 🙁",
+                  message: "Unexpected error in reduce function",
+                  name: "FetchAndSetStandings",
+                });
               return acc;
             }
           },
@@ -168,12 +167,13 @@ const Standings = () => {
         )
       );
     } catch (e: unknown) {
-      handleSetError({
-        error: true,
-        text: "Something went wrong getting standings 🙁",
-        message: (e as Error).message,
-        name: "FetchAndSetStandings",
-      });
+      !error.error &&
+        handleSetError({
+          error: true,
+          text: "Something went wrong setting standings 🙁",
+          message: (e as Error).message,
+          name: "FetchAndSetStandings",
+        });
     }
   };
 
@@ -232,9 +232,12 @@ const Standings = () => {
                 {...standingsProps}
               />
             )}
+            <div className="text-sm font-semibold uppercase p-3">
+              ❌ = Eliminated ✔️ = Qualifed
+            </div>
           </div>
         ) : (
-          <div> Loading</div>
+          <div className="h-screen flex mt-15 min-w-220 w-full rounded bg-gray-300 dark:bg-stone-700 animate-pulse" />
         )
       ) : (
         <Alert

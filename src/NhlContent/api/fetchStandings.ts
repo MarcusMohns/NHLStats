@@ -17,7 +17,7 @@ const fetchStandings = async (handleSetError: (error: ErrorType) => void) => {
     console.error("Error getting standings:", e);
     handleSetError({
       error: true,
-      text: "Something went wrong getting standings 🙁",
+      text: "Something went wrong fetching standings 🙁",
       message: (e as Error).message,
       name: (e as Error).name,
     });
