@@ -19,7 +19,7 @@ const SelectTableButtons = ({
         <li className="w-1/4 h-full sm:w-max" key={button}>
           <button
             onClick={() => handleSetSelectedStandings(button)}
-            className={`sm:p-3 p-1 py-3 break-all w-full h-max hover:bg-gray-300 dark:hover:bg-stone-600 border-none dark:text-white cursor-pointer
+            className={`sm:p-3 p-1 py-3 break-all w-full h-max hover:bg-gray-300 dark:hover:bg-stone-600 border-none cursor-pointer
              ${
                button === selectedStandings
                  ? "bg-gray-300 dark:bg-stone-600"

@@ -35,7 +35,7 @@ const StyledTable = ({
         {tableName}
       </h2>
       <table
-        className="dark:text-white dark:bg-stone-900 shadow-lg dark:shadow-stone-800 white w-full text-sm text-left rtl:text-right"
+        className="dark:bg-stone-900 shadow-lg dark:shadow-stone-800 w-full text-sm text-left rtl:text-right"
         cellSpacing="5"
       >
         <thead className="bg-gray-300 dark:bg-stone-800">
@@ -71,12 +71,7 @@ const StyledTable = ({
             ))}
           </tr>
         </thead>
-        <tbody
-          className="font-medium 
-        text-gray-700
-        dark:text-white
-    "
-        >
+        <tbody className="font-medium">
           {standings.map((team, idx) => (
             // render all the teams in the standings
             <tr
