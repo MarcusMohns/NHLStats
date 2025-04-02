@@ -5,7 +5,14 @@ import ImageAndLoading from "../../../utility/ImageAndLoading";
 const GoalieCard = ({ player }: { player: GoalieType }) => {
   return (
     <div className="flex flex-row shadow-sm dark:bg-stone-800 rounded p-2 mt-2 w-full w-24 h-24">
-      <ImageAndLoading imgSrc={player.headshot} />
+      <ImageAndLoading
+        imgSrc={player.headshot}
+        height="h-20"
+        width="w-20"
+        minHeight="min-h-20"
+        minWidth="min-w-20"
+      />
+
       <div className="flex w-full flex-col items-center justify-center">
         <div className="flex w-full text-md uppercase font-bold mb-2">
           <p className="ml-auto pl-6">

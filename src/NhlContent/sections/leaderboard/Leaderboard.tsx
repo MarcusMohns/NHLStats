@@ -1,9 +1,14 @@
 import fetchPlayerLeaders from "../../api/fetchPlayerLeaders";
 import { useState, useEffect } from "react";
-import { ErrorType } from "../standings/Standings";
 import Alert from "../../components/Alert";
+import SelectTableButtons from "../../components/SelectTableButtons";
+import startViewTransitionWrapper from "../utility/startViewTransitionWrapper";
+import PlayerCard from "./components/PlayerCard";
+import AssistLeaders from "./tables/AssistLeaders";
+import GoalLeaders from "./tables/GoalLeaders";
+import PointLeaders from "./tables/PointLeaders";
 
-type PlayerType = {
+export type PlayerType = {
   firstName: { default: string };
   headshot: string;
   id: number;
@@ -16,7 +21,7 @@ type PlayerType = {
   value: number;
 };
 
-type GoalieType = {
+export type GoalieType = {
   id: number;
   firstName: { default: string };
   lastName: { default: string };
@@ -29,7 +34,7 @@ type GoalieType = {
   value: number;
 };
 
-type LeaderBoardType = {
+export type LeaderBoardsType = {
   topGoalScorers: PlayerType[];
   topAssists: PlayerType[];
   topPoints: PlayerType[];
@@ -40,7 +45,7 @@ type LeaderBoardType = {
 };
 
 const Leaderboard = () => {
-  const [leaderboards, setLeaderboards] = useState<LeaderBoardType>({
+  const [leaderboards, setLeaderboards] = useState<LeaderBoardsType>({
     topGoalScorers: [],
     topAssists: [],
     topPoints: [],
@@ -49,7 +54,9 @@ const Leaderboard = () => {
     topShutouts: [],
     loaded: false,
   });
-
+  const [selectedLeaderboard, setSelectedLeaderboard] =
+    useState<string>("Points");
+  const [fetchLoading, setFetchloading] = useState(false);
   const [error, setError] = useState({
     error: false,
     text: "",
@@ -57,7 +64,12 @@ const Leaderboard = () => {
     name: "",
   });
 
+  const handleSelectedTable = (standing: string) => {
+    startViewTransitionWrapper(() => setSelectedLeaderboard(standing));
+  };
+
   const fetchAndSetLeaders = async () => {
+    setFetchloading(true);
     try {
       const topGoalScorers = await fetchPlayerLeaders("goals", "skater");
       const topAssists = await fetchPlayerLeaders("assists", "skater");
@@ -77,7 +89,7 @@ const Leaderboard = () => {
         !topShutouts ||
         !topGoalsAgainstAverage
       ) {
-        throw Error("Error getting leaders");
+        throw Error("No leaders data");
       }
 
       setLeaderboards({
@@ -89,6 +101,7 @@ const Leaderboard = () => {
         topShutouts: topShutouts,
         loaded: true,
       });
+      setError({ error: false, text: "", message: "", name: "" });
     } catch (e: unknown) {
       !error.error &&
         setError({
@@ -98,35 +111,35 @@ const Leaderboard = () => {
           name: "fetchAndSetLeaders",
         });
     }
+    setFetchloading(false);
   };
 
   useEffect(() => {
     fetchAndSetLeaders();
   }, []);
 
+  const buttons = ["Points", "Assists", "Goals"];
+
   return (
-    <section className="leaderboard w-full">
+    <section className="leaderboard w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5">
       {!error.error ? (
         leaderboards.loaded ? (
-          <div>
-            {leaderboards.topGoalScorers.map((player) => (
-              <div>
-                <div>
-                  <img src={player.teamLogo} className="w-12 h-12" /> - #
-                  {player.sweaterNumber}({player.position})
-                  <img
-                    src={player.headshot}
-                    alt={`${player.firstName.default} ${player.lastName.default}`}
-                    className="w-12 h-12"
-                  />
-                </div>
-                <div>
-                  {player.firstName.default} {player.lastName.default} -{" "}
-                  {player.value}
-                </div>
-              </div>
-            ))}
-          </div>
+          <>
+            <SelectTableButtons
+              buttons={buttons}
+              selectedTable={selectedLeaderboard}
+              handleSelectedTable={handleSelectedTable}
+            />
+            {selectedLeaderboard === "Points" && (
+              <PointLeaders leaderboard={leaderboards.topPoints} />
+            )}
+            {selectedLeaderboard === "Assists" && (
+              <AssistLeaders leaderboard={leaderboards.topAssists} />
+            )}
+            {selectedLeaderboard === "Goals" && (
+              <GoalLeaders leaderboard={leaderboards.topGoalScorers} />
+            )}
+          </>
         ) : (
           <div>Loading</div>
         )
@@ -140,7 +153,10 @@ const Leaderboard = () => {
           <p>{error.text}</p>---<p>{error.message}</p>
           <button
             onClick={fetchAndSetLeaders}
-            className="border font-bold m-2 border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer "
+            className={`border font-bold m-2 border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer ${
+              fetchLoading && "opacity-50 cursor-not-allowed"
+            }`}
+            disabled={fetchLoading}
           >
             Retry
           </button>
