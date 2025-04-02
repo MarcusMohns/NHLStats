@@ -11,7 +11,8 @@ const fetchStandings = async () => {
     const data = await response.json();
     return data.standings;
   } catch (e: unknown) {
-    console.error("Error getting standings:", e);
+    console.error("Error fetching standings data from API", e);
+    throw Error("Error fetching standings data from API");
   }
 };
 

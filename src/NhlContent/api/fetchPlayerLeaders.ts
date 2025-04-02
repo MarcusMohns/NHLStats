@@ -11,7 +11,8 @@ const fetchPlayerLeaders = async (category: string, goalieOrSkater: string) => {
     const data = await response.json();
     return data[category];
   } catch (e: unknown) {
-    console.error("Error getting standings:", e);
+    console.error("Error fetching leaders data from API", e);
+    throw Error("Error fetching leaders data from API");
   }
 };
 

@@ -7,8 +7,8 @@ const fetchTeam = async (team: TeamType) => {
     );
     return await teamResponse.json();
   } catch (e: unknown) {
-    console.error(e);
-    return;
+    console.error("Error fetching team data from API", e);
+    throw Error("Error fetching team data from API");
   }
 };
 

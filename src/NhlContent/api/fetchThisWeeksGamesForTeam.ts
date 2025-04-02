@@ -7,8 +7,8 @@ const fetchThisWeeksGamesForTeam = async (team: TeamType) => {
     );
     return await gamesThisWeekResponse.json();
   } catch (e: unknown) {
-    console.error(e);
-    return;
+    console.error("Error fetching this weeks games data from API", e);
+    throw Error("Error fetching this weeks games from API");
   }
 };
 
