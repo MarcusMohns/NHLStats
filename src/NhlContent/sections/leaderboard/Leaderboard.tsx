@@ -121,15 +121,22 @@ const Leaderboard = () => {
   const buttons = ["Points", "Assists", "Goals"];
 
   return (
-    <section className="leaderboard w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5">
+    <section className="leaderboard w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5 h-max mt-31 border border-gray-300 dark:border-stone-600 shadow-md rounded p-3">
       {!error.error ? (
         leaderboards.loaded ? (
           <>
+            <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide ">
+              Leaderboard
+            </h2>
             <SelectTableButtons
               buttons={buttons}
               selectedTable={selectedLeaderboard}
               handleSelectedTable={handleSelectedTable}
             />
+            <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
+              {selectedLeaderboard}
+            </h2>
+
             {selectedLeaderboard === "Points" && (
               <PointLeaders leaderboard={leaderboards.topPoints} />
             )}

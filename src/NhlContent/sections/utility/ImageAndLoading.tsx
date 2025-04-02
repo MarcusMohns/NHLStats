@@ -40,7 +40,7 @@ const ImageAndLoading = ({
 }: ImageAndLoadingProps) => {
   return (
     <div
-      className={`relative ${height} ${width} ${minHeight} ${minWidth} rounded-full bg-gray-300 dark:bg-stone-800 shadow-md flex flex align-center justify-center`}
+      className={`relative ${height} ${width} ${minHeight} ${minWidth} rounded-full bg-gray-300 dark:bg-stone-700 shadow-md flex flex align-center justify-center`}
     >
       <img
         className="w-full h-full rounded-full invisible"

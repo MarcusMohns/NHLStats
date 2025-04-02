@@ -9,12 +9,7 @@ const SelectTableButtons = ({
   handleSelectedTable,
 }: SelectTableButtonsProps) => {
   return (
-    <ul
-      className="flex flex-wrap text-sm sm:text-base  font-bold my-5 text-center rounded-sm shadow-lg sm:ml-3
-    ring ring-stone-300 dark:ring-stone-800 
-    w-full sm:w-max
-    bg-gray-200 dark:bg-stone-800"
-    >
+    <ul className="flex sm:flex-wrap text-sm sm:text-base font-bold mt-5 text-center justify-center rounded-sm shadow-lg sm:ml-3 bg-gray-200 dark:bg-stone-800 w-full sm:w-fit">
       {buttons.map((button) => (
         <li className="w-1/4 h-full sm:w-max" key={button}>
           <button
