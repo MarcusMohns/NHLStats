@@ -18,7 +18,7 @@ type WildCardTablePropTypes = {
   western: TeamType[];
   eastern: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
-  selectedStandings: string;
+  selectedTable: string;
   handleOpenModal: (team: TeamType) => void;
 };
 type WildCardStateType = {
@@ -34,7 +34,7 @@ const WildCardTable = ({
   western,
   eastern,
   headers,
-  selectedStandings,
+  selectedTable,
   handleOpenModal,
 }: WildCardTablePropTypes) => {
   const topThreeCentral = central.slice(0, 3);
@@ -141,7 +141,7 @@ const WildCardTable = ({
   const tableProps = {
     handleSort,
     headers,
-    selectedStandings,
+    selectedTable,
     handleOpenModal,
   };
 

@@ -10,7 +10,7 @@ type StyledTableProps = {
   ) => void;
   headers: { full: string[]; abbreviated: string[] };
   tableName: string;
-  selectedStandings: string;
+  selectedTable: string;
   handleOpenModal: (team: TeamType) => void;
 };
 const StyledTable = ({
@@ -18,7 +18,7 @@ const StyledTable = ({
   headers,
   tableName,
   handleSort,
-  selectedStandings,
+  selectedTable,
   handleOpenModal,
 }: StyledTableProps) => {
   const tooltipRefs = useRef<Array<HTMLDialogElement | null>>([]);
@@ -78,8 +78,8 @@ const StyledTable = ({
               key={team.teamAbbrev.default}
               onClick={() => handleOpenModal(team)}
               className={`font-bold hover:bg-stone-200 dark:hover:bg-stone-800 cursor-pointer select-none border-b-2 ${
-                (selectedStandings === "Division" && team.rank === 3) ||
-                (selectedStandings === "Wild Card" &&
+                (selectedTable === "Division" && team.rank === 3) ||
+                (selectedTable === "Wild Card" &&
                   (tableName === "Eastern" || tableName === "Western") &&
                   idx === 1)
                   ? "border-lime-600 dark:border-lime-500"

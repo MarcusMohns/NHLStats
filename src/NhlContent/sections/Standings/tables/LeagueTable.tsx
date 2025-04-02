@@ -10,7 +10,7 @@ import startViewTransitionWrapper from "../../utility/startViewTransitionWrapper
 type LeagueTablePropTypes = {
   league: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
-  selectedStandings: string;
+  selectedTable: string;
   handleOpenModal: (team: TeamType) => void;
 };
 type LeagueStateType = {
@@ -20,7 +20,7 @@ type LeagueStateType = {
 const LeagueTable = ({
   league,
   headers,
-  selectedStandings,
+  selectedTable,
   handleOpenModal,
 }: LeagueTablePropTypes) => {
   const [leagueState, setLeagueState] = useState<LeagueStateType>({
@@ -48,7 +48,7 @@ const LeagueTable = ({
       handleSort={handleSort}
       headers={headers}
       tableName={"League"}
-      selectedStandings={selectedStandings}
+      selectedTable={selectedTable}
       handleOpenModal={handleOpenModal}
     />
   );

@@ -1,5 +1,9 @@
 type ImageAndLoadingProps = {
   imgSrc: string;
+  height: string;
+  width: string;
+  minHeight: string;
+  minWidth: string;
 };
 
 const spinner = (
@@ -27,9 +31,17 @@ const spinner = (
   </div>
 );
 
-const ImageAndLoading = ({ imgSrc }: ImageAndLoadingProps) => {
+const ImageAndLoading = ({
+  imgSrc,
+  height,
+  width,
+  minHeight,
+  minWidth,
+}: ImageAndLoadingProps) => {
   return (
-    <div className="relative min-w-20 min-h-20 rounded-full bg-gray-300 dark:bg-stone-900 shadow-md flex flex align-center justify-center">
+    <div
+      className={`relative ${height} ${width} ${minHeight} ${minWidth} rounded-full bg-gray-300 dark:bg-stone-800 shadow-md flex flex align-center justify-center`}
+    >
       <img
         className="w-full h-full rounded-full invisible"
         loading="lazy"

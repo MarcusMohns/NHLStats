@@ -13,7 +13,7 @@ type DivisionTablePropTypes = {
   metropolitan: TeamType[];
   pacific: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
-  selectedStandings: string;
+  selectedTable: string;
   handleOpenModal: (team: TeamType) => void;
 };
 
@@ -28,7 +28,7 @@ const DivisionTable = ({
   metropolitan,
   pacific,
   headers,
-  selectedStandings,
+  selectedTable,
   handleOpenModal,
 }: DivisionTablePropTypes) => {
   const [centralState, setCentralState] = useState<DivisionStateType>({
@@ -90,7 +90,7 @@ const DivisionTable = ({
   const tableProps = {
     handleSort,
     headers,
-    selectedStandings,
+    selectedTable,
     handleOpenModal,
   };
 
