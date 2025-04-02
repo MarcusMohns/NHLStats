@@ -1,12 +1,12 @@
 type SelectTableButtonsProps = {
   buttons: string[];
-  selectedStandings: string;
-  handleSetSelectedStandings: (button: string) => void;
+  selectedTable: string;
+  handleSelectedTable: (button: string) => void;
 };
 const SelectTableButtons = ({
   buttons,
-  selectedStandings,
-  handleSetSelectedStandings,
+  selectedTable,
+  handleSelectedTable,
 }: SelectTableButtonsProps) => {
   return (
     <ul
@@ -18,10 +18,10 @@ const SelectTableButtons = ({
       {buttons.map((button) => (
         <li className="w-1/4 h-full sm:w-max" key={button}>
           <button
-            onClick={() => handleSetSelectedStandings(button)}
+            onClick={() => handleSelectedTable(button)}
             className={`sm:p-3 p-1 py-3 break-all w-full h-max hover:bg-gray-300 dark:hover:bg-stone-600 border-none cursor-pointer
              ${
-               button === selectedStandings
+               button === selectedTable
                  ? "bg-gray-300 dark:bg-stone-600"
                  : "bg-gray-200 dark:bg-stone-800"
              } ${
