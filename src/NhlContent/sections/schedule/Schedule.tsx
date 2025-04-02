@@ -1,5 +1,5 @@
 const Schedule = () => {
-  return <section className="schedule w-full">Schedule</section>;
+  return <section className="schedule">Schedule</section>;
 };
 
 export default Schedule;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, ReactHTMLElement } from "react";
 import fetchStandings from "../../api/fetchStandings.ts";
 import LeagueTable from "./tables/LeagueTable.tsx";
 import ConferenceTable from "./tables/ConferenceTable.tsx";
@@ -8,7 +8,7 @@ import Alert from "../../components/Alert.tsx";
 import TeamStatsModal from "./components/teamStatsModal/TeamStatsModal.tsx";
 import { flushSync } from "react-dom";
 import startViewTransitionWrapper from "../utility/startViewTransitionWrapper.ts";
-import SelectTableButtons from "./components/SelectTableButtons.tsx";
+import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 
 export type TeamType = {
   clinchIndicator?: string;
@@ -55,7 +55,7 @@ export type ErrorType = {
 
 const Standings = () => {
   const [standings, setStandings] = useState<StandingsType | null>(null);
-  const [selectedStandings, setSelectedStandings] = useState<string>("League");
+  const [selectedTable, setSelectedTable] = useState<string>("League");
   const [modal, setModal] = useState<{
     open: boolean;
     team: TeamType | null;
@@ -69,9 +69,10 @@ const Standings = () => {
     message: "",
     name: "",
   });
+  const [fetchLoading, setFetchLoading] = useState<boolean>(false);
 
-  const handleSetSelectedStandings = (standing: string) => {
-    startViewTransitionWrapper(() => setSelectedStandings(standing));
+  const handleSelectedTable = (standing: string) => {
+    startViewTransitionWrapper(() => setSelectedTable(standing));
   };
 
   const handleCloseModal = () => {
@@ -117,6 +118,7 @@ const Standings = () => {
   const buttons = ["League", "Division", "Conference", "Wild Card"];
 
   const fetchAndSetStandings = async () => {
+    setFetchLoading(true);
     try {
       const standingsData = await fetchStandings();
       if (!standingsData) throw Error("No standings data");
@@ -165,6 +167,7 @@ const Standings = () => {
           }
         )
       );
+      setError({ error: false, text: "", message: "", name: "" });
     } catch (e: unknown) {
       !error.error &&
         setError({
@@ -174,6 +177,7 @@ const Standings = () => {
           name: "FetchAndSetStandings",
         });
     }
+    setFetchLoading(false);
   };
 
   useEffect(() => {
@@ -183,26 +187,26 @@ const Standings = () => {
   const standingsProps = {
     handleOpenModal,
     headers,
-    selectedStandings,
+    selectedTable,
   };
 
   return (
-    <section className="standings min-w-max">
+    <section className="standings w-full 2xl:w-3/5 ml-auto">
       {modal.open && modal.team && (
         <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
       )}
       <SelectTableButtons
         buttons={buttons}
-        handleSetSelectedStandings={handleSetSelectedStandings}
-        selectedStandings={selectedStandings}
+        handleSelectedTable={handleSelectedTable}
+        selectedTable={selectedTable}
       />
       {!error.error ? (
         standings ? (
           <div className="tables">
-            {selectedStandings === "League" && (
+            {selectedTable === "League" && (
               <LeagueTable league={standings.League} {...standingsProps} />
             )}
-            {selectedStandings === "Conference" && (
+            {selectedTable === "Conference" && (
               <ConferenceTable
                 eastern={standings.Eastern}
                 western={standings.Western}
@@ -210,7 +214,7 @@ const Standings = () => {
               />
             )}
 
-            {selectedStandings === "Division" && (
+            {selectedTable === "Division" && (
               <DivisionTable
                 central={standings.Central}
                 atlantic={standings.Atlantic}
@@ -220,7 +224,7 @@ const Standings = () => {
               />
             )}
             {/* rendered slightly different, needs parts of the other tables */}
-            {selectedStandings === "Wild Card" && (
+            {selectedTable === "Wild Card" && (
               <WildCardTable
                 central={standings.Central}
                 atlantic={standings.Atlantic}
@@ -248,7 +252,10 @@ const Standings = () => {
           <p>{error.text}</p>---<p>{error.message}</p>
           <button
             onClick={fetchAndSetStandings}
-            className="border font-bold m-2 border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer "
+            className={`border font-bold m-2 border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer ${
+              fetchLoading && "opacity-50 cursor-not-allowed"
+            }`}
+            disabled={fetchLoading}
           >
             Retry
           </button>

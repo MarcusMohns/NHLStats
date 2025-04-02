@@ -13,7 +13,7 @@ const Alert = ({
 }) => {
   return (
     <div
-      className={`${bgColor} border-l-4 ${borderColor} ${textColor} p-4`}
+      className={`${bgColor} border-l-4 ${borderColor} ${textColor} p-4 w-max m-auto`}
       role="alert"
     >
       <p className="font-bold">{messageHeader}</p>
