@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import Alert from "../../components/Alert";
 import SelectTableButtons from "../../components/SelectTableButtons";
 import startViewTransitionWrapper from "../utility/startViewTransitionWrapper";
-import PlayerCard from "./components/PlayerCard";
 import AssistLeaders from "./tables/AssistLeaders";
 import GoalLeaders from "./tables/GoalLeaders";
 import PointLeaders from "./tables/PointLeaders";
+import ShutoutLeaders from "./tables/ShutoutLeaders";
+import SavePctgLeaders from "./tables/SavePctgLeaders";
+import GoalsAgainstAverageLeaders from "./tables/GoalsAgainstAverageLeaders";
 
 export type PlayerType = {
   firstName: { default: string };
@@ -118,8 +120,6 @@ const Leaderboard = () => {
     fetchAndSetLeaders();
   }, []);
 
-  const buttons = ["Points", "Assists", "Goals"];
-
   return (
     <section className="leaderboard w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5 h-max mt-31 border border-gray-300 dark:border-stone-600 shadow-md rounded p-3">
       {!error.error ? (
@@ -128,8 +128,19 @@ const Leaderboard = () => {
             <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide ">
               Leaderboard
             </h2>
+            <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5">
+              Skaters
+            </h3>
             <SelectTableButtons
-              buttons={buttons}
+              buttons={["Points", "Assists", "Goals"]}
+              selectedTable={selectedLeaderboard}
+              handleSelectedTable={handleSelectedTable}
+            />
+            <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5">
+              Goalies
+            </h3>
+            <SelectTableButtons
+              buttons={["Shutouts", "Save %", "GAA"]}
               selectedTable={selectedLeaderboard}
               handleSelectedTable={handleSelectedTable}
             />
@@ -145,6 +156,17 @@ const Leaderboard = () => {
             )}
             {selectedLeaderboard === "Goals" && (
               <GoalLeaders leaderboard={leaderboards.topGoalScorers} />
+            )}
+            {selectedLeaderboard === "Shutouts" && (
+              <ShutoutLeaders leaderboard={leaderboards.topShutouts} />
+            )}
+            {selectedLeaderboard === "Save %" && (
+              <SavePctgLeaders leaderboard={leaderboards.topSavePctg} />
+            )}
+            {selectedLeaderboard === "GAA" && (
+              <GoalsAgainstAverageLeaders
+                leaderboard={leaderboards.topGoalsAgainstAverage}
+              />
             )}
           </>
         ) : (

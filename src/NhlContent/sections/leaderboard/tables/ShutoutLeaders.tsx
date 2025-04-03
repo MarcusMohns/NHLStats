@@ -1,7 +1,7 @@
 import { PlayerType } from "../Leaderboard";
 import PlayerCard from "../components/PlayerCard";
 
-const GoalLeaders = ({ leaderboard }: { leaderboard: PlayerType[] }) => (
+const ShutoutLeaders = ({ leaderboard }: { leaderboard: PlayerType[] }) => (
   <div>
     {leaderboard.map((player) => (
       <PlayerCard player={player} key={player.id} />
@@ -9,4 +9,4 @@ const GoalLeaders = ({ leaderboard }: { leaderboard: PlayerType[] }) => (
   </div>
 );
 
-export default GoalLeaders;
+export default ShutoutLeaders;

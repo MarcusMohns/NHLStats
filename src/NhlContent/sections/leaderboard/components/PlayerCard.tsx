@@ -21,7 +21,16 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
           </div>
           <div className="flex flex-col items-center ml-auto text-lg">
             #{player.sweaterNumber}
-            <img src={player.teamLogo} className="w-16 h-16" />
+            <img src={player.teamLogo} className="w-16 h-16 dark:hidden" />
+            <img
+              src={
+                // The 'Dark' logo used for Washington is the old logo that doesn't work better for our dark mode anyways, so use the regular one for now.
+                player.teamAbbrev === "WSH"
+                  ? player.teamLogo
+                  : `https://assets.nhle.com/logos/nhl/svg/${player.teamAbbrev}_dark.svg`
+              }
+              className="w-16 h-16 hidden dark:block"
+            />
           </div>
         </div>
       </div>

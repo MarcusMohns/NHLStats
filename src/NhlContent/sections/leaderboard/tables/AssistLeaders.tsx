@@ -5,7 +5,7 @@ const AssistLeaders = ({ leaderboard }: { leaderboard: PlayerType[] }) => {
   return (
     <div>
       {leaderboard.map((player) => (
-        <PlayerCard player={player} />
+        <PlayerCard player={player} key={player.id} />
       ))}
     </div>
   );
