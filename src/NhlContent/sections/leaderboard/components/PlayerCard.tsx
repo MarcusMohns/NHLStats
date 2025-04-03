@@ -1,5 +1,6 @@
 import { PlayerType } from "../Leaderboard";
 import ImageAndLoading from "../../utility/ImageAndLoading";
+import { linkOutIcon } from "../../../components/svgs";
 
 const PlayerCard = ({ player }: { player: PlayerType }) => {
   return (
@@ -7,7 +8,7 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
       <div className="flex flex-row items-center py-2 w-full">
         <p className="font-bold text-4xl p-3 w-25">{player.value}</p>
         <div className="flex flex-row items-center w-full">
-          <div className="flex flex-row justify-start">
+          <div className="flex flex-row justify-start items-center">
             <ImageAndLoading
               imgSrc={player.headshot}
               height="h-16"
@@ -15,8 +16,16 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
               minHeight="min-h-16"
               minWidth="min-w-16"
             />
+
             <p className="flex items-center font-bold text-xl xl:text-lg mx-2">
               {player.firstName.default} {player.lastName.default}
+              <a
+                className="ml-2 w-6"
+                href={` https://www.nhl.com/player/${player.id}`}
+                target="_blank"
+              >
+                {linkOutIcon}
+              </a>
             </p>
           </div>
           <div className="flex flex-col items-center ml-auto text-lg">
