@@ -1,18 +1,13 @@
 const fetchStandings = async () => {
   const url = "https://api-web.nhle.com/v1/standings/now";
-  const headers = new Headers();
-  headers.set("Content-Type", "application/json");
-  const options = {
-    method: "GET",
-    headers,
-  };
+
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url);
     const data = await response.json();
     return data.standings;
   } catch (e: unknown) {
     console.error("Error fetching standings data from API", e);
-    throw Error("Error fetching standings data from API");
+    throw e;
   }
 };
 

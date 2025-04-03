@@ -1,14 +1,14 @@
 import { TeamType } from "../sections/standings/Standings";
 
 const fetchThisWeeksGamesForTeam = async (team: TeamType) => {
+  const url = `https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`;
   try {
-    const gamesThisWeekResponse = await fetch(
-      `https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`
-    );
-    return await gamesThisWeekResponse.json();
+    const response = await fetch(url);
+    const data = await response.json();
+    return await data.json();
   } catch (e: unknown) {
     console.error("Error fetching this weeks games data from API", e);
-    throw Error("Error fetching this weeks games from API");
+    throw e;
   }
 };
 
