@@ -31,11 +31,11 @@ const StyledTable = ({
   };
   return (
     <>
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
+      <h2 className="font-bold dark:text-stone-300 my-5 pt-3 px-1 text-xl uppercase leading-tight tracking-wide dark:border-stone-600">
         {tableName}
       </h2>
       <table
-        className="dark:bg-stone-900 shadow-lg dark:shadow-stone-800 w-full text-sm text-left rtl:text-right"
+        className="dark:bg-stone-900 shadow-lg w-full text-sm text-left rtl:text-right"
         cellSpacing="5"
       >
         <thead className="bg-gray-300 dark:bg-stone-800">

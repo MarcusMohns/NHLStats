@@ -5,8 +5,8 @@ import UpcomingGames from "./sections/upcomingGames/UpcomingGames.tsx";
 const MainContent = () => {
   return (
     <main
-      className="bg-gray-100 dark:bg-stone-900 dark:text-white flex flex-col align-center 
-    w-screen xl:flex-row min-h-screen "
+      className="bg-stone-100 dark:bg-stone-900 dark:text-white flex flex-col align-center 
+    w-screen xl:flex-row min-h-screen overflow-x-hidden"
     >
       <UpcomingGames />
       <Standings />
