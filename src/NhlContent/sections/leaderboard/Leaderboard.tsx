@@ -1,6 +1,5 @@
 import fetchPlayerLeaders from "../../api/fetchPlayerLeaders";
 import { useState, useEffect } from "react";
-import Alert from "../../components/Alert";
 import SelectTableButtons from "../../components/SelectTableButtons";
 import startViewTransitionWrapper from "../utility/startViewTransitionWrapper";
 import AssistLeaders from "./tables/AssistLeaders";
@@ -9,6 +8,8 @@ import PointLeaders from "./tables/PointLeaders";
 import ShutoutLeaders from "./tables/ShutoutLeaders";
 import SavePctgLeaders from "./tables/SavePctgLeaders";
 import GoalsAgainstAverageLeaders from "./tables/GoalsAgainstAverageLeaders";
+import ErrorWithBtn from "../../components/ErrorWithBtn";
+import { spinner } from "../../components/svgs";
 
 export type PlayerType = {
   firstName: { default: string };
@@ -58,7 +59,6 @@ const Leaderboard = () => {
   });
   const [selectedLeaderboard, setSelectedLeaderboard] =
     useState<string>("Points");
-  const [fetchLoading, setFetchloading] = useState(false);
   const [error, setError] = useState({
     error: false,
     text: "",
@@ -71,7 +71,6 @@ const Leaderboard = () => {
   };
 
   const fetchAndSetLeaders = async () => {
-    setFetchloading(true);
     try {
       const topGoalScorers = await fetchPlayerLeaders("goals", "skater");
       const topAssists = await fetchPlayerLeaders("assists", "skater");
@@ -91,7 +90,7 @@ const Leaderboard = () => {
         !topShutouts ||
         !topGoalsAgainstAverage
       ) {
-        throw Error("No leaders data");
+        throw new Error("No leaders data");
       }
 
       setLeaderboards({
@@ -113,83 +112,68 @@ const Leaderboard = () => {
           name: "fetchAndSetLeaders",
         });
     }
-    setFetchloading(false);
   };
 
   useEffect(() => {
     fetchAndSetLeaders();
   }, []);
 
-  return (
-    <section className="leaderboard w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5 h-max mt-31 border border-gray-300 dark:border-stone-600 shadow-md rounded p-3">
-      {!error.error ? (
-        leaderboards.loaded ? (
-          <>
-            <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide ">
-              Leaderboard
-            </h2>
-            <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5">
-              Skaters
-            </h3>
-            <SelectTableButtons
-              buttons={["Points", "Assists", "Goals"]}
-              selectedTable={selectedLeaderboard}
-              handleSelectedTable={handleSelectedTable}
-            />
-            <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5">
-              Goalies
-            </h3>
-            <SelectTableButtons
-              buttons={["Shutouts", "Save %", "GAA"]}
-              selectedTable={selectedLeaderboard}
-              handleSelectedTable={handleSelectedTable}
-            />
-            <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
-              {selectedLeaderboard}
-            </h2>
+  if (error.error) {
+    return <ErrorWithBtn action={fetchAndSetLeaders} error={error} />;
+  }
 
-            {selectedLeaderboard === "Points" && (
-              <PointLeaders leaderboard={leaderboards.topPoints} />
-            )}
-            {selectedLeaderboard === "Assists" && (
-              <AssistLeaders leaderboard={leaderboards.topAssists} />
-            )}
-            {selectedLeaderboard === "Goals" && (
-              <GoalLeaders leaderboard={leaderboards.topGoalScorers} />
-            )}
-            {selectedLeaderboard === "Shutouts" && (
-              <ShutoutLeaders leaderboard={leaderboards.topShutouts} />
-            )}
-            {selectedLeaderboard === "Save %" && (
-              <SavePctgLeaders leaderboard={leaderboards.topSavePctg} />
-            )}
-            {selectedLeaderboard === "GAA" && (
-              <GoalsAgainstAverageLeaders
-                leaderboard={leaderboards.topGoalsAgainstAverage}
-              />
-            )}
-          </>
-        ) : (
-          <div>Loading</div>
-        )
-      ) : (
-        <Alert
-          messageHeader={`${"Error"} (${error.name})`}
-          bgColor="bg-red-100"
-          borderColor="border-red-500"
-          textColor="text-red-700"
-        >
-          <p>{error.text}</p>---<p>{error.message}</p>
-          <button
-            onClick={fetchAndSetLeaders}
-            className={`border font-bold m-2 border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer ${
-              fetchLoading && "opacity-50 cursor-not-allowed"
-            }`}
-            disabled={fetchLoading}
-          >
-            Retry
-          </button>
-        </Alert>
+  if (!leaderboards.loaded) {
+    return (
+      <div className="relative w-full min-w-90 2xl:w-1/5 2xl:mx-10 xl:w-2/5 rounded p-3 h-235 bg-gray-300 2xl:border border-gray-300 dark:border-stone-600 dark:bg-stone-700 animate-pulse mt-20">
+        {spinner}
+      </div>
+    );
+  }
+
+  return (
+    <section className="leaderboard w-full min-w-90 2xl:w-1/5 2xl:mx-10 xl:w-2/5 h-max 2xl:border border-gray-300 dark:border-stone-600 shadow-md rounded p-3 mt-20">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide">
+        Leaderboard
+      </h2>
+      <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5">
+        Skaters
+      </h3>
+      <SelectTableButtons
+        buttons={["Points", "Assists", "Goals"]}
+        selectedTable={selectedLeaderboard}
+        handleSelectedTable={handleSelectedTable}
+      />
+      <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5">
+        Goalies
+      </h3>
+      <SelectTableButtons
+        buttons={["Shutouts", "Save %", "GAA"]}
+        selectedTable={selectedLeaderboard}
+        handleSelectedTable={handleSelectedTable}
+      />
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
+        {selectedLeaderboard}
+      </h2>
+
+      {selectedLeaderboard === "Points" && (
+        <PointLeaders leaderboard={leaderboards.topPoints} />
+      )}
+      {selectedLeaderboard === "Assists" && (
+        <AssistLeaders leaderboard={leaderboards.topAssists} />
+      )}
+      {selectedLeaderboard === "Goals" && (
+        <GoalLeaders leaderboard={leaderboards.topGoalScorers} />
+      )}
+      {selectedLeaderboard === "Shutouts" && (
+        <ShutoutLeaders leaderboard={leaderboards.topShutouts} />
+      )}
+      {selectedLeaderboard === "Save %" && (
+        <SavePctgLeaders leaderboard={leaderboards.topSavePctg} />
+      )}
+      {selectedLeaderboard === "GAA" && (
+        <GoalsAgainstAverageLeaders
+          leaderboard={leaderboards.topGoalsAgainstAverage}
+        />
       )}
     </section>
   );

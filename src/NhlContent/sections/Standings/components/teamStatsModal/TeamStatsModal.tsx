@@ -3,13 +3,13 @@ import { sortByPoints } from "../../../utility/sortFunctions";
 import { TeamType, ErrorType } from "../../Standings";
 import Modal from "../../../../components/Modal";
 import Chip from "../../../../components/Chip";
-import Alert from "../../../../components/Alert";
 import SkaterCard from "./SkaterCard";
 import PlayerCardSkeleton from "./PlayerCardSkeleton";
 import GoalieCard from "./GoalieCard";
 import TeamThisWeekSchedule from "./TeamThisWeekSchedule";
 import fetchThisWeeksGamesForTeam from "../../../../api/fetchThisWeeksGamesForTeam";
 import fetchTeam from "../../../../api/fetchTeam";
+import ErrorWithBtn from "../../../../components/ErrorWithBtn";
 
 type ModalProps = {
   handleCloseModal: () => void;
@@ -180,7 +180,8 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
     try {
       const teamData = await fetchTeam(team);
       const gamesThisWeekData = await fetchThisWeeksGamesForTeam(team);
-      if (!teamData || !gamesThisWeekData) throw Error("Error getting data");
+      if (!teamData || !gamesThisWeekData)
+        throw new Error("Error getting data");
 
       const playersByPoints = sortByPoints(teamData.skaters);
       const goaliesByPercentage = sortByPoints(teamData.goalies);
@@ -197,7 +198,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
       console.error(e);
       setError({
         error: true,
-        text: "Something went wrong displaying team info 🙁",
+        text: "Something went wrong getting team info 🙁",
         message: (e as Error).message,
         name: "fetchAndSetTeamsAndWeeklyStats",
       });
@@ -281,20 +282,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
                 ))}
         </div>
       ) : (
-        <Alert
-          messageHeader={`${"Error"} (${error.name})`}
-          bgColor="bg-red-100"
-          borderColor="border-red-500"
-          textColor="text-red-700"
-        >
-          <p>{error.text}</p>---<p>{error.message}</p>
-          <button
-            onClick={fetchAndSetTeamsAndWeeklyStats}
-            className="border font-bold m-2 border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer "
-          >
-            Retry
-          </button>
-        </Alert>
+        <ErrorWithBtn action={fetchAndSetTeamsAndWeeklyStats} error={error} />
       )}
     </Modal>
   );
