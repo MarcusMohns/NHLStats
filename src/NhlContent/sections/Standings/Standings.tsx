@@ -193,14 +193,14 @@ const Standings = () => {
   if (!standings) {
     // 'loading'
     return (
-      <div className="relative w-full 2xl:w-3/5 ml-auto h-screen p-3 mt-5 bg-gray-300 dark:bg-stone-700 animate-pulse ">
+      <div className="relative w-full 2xl:w-3/5 ml-auto h-screen p-3 bg-gray-300 dark:bg-stone-700 animate-pulse ">
         {spinner}
       </div>
     );
   }
 
   return (
-    <section className="standings w-full 2xl:w-3/5 ml-auto relative 2xl:border border-gray-300 dark:border-stone-600 rounded p-3 mt-5">
+    <section className="standings w-full 2xl:w-3/5 ml-auto relative 2xl:border border-gray-300 dark:border-stone-600 rounded p-3">
       {modal.open && modal.team && (
         <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
       )}

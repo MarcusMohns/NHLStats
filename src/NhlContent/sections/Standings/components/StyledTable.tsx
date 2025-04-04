@@ -54,8 +54,8 @@ const StyledTable = ({
                   onMouseOut={() => toggleTooltip("close", idx)}
                 >
                   {/* Show full sized header on larger screens, abbreviated on smaller */}
-                  <p className="hidden lg:block">{header}</p>
-                  <p className="sm:block lg:hidden">
+                  <p className="hidden 2xl:block">{header}</p>
+                  <p className="sm:block 2xl:hidden">
                     {headers.abbreviated[idx]}
                   </p>
                 </button>
@@ -63,7 +63,7 @@ const StyledTable = ({
                   ref={(el) => {
                     tooltipRefs.current[idx] = el;
                   }}
-                  className="sm:inherited lg:hidden bg-gray-802000 border border-gray-200 rounded-sm p-2 text-black m-auto"
+                  className="sm:inherited 2xl:hidden bg-gray-802000 border border-gray-200 rounded-sm p-2 text-black m-auto"
                 >
                   <p>{header}</p>
                 </dialog>

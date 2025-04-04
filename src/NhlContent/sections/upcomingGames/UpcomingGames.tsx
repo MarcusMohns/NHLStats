@@ -122,14 +122,14 @@ const UpcomingGames = () => {
 
   if (!upcomingGames) {
     return (
-      <div className="relative w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5 rounded p-3 h-235 bg-gray-300 dark:bg-stone-700 animate-pulse mt-20">
+      <div className="relative w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5 rounded p-3 h-235 bg-gray-300 dark:bg-stone-700 animate-pulse ">
         {spinner}
       </div>
     );
   }
 
   return (
-    <section className="upcoming-games 2xl:border border-gray-300 dark:border-stone-600 shadow-md rounded p-3 w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5 h-max  mt-20">
+    <section className="upcoming-games 2xl:border border-gray-300 dark:border-stone-600 shadow-md rounded p-3 w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5 h-max  ">
       <h2 className="font-bold dark:text-stone-300 mt-5 py-1 px-1 text-2xl uppercase leading-tight tracking-wide">
         Upcoming Games
       </h2>
