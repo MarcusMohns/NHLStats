@@ -5,7 +5,7 @@ const fetchThisWeeksGamesForTeam = async (team: TeamType) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    return await data.json();
+    return await data;
   } catch (e: unknown) {
     console.error("Error fetching this weeks games data from API", e);
     throw e;

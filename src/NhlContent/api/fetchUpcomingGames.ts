@@ -1,4 +1,4 @@
-const fetchSchedule = async () => {
+const fetchUpcomingGames = async () => {
   const url = `https://api-web.nhle.com/v1/schedule/now`;
 
   try {
@@ -6,9 +6,9 @@ const fetchSchedule = async () => {
     const data = await response.json();
     return data.gameWeek;
   } catch (e: unknown) {
-    console.error("Error Schedule data from API", e);
+    console.error("Error fetching Upcoming Games from API", e);
     throw e;
   }
 };
 
-export default fetchSchedule;
+export default fetchUpcomingGames;
