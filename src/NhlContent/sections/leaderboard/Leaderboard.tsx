@@ -124,15 +124,15 @@ const Leaderboard = () => {
 
   if (!leaderboards.loaded) {
     return (
-      <div className="relative w-full min-w-90 2xl:w-1/5 2xl:mx-10 xl:w-2/5 rounded p-3 h-235 bg-gray-300 2xl:border border-gray-300 dark:border-stone-600 dark:bg-stone-700 animate-pulse">
+      <div className="relative xl:w-20/20 2xl:w-5/20 rounded p-3 h-235 bg-gray-300 2xl:border border-stone-300 dark:border-stone-600 dark:bg-stone-700 animate-pulse">
         {spinner}
       </div>
     );
   }
 
   return (
-    <section className="leaderboard w-full min-w-90 2xl:w-1/5 2xl:mx-10 xl:w-2/5 h-max 2xl:border border-gray-300 dark:border-stone-600 shadow-md rounded p-3">
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide">
+    <section className="leaderboard xl:w-20/20 2xl:w-5/20 h-max shadow-md rounded sm:p-3 2xl:border border-stone-300 dark:border-stone-600">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl uppercase leading-tight tracking-wide">
         Leaderboard
       </h2>
       <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5">

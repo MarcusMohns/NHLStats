@@ -122,14 +122,14 @@ const UpcomingGames = () => {
 
   if (!upcomingGames) {
     return (
-      <div className="relative w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5 rounded p-3 h-235 bg-gray-300 dark:bg-stone-700 animate-pulse ">
+      <div className="relative  xl:w-5/20 2xl:w-4/20 rounded p-3 h-235 bg-gray-300 dark:bg-stone-700 animate-pulse ">
         {spinner}
       </div>
     );
   }
 
   return (
-    <section className="upcoming-games 2xl:border border-gray-300 dark:border-stone-600 shadow-md rounded p-3 w-full 2xl:w-1/5 2xl:mx-10 xl:w-2/5 h-max  ">
+    <section className="upcoming-games xl:w-5/20 2xl:w-4/20 shadow-md rounded sm:p-3 h-max 2xl:border border-stone-300 dark:border-stone-600">
       <h2 className="font-bold dark:text-stone-300 mt-5 py-1 px-1 text-2xl uppercase leading-tight tracking-wide">
         Upcoming Games
       </h2>
@@ -156,7 +156,9 @@ const UpcomingGames = () => {
                   // Since New Date recalculates time and sometimes day we can't use the Weekday provided in API
                   // check weekDay instead and render a H2 if it's a different day from last iteration
                   <div className="flex text-lg flex-row w-full mt-4 py-2 font-bold dark:text-stone-300 uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
-                    <h2>{(lastRenderedWeekday = weekday)}</h2>
+                    <h2 className="px-2 sm:px-0">
+                      {(lastRenderedWeekday = weekday)}
+                    </h2>
                     <p className="flex text-center align-end justify-end">
                       ({date.getDate()}/{date.getMonth() + 1}/
                       {date.getFullYear()})
