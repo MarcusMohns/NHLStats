@@ -1,5 +1,8 @@
-import MainContent from "./NhlContent/MainContent.tsx";
+import MainContent from "./mainContent/MainContent.tsx";
+import Navbar from "./Navbar.tsx";
+import Footer from "./Footer.tsx";
 import { useState } from "react";
+import startViewTransitionWrapper from "./utility/startViewTransitionWrapper.ts";
 function App() {
   const darkThemeMediaQuery = localStorage.getItem("darkMode")
     ? localStorage.getItem("darkMode") === "true"
@@ -10,20 +13,14 @@ function App() {
   const [darkMode, setDarkMode] = useState<boolean>(darkThemeMediaQuery);
   const handleDarkModeChange = () => {
     localStorage.setItem("darkMode", JSON.stringify(!darkMode));
-    setDarkMode((prevState) => !prevState);
+    startViewTransitionWrapper(() => setDarkMode((prevState) => !prevState));
   };
 
   return (
-    <div className={`${darkMode && "dark"}`}>
-      {/* <Navbar /> */}
-      <button
-        onClick={handleDarkModeChange}
-        className="h-12 w-12 bg-green-500 rounded-full"
-      >
-        Toggle dark mode
-      </button>
+    <div className={`main-content ${darkMode && "dark"}`}>
+      <Navbar darkMode={darkMode} handleDarkModeChange={handleDarkModeChange} />
       <MainContent />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
