@@ -164,17 +164,44 @@ const UpcomingGames = () => {
                   </div>
                 )}
                 <div className="flex flex-row align-center justify-center shadow-sm bg-white dark:bg-stone-800 dark:shadow-stone-800 p-2 mt-1 rounded">
-                  <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min ">
-                    {formattedDateTime}
-                  </p>
+                  {game.gameState === "LIVE" ? (
+                    <div className="flex flex-row items-center px-2 w-max rounded bg-green-700 hover:bg-green-600">
+                      <a
+                        className="text-white underline ml-auto flex flex-row text-xs items-center"
+                        href={`https://www.nhl.com${game.gameCenterLink}`}
+                        target="_blank"
+                      >
+                        Live
+                      </a>
+                      <span className="rounded-full bg-red-500 w-3 h-3 ml-1 animate-pulse block" />
+                    </div>
+                  ) : (
+                    <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min ">
+                      {formattedDateTime}
+                    </p>
+                  )}
                   <div className="flex flex-row items-center justify-center align-center dark:text-stone-300  text-stone-800 w-full flex-space-between font-bold">
                     <p className="flex flex-row items-center justify-center min-w-20">
                       {game.awayTeam.abbrev}
-                      <img className="w-8 h-8" src={game.awayTeam.logo} />
+                      <img
+                        className="w-8 h-8 dark:hidden"
+                        src={game.awayTeam.logo}
+                      />
+                      <img
+                        className="w-8 h-8 hidden dark:block"
+                        src={game.awayTeam.darkLogo}
+                      />
                     </p>
                     <p className="w-5">vs</p>
                     <p className="flex flex-row items-center justify-center min-w-20">
-                      <img className="w-8 h-8" src={game.homeTeam.darkLogo} />
+                      <img
+                        className="w-8 h-8 dark:hidden"
+                        src={game.homeTeam.logo}
+                      />
+                      <img
+                        className="w-8 h-8 hidden dark:block"
+                        src={game.homeTeam.darkLogo}
+                      />
                       {game.homeTeam.abbrev}
                     </p>
                     <a
