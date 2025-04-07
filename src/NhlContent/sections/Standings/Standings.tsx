@@ -193,7 +193,7 @@ const Standings = () => {
   if (!standings) {
     // 'loading'
     return (
-      <div className="relative xl:w-15/20 2xl:w-10/20 2xl:mx-3 h-screen p-3 bg-stone-300 dark:bg-stone-700 animate-pulse ">
+      <div className="relative xl:w-15/20 2xl:w-10/20 2xl:mx-3 h-screen p-3 bg-stone-300 dark:bg-stone-700 animate-pulse">
         {spinner}
       </div>
     );

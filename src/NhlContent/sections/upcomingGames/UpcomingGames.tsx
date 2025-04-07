@@ -122,7 +122,7 @@ const UpcomingGames = () => {
 
   if (!upcomingGames) {
     return (
-      <div className="relative  xl:w-5/20 2xl:w-4/20 rounded p-3 h-235 bg-gray-300 dark:bg-stone-700 animate-pulse ">
+      <div className="relative  xl:w-5/20 2xl:w-4/20 rounded p-3 h-235 bg-stone-300 dark:bg-stone-700 animate-pulse ">
         {spinner}
       </div>
     );
