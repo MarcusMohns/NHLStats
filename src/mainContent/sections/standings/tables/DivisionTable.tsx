@@ -4,8 +4,8 @@ import { useCallback, useState, SetStateAction, Dispatch } from "react";
 import {
   reverseStandings,
   sortFunctions,
-} from "../../utility/sortFunctions.ts";
-import startViewTransitionWrapper from "../../utility/startViewTransitionWrapper.ts";
+} from "../../../../utility/sortFunctions.ts";
+import startViewTransitionWrapper from "../../../../utility/startViewTransitionWrapper.ts";
 
 type DivisionTablePropTypes = {
   central: TeamType[];

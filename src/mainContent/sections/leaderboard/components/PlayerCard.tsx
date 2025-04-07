@@ -1,6 +1,6 @@
 import { PlayerType } from "../Leaderboard";
-import ImageAndLoading from "../../utility/ImageAndLoading";
-import { linkOutIcon } from "../../../components/svgs";
+import ImageAndLoading from "../../../../utility/ImageAndLoading";
+import { linkOutIcon } from "../../../../svgs";
 
 const PlayerCard = ({ player }: { player: PlayerType }) => {
   return (

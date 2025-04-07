@@ -4,8 +4,8 @@ import { useState, useCallback, Dispatch, SetStateAction } from "react";
 import {
   reverseStandings,
   sortFunctions,
-} from "../../utility/sortFunctions.ts";
-import startViewTransitionWrapper from "../../utility/startViewTransitionWrapper.ts";
+} from "../../../../utility/sortFunctions.ts";
+import startViewTransitionWrapper from "../../../../utility/startViewTransitionWrapper.ts";
 
 type ConferenceTablePropTypes = {
   eastern: TeamType[];

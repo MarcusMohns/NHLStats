@@ -5,10 +5,10 @@ import ConferenceTable from "./tables/ConferenceTable.tsx";
 import DivisionTable from "./tables/DivisionTable.tsx";
 import WildCardTable from "./tables/WildCardTable.tsx";
 import TeamStatsModal from "./components/teamStatsModal/TeamStatsModal.tsx";
-import startViewTransitionWrapper from "../utility/startViewTransitionWrapper.ts";
+import startViewTransitionWrapper from "../../../utility/startViewTransitionWrapper.ts";
 import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
-import { spinner } from "../../components/svgs.tsx";
+import { spinner } from "../../../svgs.tsx";
 
 export type TeamType = {
   clinchIndicator?: string;
@@ -200,7 +200,7 @@ const Standings = () => {
   }
 
   return (
-    <section className="standings relative xl:w-15/20 2xl:w-10/20 2xl:mx-3 sm:p-3 2xl:border border-stone-300 dark:border-stone-600 rounded">
+    <section className="standings relative xl:w-15/20 2xl:w-10/20 2xl:mx-3 sm:p-3 2xl:border border-stone-300 dark:border-stone-600 rounded dark:border-none bg-stone-100 dark:bg-stone-900 h-max">
       {modal.open && modal.team && (
         <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
       )}

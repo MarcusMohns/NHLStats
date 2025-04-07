@@ -1,7 +1,7 @@
 import fetchPlayerLeaders from "../../api/fetchPlayerLeaders";
 import { useState, useEffect } from "react";
 import SelectTableButtons from "../../components/SelectTableButtons";
-import startViewTransitionWrapper from "../utility/startViewTransitionWrapper";
+import startViewTransitionWrapper from "../../../utility/startViewTransitionWrapper";
 import AssistLeaders from "./tables/AssistLeaders";
 import GoalLeaders from "./tables/GoalLeaders";
 import PointLeaders from "./tables/PointLeaders";
@@ -9,7 +9,7 @@ import ShutoutLeaders from "./tables/ShutoutLeaders";
 import SavePctgLeaders from "./tables/SavePctgLeaders";
 import GoalsAgainstAverageLeaders from "./tables/GoalsAgainstAverageLeaders";
 import ErrorWithBtn from "../../components/ErrorWithBtn";
-import { spinner } from "../../components/svgs";
+import { spinner } from "../../../svgs";
 
 export type PlayerType = {
   firstName: { default: string };
@@ -131,7 +131,7 @@ const Leaderboard = () => {
   }
 
   return (
-    <section className="leaderboard xl:w-20/20 2xl:w-5/20 h-max shadow-md rounded sm:p-3 2xl:border border-stone-300 dark:border-stone-600">
+    <section className="leaderboard xl:w-20/20 2xl:w-5/20 h-max shadow-md rounded sm:p-3 2xl:border border-stone-300 dark:border-stone-600 dark:border-stone-900 bg-stone-100 dark:bg-stone-900 ">
       <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl uppercase leading-tight tracking-wide">
         Leaderboard
       </h2>

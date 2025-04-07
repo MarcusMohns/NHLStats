@@ -1,10 +1,10 @@
 import { GoalieType } from "./TeamStatsModal";
-import { puck, linkOutIcon } from "../../../../components/svgs";
-import ImageAndLoading from "../../../utility/ImageAndLoading";
+import { puck, linkOutIcon } from "../../../../../svgs";
+import ImageAndLoading from "../../../../../utility/ImageAndLoading";
 
 const GoalieCard = ({ player }: { player: GoalieType }) => {
   return (
-    <div className="flex flex-row shadow-sm dark:bg-stone-800 rounded p-2 mt-2 w-full w-24 h-24">
+    <div className="flex flex-row shadow-sm bg-white dark:bg-stone-800 rounded p-2 mt-2 w-full w-24 h-24">
       <ImageAndLoading
         imgSrc={player.headshot}
         height="h-20"

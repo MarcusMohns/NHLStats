@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import fetchUpcomingGames from "../../api/fetchUpcomingGames";
 import ErrorWithBtn from "../../components/ErrorWithBtn";
 import { ErrorType } from "../standings/Standings";
-import { linkOutIcon, spinner } from "../../components/svgs";
+import { linkOutIcon, spinner } from "../../../svgs";
 type TeamType = {
   id: number;
   commonName: { default: string; [lang: string]: string };
@@ -129,7 +129,7 @@ const UpcomingGames = () => {
   }
 
   return (
-    <section className="upcoming-games xl:w-5/20 2xl:w-4/20 shadow-md rounded sm:p-3 h-max 2xl:border border-stone-300 dark:border-stone-600">
+    <section className="upcoming-games bg-stone-100 dark:bg-stone-900 xl:w-5/20 2xl:w-4/20 shadow-md rounded  sm:p-3 h-max  2xl:border border-stone-300 dark:border-stone-900 dark:border-stone-600">
       <h2 className="font-bold dark:text-stone-300 mt-5 py-1 px-1 text-2xl uppercase leading-tight tracking-wide">
         Upcoming Games
       </h2>

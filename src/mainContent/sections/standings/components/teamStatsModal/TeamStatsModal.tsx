@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { sortByPoints } from "../../../utility/sortFunctions";
+import { sortByPoints } from "../../../../../utility/sortFunctions";
 import { TeamType, ErrorType } from "../../Standings";
 import Modal from "../../../../components/Modal";
 import Chip from "../../../../components/Chip";

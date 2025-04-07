@@ -20,7 +20,7 @@ const Modal = ({ closeModal, children }: ModalType) => {
           className={`flex min-h-full items-center justify-center text-center`}
         >
           <div
-            className={`flex flex-col p-3 overflow-hidden sm:rounded-lg bg-white dark:bg-stone-900 shadow-2xl sm:w-full sm:max-w-lg`}
+            className={`flex flex-col p-3 overflow-hidden sm:rounded-lg bg-stone-100 dark:bg-stone-900 shadow-2xl sm:w-full sm:max-w-lg`}
             onClick={(e) => e.stopPropagation()}
           >
             <CloseButton onClick={closeModal} />

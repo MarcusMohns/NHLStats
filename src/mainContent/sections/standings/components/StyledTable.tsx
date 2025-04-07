@@ -43,7 +43,7 @@ const StyledTable = ({
             {headers.full.map((header, idx) => (
               <th
                 key={header}
-                className={`text-stone-400 dark:text-stone-300 text-center p-2 relative select-none ${
+                className={`text-gray-500 dark:text-stone-300 text-center p-2 relative select-none ${
                   header === "Last 10" ? "hidden md:table-cell" : ""
                 }`}
               >
@@ -63,7 +63,7 @@ const StyledTable = ({
                   ref={(el) => {
                     tooltipRefs.current[idx] = el;
                   }}
-                  className="sm:inherited 2xl:hidden bg-gray-802000 border border-gray-200 rounded-sm p-2 text-black m-auto"
+                  className="sm:inherited 2xl:hidden bg-gray-802000 border border-stone-200 rounded-sm p-2 text-black m-auto"
                 >
                   <p>{header}</p>
                 </dialog>

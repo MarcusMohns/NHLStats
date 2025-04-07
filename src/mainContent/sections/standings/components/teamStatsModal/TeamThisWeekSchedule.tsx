@@ -1,5 +1,5 @@
 import { GameType } from "./TeamStatsModal";
-import { linkOutIcon } from "../../../../components/svgs";
+import { linkOutIcon } from "../../../../../svgs";
 
 type TeamThisWeekScheduleProps = {
   game: GameType;
@@ -12,7 +12,7 @@ const TeamThisWeekSchedule = ({
 }: TeamThisWeekScheduleProps) => {
   return (
     <div
-      className={`flex flex-row shadow-md font-medium my-1 p-2 w-full
+      className={`flex flex-row shadow-md font-medium my-1 p-2 w-full bg-white dark:bg-stone-800
     ${
       game.gameOutcome &&
       game.homeTeam.score !== undefined &&

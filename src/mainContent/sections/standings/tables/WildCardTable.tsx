@@ -1,5 +1,8 @@
 import { TeamType } from "../Standings";
-import { reverseStandings, sortFunctions } from "../../utility/sortFunctions";
+import {
+  reverseStandings,
+  sortFunctions,
+} from "../../../../utility/sortFunctions";
 import {
   Dispatch,
   SetStateAction,
@@ -8,7 +11,7 @@ import {
   useMemo,
 } from "react";
 import StyledTable from "../components/StyledTable";
-import startViewTransitionWrapper from "../../utility/startViewTransitionWrapper";
+import startViewTransitionWrapper from "../../../../utility/startViewTransitionWrapper";
 
 type WildCardTablePropTypes = {
   central: TeamType[];

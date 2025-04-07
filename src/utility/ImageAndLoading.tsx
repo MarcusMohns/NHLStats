@@ -1,4 +1,4 @@
-import { spinner } from "../../components/svgs";
+import { spinner } from "../svgs";
 
 type ImageAndLoadingProps = {
   imgSrc: string;
