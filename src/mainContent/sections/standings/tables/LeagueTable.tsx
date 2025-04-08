@@ -11,7 +11,6 @@ type LeagueTablePropTypes = {
   league: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedTable: string;
-  handleOpenModal: (team: TeamType) => void;
 };
 type LeagueStateType = {
   standings: TeamType[];
@@ -21,7 +20,6 @@ const LeagueTable = ({
   league,
   headers,
   selectedTable,
-  handleOpenModal,
 }: LeagueTablePropTypes) => {
   const [leagueState, setLeagueState] = useState<LeagueStateType>({
     standings: league,
@@ -49,7 +47,6 @@ const LeagueTable = ({
       headers={headers}
       tableName={"League"}
       selectedTable={selectedTable}
-      handleOpenModal={handleOpenModal}
     />
   );
 };

@@ -4,7 +4,6 @@ import LeagueTable from "./tables/LeagueTable.tsx";
 import ConferenceTable from "./tables/ConferenceTable.tsx";
 import DivisionTable from "./tables/DivisionTable.tsx";
 import WildCardTable from "./tables/WildCardTable.tsx";
-import TeamStatsModal from "./components/teamStatsModal/TeamStatsModal.tsx";
 import startViewTransitionWrapper from "../../../utility/startViewTransitionWrapper.ts";
 import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
@@ -56,13 +55,7 @@ export type ErrorType = {
 const Standings = () => {
   const [standings, setStandings] = useState<StandingsType | null>(null);
   const [selectedTable, setSelectedTable] = useState<string>("League");
-  const [modal, setModal] = useState<{
-    open: boolean;
-    team: TeamType | null;
-  }>({
-    open: false,
-    team: null,
-  });
+
   const [error, setError] = useState<ErrorType>({
     error: false,
     text: "",
@@ -73,14 +66,6 @@ const Standings = () => {
   const handleSelectedTable = (standing: string) => {
     startViewTransitionWrapper(() => setSelectedTable(standing));
   };
-
-  const handleCloseModal = () => {
-    setModal((prevModal) => ({ ...prevModal, open: false }));
-  };
-  const handleOpenModal = (team: TeamType) =>
-    startViewTransitionWrapper(() =>
-      setModal({ open: true, team: { ...team } })
-    );
 
   const handleSetStandings = (standingsData: TeamType[]) => {
     setStandings(
@@ -182,7 +167,6 @@ const Standings = () => {
   };
 
   const standingsProps = {
-    handleOpenModal,
     headers,
     selectedTable,
   };
@@ -200,10 +184,7 @@ const Standings = () => {
   }
 
   return (
-    <section className="standings relative xl:w-15/20 2xl:w-10/20 2xl:mx-3 sm:p-3 2xl:border border-stone-300 dark:border-stone-600 rounded dark:border-none bg-stone-100 dark:bg-stone-900 h-max">
-      {modal.open && modal.team && (
-        <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
-      )}
+    <section className="standings relative xl:w-15/20 2xl:w-10/20 2xl:mx-3 sm:p-3 2xl:border border-stone-300 dark:border-stone-700 rounded bg-stone-100 dark:bg-stone-900 h-max">
       <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-4 text-2xl uppercase leading-tight tracking-wide">
         Standings
       </h1>

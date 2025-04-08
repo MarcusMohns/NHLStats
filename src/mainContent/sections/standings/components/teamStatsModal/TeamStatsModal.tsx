@@ -10,6 +10,7 @@ import TeamThisWeekSchedule from "./TeamThisWeekSchedule";
 import fetchThisWeeksGamesForTeam from "../../../../api/fetchThisWeeksGamesForTeam";
 import fetchTeam from "../../../../api/fetchTeam";
 import ErrorWithBtn from "../../../../components/ErrorWithBtn";
+import { linkOutIcon } from "../../../../../svgs";
 
 type ModalProps = {
   handleCloseModal: () => void;
@@ -213,8 +214,18 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
     <Modal closeModal={handleCloseModal}>
       {!error.error ? (
         <div>
-          <h1 className="text-2xl/7 font-bold  sm:truncate sm:text-3xl sm:tracking-tight">
+          <h1 className="flex flex-row align-center justify-center items-center text-2xl/7 font-bold sm:truncate sm:text-3xl sm:tracking-tight">
             {team.teamName.default}
+            <a
+              className="ml-3"
+              href={`https://www.nhl.com/${team.teamCommonName.default.replace(
+                /\s+/g,
+                ""
+              )}`}
+              target="_blank"
+            >
+              {linkOutIcon}
+            </a>
           </h1>
           <div className="m-2 flex flex-row p-2">
             <img

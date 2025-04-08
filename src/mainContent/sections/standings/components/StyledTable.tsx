@@ -1,5 +1,7 @@
 import type { TeamType } from "../Standings.tsx";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import TeamStatsModal from "./teamStatsModal/TeamStatsModal.tsx";
+import startViewTransitionWrapper from "../../../../utility/startViewTransitionWrapper.ts";
 
 type StyledTableProps = {
   standings: TeamType[];
@@ -11,7 +13,6 @@ type StyledTableProps = {
   headers: { full: string[]; abbreviated: string[] };
   tableName: string;
   selectedTable: string;
-  handleOpenModal: (team: TeamType) => void;
 };
 const StyledTable = ({
   standings,
@@ -19,7 +20,6 @@ const StyledTable = ({
   tableName,
   handleSort,
   selectedTable,
-  handleOpenModal,
 }: StyledTableProps) => {
   const tooltipRefs = useRef<Array<HTMLDialogElement | null>>([]);
   const toggleTooltip = (argument: string, idx: number) => {
@@ -29,9 +29,32 @@ const StyledTable = ({
         : tooltipRefs.current[idx].close();
     }
   };
+
+  const [modal, setModal] = useState<{
+    open: boolean;
+    team: TeamType | null;
+  }>({
+    open: false,
+    team: null,
+  });
+
+  const handleCloseModal = () => {
+    startViewTransitionWrapper(() =>
+      setModal((prevModal) => ({ ...prevModal, open: false }))
+    );
+  };
+  const handleOpenModal = (team: TeamType) =>
+    startViewTransitionWrapper(() =>
+      setModal({ open: true, team: { ...team } })
+    );
+
   return (
     <>
-      <h2 className="font-bold dark:text-stone-300 my-5 pt-3 px-1 text-xl uppercase leading-tight tracking-wide dark:border-stone-600">
+      {modal.open && modal.team && (
+        <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
+      )}
+
+      <h2 className="font-bold dark:text-stone-300 my-5 pt-3 px-1 text-xl uppercase leading-tight tracking-wide dark:border-stone-700">
         {tableName}
       </h2>
       <table

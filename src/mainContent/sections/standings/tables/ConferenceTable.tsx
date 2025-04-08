@@ -12,7 +12,6 @@ type ConferenceTablePropTypes = {
   western: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedTable: string;
-  handleOpenModal: (team: TeamType) => void;
 };
 
 type ConferenceStateType = {
@@ -25,7 +24,6 @@ const ConferenceTable = ({
   western,
   headers,
   selectedTable,
-  handleOpenModal,
 }: ConferenceTablePropTypes) => {
   const [easternState, setEasternState] = useState<ConferenceStateType>({
     standings: eastern,
@@ -68,7 +66,6 @@ const ConferenceTable = ({
     handleSort,
     headers,
     selectedTable,
-    handleOpenModal,
   };
 
   return (
