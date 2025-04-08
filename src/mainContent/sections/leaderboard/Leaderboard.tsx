@@ -124,14 +124,14 @@ const Leaderboard = () => {
 
   if (!leaderboards.loaded) {
     return (
-      <div className="relative xl:w-20/20 2xl:w-5/20 rounded p-3 h-235 bg-stone-300 2xl:border border-stone-300 dark:border-stone-600 dark:bg-stone-700 animate-pulse">
+      <div className="relative xl:w-20/20 2xl:w-5/20 rounded p-3 h-235 bg-stone-300 2xl:border border-stone-300 dark:border-stone-700 dark:bg-stone-700 animate-pulse">
         {spinner}
       </div>
     );
   }
 
   return (
-    <section className="leaderboard xl:w-20/20 2xl:w-5/20 h-max shadow-md rounded sm:p-3 2xl:border border-stone-300 dark:border-stone-600 dark:border-stone-900 bg-stone-100 dark:bg-stone-900 ">
+    <section className="leaderboard xl:w-20/20 2xl:w-5/20 h-max shadow-md rounded sm:p-3 2xl:border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-900 ">
       <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl uppercase leading-tight tracking-wide">
         Leaderboard
       </h2>
@@ -151,7 +151,7 @@ const Leaderboard = () => {
         selectedTable={selectedLeaderboard}
         handleSelectedTable={handleSelectedTable}
       />
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-700">
         {selectedLeaderboard}
       </h2>
 

@@ -27,7 +27,6 @@ type GameType = {
   venueTimezone: string;
   gameState: string;
   gameScheduleState: string;
-  // tvBroadcasts: Broadcast[];
   alternateBroadcasts?: {
     country: string;
     descriptions: { default: string }[];
@@ -129,7 +128,7 @@ const UpcomingGames = () => {
   }
 
   return (
-    <section className="upcoming-games bg-stone-100 dark:bg-stone-900 xl:w-5/20 2xl:w-4/20 shadow-md rounded  sm:p-3 h-max  2xl:border border-stone-300 dark:border-stone-900 dark:border-stone-600">
+    <section className="upcoming-games bg-stone-100 dark:bg-stone-900 xl:w-5/20 2xl:w-4/20 shadow-md rounded  sm:p-3 h-max 2xl:border border-stone-300 dark:border-stone-700">
       <h2 className="font-bold dark:text-stone-300 mt-5 py-1 px-1 text-2xl uppercase leading-tight tracking-wide">
         Upcoming Games
       </h2>
@@ -155,9 +154,10 @@ const UpcomingGames = () => {
                 {weekday !== lastRenderedWeekday && (
                   // Since New Date recalculates time and sometimes day we can't use the Weekday provided in API
                   // check weekDay instead and render a H2 if it's a different day from last iteration
-                  <div className="flex text-lg flex-row w-full mt-4 py-2 font-bold dark:text-stone-300 uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-600">
+
+                  <div className="flex text-lg flex-row w-full mt-4 py-2 font-bold dark:text-stone-300 uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-700">
                     <h2 className="px-2 sm:px-0">
-                      {(lastRenderedWeekday = weekday)}
+                      {locale} {(lastRenderedWeekday = weekday)}
                     </h2>
                     <p className="flex text-center align-end justify-end">
                       ({date.getDate()}/{date.getMonth() + 1}/
