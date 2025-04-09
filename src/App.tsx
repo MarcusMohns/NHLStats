@@ -3,22 +3,24 @@ import Navbar from "./Navbar.tsx";
 import Footer from "./Footer.tsx";
 import { useState } from "react";
 import startViewTransitionWrapper from "./utility/startViewTransitionWrapper.ts";
-function App() {
-  const darkThemeMediaQuery = localStorage.getItem("darkMode")
-    ? localStorage.getItem("darkMode") === "true"
-      ? true
-      : false
-    : window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-  const [darkMode, setDarkMode] = useState<boolean>(darkThemeMediaQuery);
-  const handleDarkModeChange = () => {
-    localStorage.setItem("darkMode", JSON.stringify(!darkMode));
-    startViewTransitionWrapper(() => setDarkMode((prevState) => !prevState));
+function App() {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    const storedDarkMode = localStorage.getItem("darkMode");
+    return storedDarkMode
+      ? JSON.parse(storedDarkMode)
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+
+  const toggleDarkMode = () => {
+    const newDarkModeState = !isDarkMode;
+    localStorage.setItem("darkMode", JSON.stringify(newDarkModeState));
+    startViewTransitionWrapper(() => setIsDarkMode(newDarkModeState));
   };
 
   return (
-    <div className={`main-content ${darkMode && "dark"}`}>
-      <Navbar darkMode={darkMode} handleDarkModeChange={handleDarkModeChange} />
+    <div className={`main-content ${isDarkMode ? "dark" : ""}`}>
+      <Navbar darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <MainContent />
       <Footer />
     </div>
