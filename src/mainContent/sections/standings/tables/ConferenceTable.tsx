@@ -1,4 +1,4 @@
-import type { TeamType } from "../Standings.tsx";
+import type { TeamType } from "../store.tsx";
 import StyledTable from "../components/StyledTable.tsx";
 import { useState, useCallback, Dispatch, SetStateAction } from "react";
 import {
@@ -37,10 +37,12 @@ const ConferenceTable = ({
   const handleSort = useCallback(
     (oldStandings: TeamType[], sortBy: string, argument: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
+      // Sort newStandings by sortBy argument
       let stateSetter:
         | Dispatch<SetStateAction<ConferenceStateType>>
         | undefined;
       switch (argument) {
+        // Set which state is to be updated
         case "Western":
           stateSetter = setWesternState;
           break;
@@ -52,6 +54,7 @@ const ConferenceTable = ({
       }
 
       startViewTransitionWrapper(() =>
+        // Set selected state to the new sorted standings
         stateSetter((prevState) =>
           prevState.sortedBy === sortBy
             ? reverseStandings(prevState)

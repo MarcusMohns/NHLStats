@@ -1,5 +1,9 @@
-import { ErrorType } from "../standings/Standings";
-
+export type ErrorType = {
+  error: boolean;
+  text: string;
+  message: string;
+  name: string;
+};
 export type LeaderBoardsType = {
   Goals: PlayerType[];
   Assists: PlayerType[];

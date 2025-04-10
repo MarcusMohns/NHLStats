@@ -1,4 +1,4 @@
-import { linkOutIcon } from "../../../../svgs";
+import LinkOut from "../../../components/LinkOut";
 
 type MatchupProps = {
   homeTeamAbbrev: string;
@@ -32,13 +32,10 @@ const Matchup = ({
         <img className="w-8 h-8 hidden dark:block" src={homeTeamDarkLogo} />
         {homeTeamAbbrev}
       </p>
-      <a
-        href={`https://www.nhl.com${gameCenterLink}`}
-        className="flex items-center h-full"
-        target="_blank"
-      >
-        {linkOutIcon}
-      </a>
+      <LinkOut
+        linkOutStyles="flex items-center h-full"
+        hrefString={`https://www.nhl.com${gameCenterLink}`}
+      />
     </div>
   );
 };

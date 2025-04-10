@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import ErrorWithBtn from "../../components/ErrorWithBtn";
-import { ErrorType } from "../standings/Standings";
+import { ErrorType } from "../standings/store";
 import { spinner } from "../../../svgs";
 import { fetchUpcomingGames } from "./store";
 import { GameWeek } from "./store";
@@ -59,7 +59,7 @@ const UpcomingGames = () => {
 
   return (
     <section className="upcoming-games bg-stone-100 dark:bg-stone-900 xl:w-5/20 2xl:w-4/20 shadow-md rounded  sm:p-3 h-max 2xl:border border-stone-300 dark:border-stone-700">
-      <h2 className="font-bold dark:text-stone-300 mt-5 py-1 px-1 text-2xl uppercase leading-tight tracking-wide">
+      <h2 className="font-bold dark:text-stone-300 mt-5 py-1 px-1 text-2xl uppercase leading-tight tracking-wide select-none">
         Upcoming Games
       </h2>
       <GameList upcomingGames={upcomingGames} locale={locale} />

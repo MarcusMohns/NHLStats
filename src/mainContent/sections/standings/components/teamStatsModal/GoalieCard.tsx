@@ -1,6 +1,7 @@
-import { GoalieType } from "./TeamStatsModal";
-import { puck, linkOutIcon } from "../../../../../svgs";
+import { GoalieType } from "./store";
+import { puck } from "../../../../../svgs";
 import ImageAndLoading from "../../../../../utility/ImageAndLoading";
+import LinkOut from "../../../../components/LinkOut";
 
 const GoalieCard = ({ player }: { player: GoalieType }) => {
   return (
@@ -18,13 +19,11 @@ const GoalieCard = ({ player }: { player: GoalieType }) => {
           <p className="ml-auto pl-6">
             {player.firstName.default} {player.lastName.default}
           </p>
-          <a
-            className="ml-auto w-6"
-            href={` https://www.nhl.com/player/${player.playerId}`}
-            target="_blank"
-          >
-            {linkOutIcon}
-          </a>
+
+          <LinkOut
+            linkOutStyles="ml-auto w-6"
+            hrefString={` https://www.nhl.com/player/${player.playerId}`}
+          />
         </div>
         <div className="grid grid-flow-col grid-rows-2 gap-1 font-medium">
           <div className="flex flex-row items-center justify-start text-start sm:mx-3">

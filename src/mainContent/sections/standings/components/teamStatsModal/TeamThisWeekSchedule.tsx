@@ -1,5 +1,6 @@
 import { GameType } from "./TeamStatsModal";
-import { linkOutIcon } from "../../../../../svgs";
+import LinkOut from "../../../../components/LinkOut";
+import LiveChip from "../../../../components/LiveChip";
 
 type TeamThisWeekScheduleProps = {
   game: GameType;
@@ -29,16 +30,7 @@ const TeamThisWeekSchedule = ({
     `}
     >
       {game.gameState === "LIVE" ? (
-        <div className="flex flex-row items-center p-1 px-2 rounded-full bg-green-700 hover:bg-green-600">
-          <a
-            className="text-white underline ml-auto flex flex-row text-xs items-center"
-            href={`https://www.nhl.com${game.gameCenterLink}`}
-            target="_blank"
-          >
-            Live
-          </a>
-          <span className="rounded-full bg-red-500 w-3 h-3 ml-1 animate-pulse block" />
-        </div>
+        <LiveChip gameCenterLink={game.gameCenterLink} />
       ) : (
         <p className="date self-start min-w-25">{game.gameDate}</p>
       )}
@@ -79,13 +71,10 @@ const TeamThisWeekSchedule = ({
       </div>
 
       {game.gameCenterLink && (
-        <a
-          className="ml-auto"
-          href={`https://www.nhl.com${game.gameCenterLink}`}
-          target="_blank"
-        >
-          {linkOutIcon}
-        </a>
+        <LinkOut
+          linkOutStyles="ml-auto"
+          hrefString={`https://www.nhl.com${game.gameCenterLink}`}
+        />
       )}
     </div>
   );

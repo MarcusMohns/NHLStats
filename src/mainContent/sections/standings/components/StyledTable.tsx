@@ -1,4 +1,4 @@
-import type { TeamType } from "../Standings.tsx";
+import { TeamType } from "../store.tsx";
 import { useRef, useState } from "react";
 import TeamStatsModal from "./teamStatsModal/TeamStatsModal.tsx";
 import startViewTransitionWrapper from "../../../../utility/startViewTransitionWrapper.ts";
@@ -54,7 +54,7 @@ const StyledTable = ({
         <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
       )}
 
-      <h2 className="font-bold dark:text-stone-300 my-5 pt-3 px-1 text-xl uppercase leading-tight tracking-wide dark:border-stone-700">
+      <h2 className="font-bold dark:text-stone-300 my-5 pt-3 px-1 text-xl uppercase leading-tight tracking-wide select-none dark:border-stone-700">
         {tableName}
       </h2>
       <table
@@ -132,10 +132,10 @@ const StyledTable = ({
                 <p className="sm:block md:hidden text-center">
                   {team.teamCommonName.default}
                 </p>
-                {team.clinchIndicator === "x"
-                  ? "✔️"
-                  : team.clinchIndicator === "e"
-                  ? "❌"
+                {team.clinchIndicator
+                  ? team.clinchIndicator === "e"
+                    ? "❌"
+                    : "✔️"
                   : ""}
               </th>
               <td className="text-center">{team.points}</td>

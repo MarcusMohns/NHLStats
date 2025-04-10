@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import fetchStandings from "../../api/fetchStandings.ts";
+import { useState, useEffect, useCallback } from "react";
 import LeagueTable from "./tables/LeagueTable.tsx";
 import ConferenceTable from "./tables/ConferenceTable.tsx";
 import DivisionTable from "./tables/DivisionTable.tsx";
@@ -8,54 +7,12 @@ import startViewTransitionWrapper from "../../../utility/startViewTransitionWrap
 import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
 import { spinner } from "../../../svgs.tsx";
-
-export type TeamType = {
-  clinchIndicator?: string;
-  rank: number;
-  teamName: { default: string };
-  teamAbbrev: { default: string };
-  teamCommonName: { default: string };
-  teamLogo: string;
-  teamLogoDark: string;
-  points: number;
-  gamesPlayed: number;
-  wins: number;
-  losses: number;
-  otLosses: number;
-  goalDifferential: number;
-  l10Wins: number;
-  l10Losses: number;
-  l10OtLosses: number;
-  streakCode: string;
-  streakCount: number;
-  conferenceName: string;
-  divisionName: string;
-  wildCardSequence: number;
-  winPctg: number;
-};
-
-type StandingsType = {
-  [key: string]: TeamType[];
-  League: TeamType[];
-  Western: TeamType[];
-  Eastern: TeamType[];
-  Central: TeamType[];
-  Atlantic: TeamType[];
-  Metropolitan: TeamType[];
-  Pacific: TeamType[];
-};
-
-export type ErrorType = {
-  error: boolean;
-  text: string;
-  message: string;
-  name: string;
-};
+import { StandingsType, ErrorType, headers } from "./store";
+import fetchStandings from "./store";
 
 const Standings = () => {
   const [standings, setStandings] = useState<StandingsType | null>(null);
   const [selectedTable, setSelectedTable] = useState<string>("League");
-
   const [error, setError] = useState<ErrorType>({
     error: false,
     text: "",
@@ -63,116 +20,26 @@ const Standings = () => {
     name: "",
   });
 
+  const handleSetStandings = useCallback(
+    (data: StandingsType) => setStandings(data),
+    []
+  );
   const handleSelectedTable = (standing: string) => {
     startViewTransitionWrapper(() => setSelectedTable(standing));
   };
-
-  const handleSetStandings = (standingsData: TeamType[]) => {
-    setStandings(
-      standingsData.reduce(
-        // Add the teams into correct League, Conference and Division - then set to state
-        (acc: StandingsType, team: TeamType) => {
-          try {
-            const teamLogoDark = `https://assets.nhle.com/logos/nhl/svg/${team.teamAbbrev.default}_dark.svg`;
-            const teamAndDarkLogo = { ...team, teamLogoDark };
-            // Dark Logo is missing from the API call for some reason, add it manually for now.
-            acc.League.push({
-              ...teamAndDarkLogo,
-              rank: acc.League.length + 1,
-            });
-            acc[team.conferenceName].push({
-              ...teamAndDarkLogo,
-              rank: acc[team.conferenceName].length + 1,
-            });
-            acc[team.divisionName].push({
-              ...teamAndDarkLogo,
-              rank: acc[team.divisionName].length + 1,
-            });
-            return acc;
-          } catch (e: unknown) {
-            console.error(e);
-            !error.error &&
-              setError({
-                error: true,
-                text: "Something went wrong displaying standings 🙁",
-                message: "Unexpected error in reduce function",
-                name: "FetchAndSetStandings",
-              });
-            throw e;
-          }
-        },
-        {
-          League: [],
-          Western: [],
-          Eastern: [],
-          Central: [],
-          Atlantic: [],
-          Metropolitan: [],
-          Pacific: [],
-        }
-      )
-    );
-  };
-
-  const fetchAndSetStandings = async () => {
-    try {
-      const standingsData = await fetchStandings();
-      if (!standingsData) {
-        throw new Error("No standings data");
-      } else {
-        handleSetStandings(standingsData);
-        setError({ error: false, text: "", message: "", name: "" });
-      }
-    } catch (e) {
-      !error.error &&
-        setError({
-          error: true,
-          text: "Something went wrong setting standings 🙁",
-          message: (e as Error).message,
-          name: "FetchAndSetStandings",
-        });
-      throw e;
-    }
-  };
+  const handleSetError = useCallback((e: ErrorType) => setError(e), []);
 
   useEffect(() => {
-    fetchAndSetStandings();
+    fetchStandings(handleSetStandings, handleSetError, error);
   }, []);
 
-  const headers = {
-    full: [
-      "Rank",
-      "Team",
-      "Points",
-      "Games Played",
-      "Wins",
-      "Losses",
-      "OT Losses",
-      "Goal Difference",
-      "Last 10",
-      "Streak",
-    ],
-    abbreviated: [
-      "R",
-      "Team",
-      "Pts",
-      "GP",
-      "W",
-      "L",
-      "OTL",
-      "GD",
-      "L10",
-      "STK",
-    ],
-  };
-
-  const standingsProps = {
-    headers,
-    selectedTable,
-  };
-
   if (error.error)
-    return <ErrorWithBtn action={fetchAndSetStandings} error={error} />;
+    return (
+      <ErrorWithBtn
+        action={() => fetchStandings(handleSetStandings, handleSetError, error)}
+        error={error}
+      />
+    );
 
   if (!standings) {
     // 'loading'
@@ -182,10 +49,13 @@ const Standings = () => {
       </div>
     );
   }
-
+  const standingsProps = {
+    headers,
+    selectedTable,
+  };
   return (
     <section className="standings relative xl:w-15/20 2xl:w-10/20 2xl:mx-3 sm:p-3 2xl:border border-stone-300 dark:border-stone-700 rounded bg-stone-100 dark:bg-stone-900 h-max">
-      <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-4 text-2xl uppercase leading-tight tracking-wide">
+      <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-4 text-2xl uppercase leading-tight tracking-wide select-none">
         Standings
       </h1>
       <SelectTableButtons

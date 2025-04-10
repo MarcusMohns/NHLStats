@@ -1,4 +1,4 @@
-import type { TeamType } from "../Standings.tsx";
+import type { TeamType } from "../store.tsx";
 import StyledTable from "../components/StyledTable.tsx";
 import { useCallback, useState, SetStateAction, Dispatch } from "react";
 import {
@@ -51,8 +51,10 @@ const DivisionTable = ({
   const handleSort = useCallback(
     (oldStandings: TeamType[], sortBy: string, argument: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
+      // Sort newStandings by sortBy argument
       let stateSetter: Dispatch<SetStateAction<DivisionStateType>> | undefined;
       switch (argument) {
+        // Set which state is to be updated
         case "Central":
           stateSetter = setCentralState;
           break;
@@ -69,6 +71,7 @@ const DivisionTable = ({
           throw new Error(`Invalid argument: ${argument}`);
       }
       startViewTransitionWrapper(() =>
+        // Set selected state to the new sorted standings
         stateSetter((prevState) =>
           prevState.sortedBy === sortBy
             ? reverseStandings(prevState)

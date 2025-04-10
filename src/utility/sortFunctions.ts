@@ -1,36 +1,4 @@
-import { TeamType } from "../standings/Standings";
-
-export const sortByGamesPlayed = (standings: TeamType[]) =>
-  standings.toSorted(
-    (a: TeamType, b: TeamType) => b.gamesPlayed - a.gamesPlayed
-  );
-export const sortByRank = (standings: TeamType[]) =>
-  standings.toSorted((a: TeamType, b: TeamType) => b.rank - a.rank);
-
-export const sortByTeamName = (standings: TeamType[]) => {
-  return standings.toSorted((a: TeamType, b: TeamType) =>
-    a.teamName.default.localeCompare(b.teamName.default)
-  );
-};
-
-export const sortByPoints = (standings: TeamType[] | any[]) =>
-  standings.toSorted((a: TeamType, b: TeamType) => b.points - a.points);
-export const sortByWins = (standings: TeamType[]) =>
-  standings.toSorted((a: TeamType, b: TeamType) => b.wins - a.wins);
-
-export const sortByLosses = (standings: TeamType[]) =>
-  standings.toSorted((a: TeamType, b: TeamType) => b.losses - a.losses);
-
-export const sortByOTLosses = (standings: TeamType[]) =>
-  standings.toSorted((a: TeamType, b: TeamType) => b.otLosses - a.otLosses);
-
-export const sortByGoalDifferential = (standings: TeamType[]) =>
-  standings.toSorted(
-    (a: TeamType, b: TeamType) => b.goalDifferential - a.goalDifferential
-  );
-
-export const sortByLast10 = (standings: TeamType[]) =>
-  standings.toSorted((a: TeamType, b: TeamType) => b.l10Wins - a.l10Wins);
+import { TeamType } from "../mainContent/sections/standings/store";
 
 export const sortByStreak = (standings: TeamType[]) =>
   standings.toSorted((a: TeamType, b: TeamType) => {
@@ -77,14 +45,21 @@ export const reverseStandings = (state: {
 export const sortFunctions: {
   [key: string]: (standings: TeamType[]) => TeamType[];
 } = {
-  Rank: sortByRank,
-  Team: sortByTeamName,
-  "Games Played": sortByGamesPlayed,
-  Points: sortByPoints,
-  Wins: sortByWins,
-  Losses: sortByLosses,
-  "OT Losses": sortByOTLosses,
-  "Goal Difference": sortByGoalDifferential,
-  "Last 10": sortByLast10,
-  Streak: sortByStreak,
+  // All the sort functions for our standings - called by running sortFunctions[key](standings)
+  Team: (standings) =>
+    standings.toSorted((a, b) =>
+      a.teamName.default.localeCompare(b.teamName.default)
+    ),
+  Rank: (standings) => standings.toSorted((a, b) => b.rank - a.rank),
+  "Games Played": (standings) =>
+    standings.toSorted((a, b) => b.gamesPlayed - a.gamesPlayed),
+  Points: (standings) => standings.toSorted((a, b) => b.points - a.points),
+  Wins: (standings) => standings.toSorted((a, b) => b.wins - a.wins),
+  Losses: (standings) => standings.toSorted((a, b) => b.losses - a.losses),
+  "OT Losses": (standings) =>
+    standings.toSorted((a, b) => b.otLosses - a.otLosses),
+  "Goal Difference": (standings) =>
+    standings.toSorted((a, b) => b.goalDifferential - a.goalDifferential),
+  "Last 10": (standings) => standings.toSorted((a, b) => b.l10Wins - a.l10Wins),
+  Streak: (standings) => sortByStreak(standings),
 };

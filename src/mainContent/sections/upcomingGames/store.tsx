@@ -1,5 +1,3 @@
-import { ErrorType } from "../standings/Standings";
-
 export type TeamType = {
   id: number;
   commonName: { default: string; [lang: string]: string };
@@ -10,6 +8,13 @@ export type TeamType = {
   darkLogo: string;
   awaySplitSquad: boolean;
   score?: number;
+};
+
+export type ErrorType = {
+  error: boolean;
+  text: string;
+  message: string;
+  name: string;
 };
 
 export type GameType = {

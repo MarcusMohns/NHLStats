@@ -4,9 +4,7 @@ import startViewTransitionWrapper from "../../../utility/startViewTransitionWrap
 import ErrorWithBtn from "../../components/ErrorWithBtn";
 import { spinner } from "../../../svgs";
 import PlayerCardList from "./components/PlayerCardList";
-import { fetchLeaders } from "./store";
-import { ErrorType } from "../standings/Standings";
-import { LeaderBoardsType } from "./store";
+import { LeaderBoardsType, ErrorType, fetchLeaders } from "./store";
 
 const Leaderboard = () => {
   const [leaderboards, setLeaderboards] = useState<LeaderBoardsType>({
@@ -63,10 +61,10 @@ const Leaderboard = () => {
   }
   return (
     <section className="leaderboard xl:w-20/20 2xl:w-5/20 h-max shadow-md rounded sm:p-3 2xl:border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-900 ">
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl uppercase leading-tight tracking-wide">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl uppercase leading-tight tracking-wide select-none">
         Leaderboard
       </h2>
-      <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5">
+      <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5 select-none">
         Skaters
       </h3>
       <SelectTableButtons
@@ -74,7 +72,7 @@ const Leaderboard = () => {
         selectedTable={selectedLeaderboard}
         handleSelectedTable={handleSelectedTable}
       />
-      <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5">
+      <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5 select-none">
         Goalies
       </h3>
       <SelectTableButtons
@@ -82,7 +80,7 @@ const Leaderboard = () => {
         selectedTable={selectedLeaderboard}
         handleSelectedTable={handleSelectedTable}
       />
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-700">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         {selectedLeaderboard}
       </h2>
       <PlayerCardList

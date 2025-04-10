@@ -26,7 +26,7 @@ const Game = ({
         // Since New Date recalculates time and day based on users timezone we won't be able to use the Weekday provided in API
         // check weekDay and our Ref to see if it's a new day
 
-        <div className="flex text-lg flex-row w-full mt-4 py-2 font-bold dark:text-stone-300 uppercase leading-tight tracking-wide border-b border-gray-300 dark:border-stone-700">
+        <div className="flex text-lg flex-row w-full mt-4 py-2 font-bold dark:text-stone-300 uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
           <h2 className="px-2 sm:px-0">
             {locale} {handlePrevWeekDay(weekDay)}
             {/* //   Set Ref to so we can compare it to weekDay next iteration (also returns weekDay)*/}

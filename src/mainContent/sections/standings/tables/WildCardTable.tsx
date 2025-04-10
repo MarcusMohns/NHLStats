@@ -1,4 +1,4 @@
-import { TeamType } from "../Standings";
+import type { TeamType } from "../store.tsx";
 import {
   reverseStandings,
   sortFunctions,
@@ -97,8 +97,10 @@ const WildCardTable = ({
   const handleSort = useCallback(
     (oldStandings: TeamType[], sortBy: string, argument: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
+      // Sort newStandings by sortBy argument
       let stateSetter: Dispatch<SetStateAction<WildCardStateType>> | undefined;
       switch (argument) {
+        // Set which state is to be updated
         case "Central":
           stateSetter = setQualifiedCentral;
           break;
@@ -121,6 +123,7 @@ const WildCardTable = ({
           throw new Error(`Invalid argument: ${argument}`);
       }
       startViewTransitionWrapper(() =>
+        // Set selected state to the new sorted standings
         stateSetter((prevState) =>
           prevState.sortedBy === sortBy
             ? reverseStandings(prevState)

@@ -1,6 +1,6 @@
-import { PlayerType } from "../Leaderboard";
+import { PlayerType } from "../store";
 import ImageAndLoading from "../../../../utility/ImageAndLoading";
-import { linkOutIcon } from "../../../../svgs";
+import LinkOut from "../../../components/LinkOut";
 
 const PlayerCard = ({ player }: { player: PlayerType }) => {
   return (
@@ -19,13 +19,10 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
 
             <p className="flex items-center font-bold text-xl xl:text-lg mx-2">
               {player.firstName.default} {player.lastName.default}
-              <a
-                className="ml-2 w-6"
-                href={` https://www.nhl.com/player/${player.id}`}
-                target="_blank"
-              >
-                {linkOutIcon}
-              </a>
+              <LinkOut
+                linkOutStyles="ml-2 w-6"
+                hrefString={` https://www.nhl.com/player/${player.id}`}
+              />
             </p>
           </div>
           <div className="flex flex-col items-center ml-auto text-lg">

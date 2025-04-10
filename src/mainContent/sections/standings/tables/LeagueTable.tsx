@@ -1,4 +1,4 @@
-import type { TeamType } from "../Standings.tsx";
+import type { TeamType } from "../store.tsx";
 import StyledTable from "../components/StyledTable.tsx";
 import { useState, useCallback } from "react";
 import {
