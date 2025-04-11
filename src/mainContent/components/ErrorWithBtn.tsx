@@ -1,5 +1,5 @@
 import Alert from "./Alert";
-import { ErrorType } from "../sections/standings/Standings";
+import { ErrorType } from "../sections/standings/store";
 import { useState } from "react";
 
 const ErrorWithBtn = ({

@@ -1,4 +1,4 @@
-import { GameType } from "./TeamStatsModal";
+import { GameType } from "./store";
 import LinkOut from "../../../../components/LinkOut";
 import LiveChip from "../../../../components/LiveChip";
 

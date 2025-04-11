@@ -14,7 +14,6 @@ export const sortByStreak = (standings: TeamType[]) =>
           return -1;
       }
     };
-
     const primarySort =
       streakPriority(b.streakCode) - streakPriority(a.streakCode);
     // first, sort by the type of streak (winning, overtime, losing, or none)
