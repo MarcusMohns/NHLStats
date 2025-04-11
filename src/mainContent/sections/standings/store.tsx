@@ -42,10 +42,12 @@ export type ErrorType = {
 };
 
 const fetchStandingsData = async () => {
-  const url = "https://api-web.nhle.com/v1/standings/now";
+  const standingsUrl =
+    "https://corsproxy.io/?url=https://api-web.nhle.com/v1/standings/now";
+  // Run it by https://corsproxy.io/ to bypass CORS
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(standingsUrl);
     const data = await response.json();
     return data.standings;
   } catch (e: unknown) {

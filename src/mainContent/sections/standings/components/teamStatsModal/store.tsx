@@ -158,8 +158,9 @@ export const fetchTeamsAndGames = async (
   handleSetError: (error: ErrorType) => void,
   team: TeamType
 ) => {
-  const teamUrl = `https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/now`;
-  const gamesUrl = `https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`;
+  const teamUrl = `https://corsproxy.io/?url=https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/now`;
+  const gamesUrl = `https://corsproxy.io/?url=https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`;
+  // Run both by https://corsproxy.io/ to bypass CORS
   try {
     const teamData = await fetchData(teamUrl);
     const gamesThisWeekData = await fetchData(gamesUrl);

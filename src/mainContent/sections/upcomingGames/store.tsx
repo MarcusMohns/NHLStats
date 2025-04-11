@@ -78,7 +78,9 @@ export const weekDays = [
 ];
 
 const fetchUpcomingGamesData = async () => {
-  const upcomingGamesUrl = `https://api-web.nhle.com/v1/schedule/now`;
+  const upcomingGamesUrl =
+    // Run it by https://corsproxy.io/ to bypass CORS
+    "https://corsproxy.io/?url=https://api-web.nhle.com/v1/schedule/now";
 
   try {
     const response = await fetch(upcomingGamesUrl);
