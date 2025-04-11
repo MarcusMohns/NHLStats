@@ -9,7 +9,9 @@ function App() {
     const storedDarkMode = localStorage.getItem("darkMode");
     return storedDarkMode
       ? JSON.parse(storedDarkMode)
-      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      : // If theres a stored boolean for dark mode use it
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+    // Otherwise use the system preference
   });
 
   const toggleDarkMode = () => {

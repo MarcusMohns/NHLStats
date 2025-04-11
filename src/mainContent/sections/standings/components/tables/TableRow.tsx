@@ -1,4 +1,4 @@
-import { TeamType } from "../store";
+import { TeamType } from "../../store";
 
 type TableRowProps = {
   team: TeamType;

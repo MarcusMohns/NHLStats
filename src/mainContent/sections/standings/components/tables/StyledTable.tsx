@@ -1,7 +1,7 @@
-import { TeamType } from "../store.tsx";
 import { useRef, useState } from "react";
-import TeamStatsModal from "./teamStatsModal/TeamStatsModal.tsx";
-import startViewTransitionWrapper from "../../../../utility/startViewTransitionWrapper.ts";
+import { TeamType } from "../../store.tsx";
+import TeamStatsModal from "../teamStatsModal/TeamStatsModal.tsx";
+import startViewTransitionWrapper from "../../../../../utility/startViewTransitionWrapper.ts";
 import TableRow from "./TableRow.tsx";
 import TableHeader from "./TableHeader.tsx";
 

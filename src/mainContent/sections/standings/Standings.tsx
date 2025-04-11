@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import LeagueTable from "./tables/LeagueTable.tsx";
-import ConferenceTable from "./tables/ConferenceTable.tsx";
-import DivisionTable from "./tables/DivisionTable.tsx";
-import WildCardTable from "./tables/WildCardTable.tsx";
+import LeagueTable from "./components/tables/LeagueTable.tsx";
+import ConferenceTable from "./components/tables/ConferenceTable.tsx";
+import DivisionTable from "./components/tables/DivisionTable.tsx";
+import WildCardTable from "./components/tables/WildCardTable.tsx";
 import startViewTransitionWrapper from "../../../utility/startViewTransitionWrapper.ts";
 import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";

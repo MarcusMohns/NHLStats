@@ -15,6 +15,7 @@ const TeamThisWeekSchedule = ({
     <div
       className={`flex flex-row shadow-md font-medium my-1 p-2 w-full bg-white dark:bg-stone-800
     ${
+      // Set the background color based on the outcome of the game
       game.gameOutcome &&
       game.homeTeam.score !== undefined &&
       game.awayTeam.score !== undefined

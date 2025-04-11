@@ -1,11 +1,11 @@
-import type { TeamType } from "../store.tsx";
-import StyledTable from "../components/StyledTable.tsx";
+import type { TeamType } from "../../store.tsx";
+import StyledTable from "./StyledTable.tsx";
 import { useCallback, useState, SetStateAction, Dispatch } from "react";
 import {
   reverseStandings,
   sortFunctions,
-} from "../../../../utility/sortFunctions.ts";
-import startViewTransitionWrapper from "../../../../utility/startViewTransitionWrapper.ts";
+} from "../../../../../utility/sortFunctions.ts";
+import startViewTransitionWrapper from "../../../../../utility/startViewTransitionWrapper.ts";
 
 type DivisionTablePropTypes = {
   central: TeamType[];

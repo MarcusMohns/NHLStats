@@ -1,5 +1,5 @@
 import React from "react";
-import { TeamType } from "../store";
+import { TeamType } from "../../store";
 
 type TableHeaderProps = {
   header: string;
