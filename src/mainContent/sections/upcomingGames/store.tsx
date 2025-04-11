@@ -108,9 +108,9 @@ export const fetchUpcomingGames = async (
     !error.error &&
       handleSetError({
         error: true,
-        text: "Something went wrong setting Upcoming Games 🙁",
+        text: "Something went wrong fetching Upcoming Games data 🙁",
         message: (e as Error).message,
-        name: "handleSetUpcomingGames",
+        name: "fetchUpcomingGames",
       });
     throw e;
   }

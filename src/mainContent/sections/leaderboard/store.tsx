@@ -95,9 +95,9 @@ export const fetchLeaders = async (
     !error.error &&
       setError({
         error: true,
-        text: "Something went wrong 🙁",
+        text: "Something went wrong fetching leaderboard data🙁",
         message: (e as Error).message,
-        name: "fetchAndSetLeaders",
+        name: "fetchLeaders",
       });
   }
 };

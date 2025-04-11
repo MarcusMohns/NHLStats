@@ -104,7 +104,7 @@ export const fetchStandings = async (
     !error.error &&
       setError({
         error: true,
-        text: "Something went wrong setting standings 🙁",
+        text: "Something went wrong fetching standings data 🙁",
         message: (e as Error).message,
         name: "fetchStandings",
       });
