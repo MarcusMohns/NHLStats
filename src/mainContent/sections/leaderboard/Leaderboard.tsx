@@ -26,9 +26,9 @@ const Leaderboard = () => {
     name: "",
   });
 
-  const handleSelectedTable = (standing: string) => {
+  const handleSelectedTable = useCallback((standing: string) => {
     startViewTransitionWrapper(() => setSelectedLeaderboard(standing));
-  };
+  }, []);
 
   const handleSetLeaderboards = useCallback(
     (data: LeaderBoardsType) => setLeaderboards(data),
@@ -54,13 +54,13 @@ const Leaderboard = () => {
   if (!leaderboards.Points.length) {
     // loading
     return (
-      <div className="relative xl:w-20/20 2xl:w-5/20 rounded p-3 h-235 bg-stone-300 2xl:border border-stone-300 dark:border-stone-700 dark:bg-stone-700 animate-pulse">
+      <div className="relative w-full h-271.25 sm:w-125 shadow-md rounded sm:p-3 2xl:mb-5 bg-stone-100 dark:bg-stone-900 animate-pulse">
         {spinner}
       </div>
     );
   }
   return (
-    <section className="leaderboard xl:w-20/20 2xl:w-5/20 h-max shadow-md rounded sm:p-3 2xl:border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-900 ">
+    <section className="leaderboard w-full sm:w-125 h-max shadow-md rounded sm:p-3 2xl:mb-5 bg-stone-100 dark:bg-stone-900">
       <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl uppercase leading-tight tracking-wide select-none">
         Leaderboard
       </h2>

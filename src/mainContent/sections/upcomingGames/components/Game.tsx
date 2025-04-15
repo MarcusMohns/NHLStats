@@ -1,6 +1,7 @@
 import { GameType } from "../store";
 import LiveChip from "../../../components/LiveChip";
 import Matchup from "./Matchup";
+import LinkOut from "../../../components/LinkOut";
 
 type GameProps = {
   game: GameType;
@@ -52,7 +53,10 @@ const Game = ({
           awayTeamAbbrev={game.awayTeam.abbrev}
           awayTeamLogo={game.awayTeam.logo}
           awayTeamDarkLogo={game.awayTeam.darkLogo}
-          gameCenterLink={game.gameCenterLink}
+        />
+        <LinkOut
+          linkOutStyles="flex items-center h-full "
+          hrefString={`https://www.nhl.com${game.gameCenterLink}`}
         />
       </div>
     </div>

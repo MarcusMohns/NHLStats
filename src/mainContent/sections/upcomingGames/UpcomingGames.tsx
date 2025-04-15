@@ -51,15 +51,15 @@ const UpcomingGames = () => {
   if (!upcomingGames) {
     // Loading
     return (
-      <div className="relative xl:w-5/20 2xl:w-4/20 rounded p-3 h-235 bg-stone-300 dark:bg-stone-700 animate-pulse ">
+      <div className="relative bg-stone-100 dark:bg-stone-900 shadow-md rounded sm:p-3 h-235 animate-pulse">
         {spinner}
       </div>
     );
   }
 
   return (
-    <section className="upcoming-games bg-stone-100 dark:bg-stone-900 xl:w-5/20 2xl:w-4/20 shadow-md rounded  sm:p-3 h-max 2xl:border border-stone-300 dark:border-stone-700">
-      <h2 className="font-bold dark:text-stone-300 mt-5 py-1 px-1 text-2xl uppercase leading-tight tracking-wide select-none">
+    <section className="upcoming-games bg-stone-100 dark:bg-stone-900 shadow-md rounded sm:p-3 h-max">
+      <h2 className="font-bold dark:text-stone-300 mt-5 my-5 py-1 px-1 text-2xl uppercase leading-tight tracking-wide select-none">
         Upcoming Games
       </h2>
       <GameList upcomingGames={upcomingGames} locale={locale} />

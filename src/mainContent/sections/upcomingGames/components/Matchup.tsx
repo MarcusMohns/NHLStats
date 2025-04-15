@@ -1,5 +1,3 @@
-import LinkOut from "../../../components/LinkOut";
-
 type MatchupProps = {
   homeTeamAbbrev: string;
   homeTeamLogo: string;
@@ -7,7 +5,6 @@ type MatchupProps = {
   awayTeamAbbrev: string;
   awayTeamLogo: string;
   awayTeamDarkLogo: string;
-  gameCenterLink: string;
 };
 
 const Matchup = ({
@@ -17,7 +14,6 @@ const Matchup = ({
   awayTeamAbbrev,
   awayTeamLogo,
   awayTeamDarkLogo,
-  gameCenterLink,
 }: MatchupProps) => {
   return (
     <div className="flex flex-row items-center justify-center align-center dark:text-stone-300  text-stone-800 w-full flex-space-between font-bold">
@@ -32,10 +28,6 @@ const Matchup = ({
         <img className="w-8 h-8 hidden dark:block" src={homeTeamDarkLogo} />
         {homeTeamAbbrev}
       </p>
-      <LinkOut
-        linkOutStyles="flex items-center h-full"
-        hrefString={`https://www.nhl.com${gameCenterLink}`}
-      />
     </div>
   );
 };

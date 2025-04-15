@@ -44,7 +44,7 @@ const Standings = () => {
   if (!standings) {
     // 'loading'
     return (
-      <div className="relative xl:w-15/20 2xl:w-10/20 2xl:mx-3 h-screen p-3 bg-stone-300 dark:bg-stone-700 animate-pulse">
+      <div className="relative w-full sm:h-668.75 h-screen sm:p-3 2xl:mx-3 rounded bg-stone-100 dark:bg-stone-900 animate-pulse">
         {spinner}
       </div>
     );
@@ -54,7 +54,7 @@ const Standings = () => {
     selectedTable,
   };
   return (
-    <section className="standings relative xl:w-15/20 2xl:w-10/20 2xl:mx-3 sm:p-3 2xl:border border-stone-300 dark:border-stone-700 rounded bg-stone-100 dark:bg-stone-900 h-max">
+    <section className="standings w-full relative sm:p-3 2xl:mx-3 rounded bg-stone-100 dark:bg-stone-900 h-max">
       <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-4 text-2xl uppercase leading-tight tracking-wide select-none">
         Standings
       </h1>
