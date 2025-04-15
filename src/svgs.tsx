@@ -52,7 +52,7 @@ export const moon = (
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="currentColor"
-    className="size-8 hover:fill-zinc-300 text-zinc-300"
+    className="size-6 hover:fill-zinc-300 text-zinc-300 mr-1"
   >
     <path
       strokeLinecap="round"
