@@ -44,6 +44,7 @@ const WildCardTable = ({
   const topThreePacific = pacific.slice(0, 3);
 
   const teamsQualified = useMemo(
+    // All qualified Teams
     () =>
       [
         ...topThreeCentral,
@@ -55,27 +56,33 @@ const WildCardTable = ({
   );
 
   const EasternWildCards = useMemo(
+    // Qualified Teams from the East
     () =>
       eastern.filter((team) => !teamsQualified.includes(team.teamName.default)),
     [eastern, teamsQualified]
   );
 
   const WesternWildCards = useMemo(
+    // Qualified Teams from the West
     () =>
       western.filter((team) => !teamsQualified.includes(team.teamName.default)),
     [western, teamsQualified]
   );
 
   const [qualifiedCentral, setQualifiedCentral] = useState<WildCardStateType>({
+    // Qualified Teams from Central
     standings: topThreeCentral,
     sortedBy: "Points",
   });
   const [qualifiedAtlantic, setQualifiedAtlantic] = useState<WildCardStateType>(
+    // Qualified Teams from Atlantic
     {
       standings: topThreeAtlantic,
       sortedBy: "Points",
     }
   );
+
+  // States
   const [qualifiedMetropolitan, setQualifiedMetropolitan] =
     useState<WildCardStateType>({
       standings: topThreeMetropolitan,
