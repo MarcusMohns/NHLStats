@@ -2,12 +2,12 @@ import { PlayerType, GoalieType } from "../store";
 import PlayerCard from "./PlayerCard";
 
 const PlayerCardList = ({
-  leaderboard,
+  players,
 }: {
-  leaderboard: PlayerType[] | GoalieType[];
+  players: PlayerType[] | GoalieType[];
 }) => (
   <div>
-    {leaderboard.map((player) => (
+    {players.map((player) => (
       <PlayerCard player={player} key={player.id} />
     ))}
   </div>
