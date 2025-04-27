@@ -1,57 +1,37 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import SelectTableButtons from "../../components/SelectTableButtons";
 import startViewTransitionWrapper from "../../../utility/startViewTransitionWrapper";
 import ErrorWithBtn from "../../components/ErrorWithBtn";
 import { spinner } from "../../../svgs";
 import PlayerCardList from "./components/PlayerCardList";
-import { LeaderBoardsType, ErrorType, fetchLeaders } from "./store";
+import { LeaderBoardsType } from "./store";
 
-const Leaderboard = () => {
-  const [leaderboards, setLeaderboards] = useState<LeaderBoardsType>({
-    Points: [],
-    Assists: [],
-    Goals: [],
-    Shutouts: [],
-    "Save%": [],
-    GAA: [],
-  });
+type LeaderboardProps = {
+  leaderboard: LeaderBoardsType | Error | null;
+  handleFetchLeaderboard: () => Promise<void>;
+};
 
+const Leaderboard = ({
+  leaderboard,
+  handleFetchLeaderboard,
+}: LeaderboardProps) => {
   const [selectedLeaderboard, setSelectedLeaderboard] =
     useState<string>("Points");
-
-  const [error, setError] = useState({
-    error: false,
-    text: "",
-    message: "",
-    name: "",
-  });
 
   const handleSelectedTable = useCallback((standing: string) => {
     startViewTransitionWrapper(() => setSelectedLeaderboard(standing));
   }, []);
 
-  const handleSetLeaderboards = useCallback(
-    (data: LeaderBoardsType) => setLeaderboards(data),
-    []
-  );
-  const handleSetError = useCallback((e: ErrorType) => setError(e), []);
-
-  useEffect(() => {
-    fetchLeaders(handleSetLeaderboards, handleSetError, error);
-  }, []);
-
-  if (error.error) {
+  if (leaderboard instanceof Error)
+    // Error
     return (
       <ErrorWithBtn
-        action={() =>
-          fetchLeaders(handleSetLeaderboards, handleSetError, error)
-        }
-        error={error}
+        action={() => handleFetchLeaderboard()}
+        error={leaderboard}
       />
     );
-  }
 
-  if (!leaderboards.Points.length) {
+  if (!leaderboard) {
     // loading
     return (
       <div className="relative w-full h-271.25 sm:w-125 shadow-md rounded sm:p-3 2xl:mb-5 bg-stone-100 dark:bg-stone-900 animate-pulse">
@@ -83,11 +63,7 @@ const Leaderboard = () => {
       <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         {selectedLeaderboard}
       </h2>
-      <PlayerCardList
-        leaderboard={
-          leaderboards[selectedLeaderboard as keyof LeaderBoardsType]
-        }
-      />
+      <PlayerCardList players={leaderboard[selectedLeaderboard]} />
     </section>
   );
 };

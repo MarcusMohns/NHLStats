@@ -5,6 +5,7 @@ export type ErrorType = {
   name: string;
 };
 export type LeaderBoardsType = {
+  [key: string]: PlayerType[] | GoalieType[];
   Goals: PlayerType[];
   Assists: PlayerType[];
   Points: PlayerType[];
@@ -50,55 +51,36 @@ const fetchPlayerLeadersData = async (
     const response = await fetch(leadersUrl);
     const data = await response.json();
     return data[category];
-  } catch (e: unknown) {
+  } catch (e) {
     console.error("Error fetching leaders data from API", e);
     throw e;
   }
 };
 
-export const fetchLeaders = async (
-  setLeaderboards: (data: LeaderBoardsType) => void,
-  setError: (e: ErrorType) => void,
-  error: ErrorType
-) => {
+export const fetchLeaderboard = async () => {
   try {
-    const topGoalScorers = await fetchPlayerLeadersData("goals", "skater");
-    const topAssists = await fetchPlayerLeadersData("assists", "skater");
-    const topPoints = await fetchPlayerLeadersData("points", "skater");
-    const topGoalsAgainstAverage = await fetchPlayerLeadersData(
-      "goalsAgainstAverage",
-      "goalie"
-    );
-    const topSavePctg = await fetchPlayerLeadersData("savePctg", "goalie");
-    const topShutouts = await fetchPlayerLeadersData("shutouts", "goalie");
-
+    const leaders = {
+      Goals: await fetchPlayerLeadersData("goals", "skater"),
+      Assists: await fetchPlayerLeadersData("assists", "skater"),
+      Points: await fetchPlayerLeadersData("points", "skater"),
+      GAA: await fetchPlayerLeadersData("goalsAgainstAverage", "goalie"),
+      "Save%": await fetchPlayerLeadersData("savePctg", "goalie"),
+      Shutouts: await fetchPlayerLeadersData("shutouts", "goalie"),
+    };
     if (
-      !topGoalScorers ||
-      !topAssists ||
-      !topPoints ||
-      !topSavePctg ||
-      !topShutouts ||
-      !topGoalsAgainstAverage
+      !leaders.Goals ||
+      !leaders.Assists ||
+      !leaders.Points ||
+      !leaders.GAA ||
+      !leaders["Save%"] ||
+      !leaders.Shutouts
     ) {
-      throw new Error("No leaders data");
+      return new Error("No leaders data");
+    } else {
+      return leaders;
     }
-
-    setLeaderboards({
-      Goals: topGoalScorers,
-      Assists: topAssists,
-      Points: topPoints,
-      GAA: topGoalsAgainstAverage,
-      "Save%": topSavePctg,
-      Shutouts: topShutouts,
-    });
-    setError({ error: false, text: "", message: "", name: "" });
-  } catch (e: unknown) {
-    !error.error &&
-      setError({
-        error: true,
-        text: "Something went wrong fetching leaderboard data🙁",
-        message: (e as Error).message,
-        name: "fetchLeaders",
-      });
+  } catch (e) {
+    console.error("Error fetching leaders data from API", e);
+    return new Error("Error fetching data from the server ☹️");
   }
 };

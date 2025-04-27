@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { weekDays } from "../store";
-import { GameWeek } from "../store";
+import { GameWeekType } from "../store";
 import Game from "./Game";
 import { useCallback } from "react";
 
 type GameListType = {
-  upcomingGames: GameWeek[];
+  upcomingGames: GameWeekType[];
   locale: string;
 };
 

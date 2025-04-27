@@ -60,7 +60,7 @@ export type GameType = {
   ticketsLinkFr?: string;
 };
 
-export type GameWeek = {
+export type GameWeekType = {
   date: string;
   dayAbbrev: string;
   numberOfGames: number;
@@ -92,28 +92,17 @@ const fetchUpcomingGamesData = async () => {
   }
 };
 
-export const fetchUpcomingGames = async (
-  handleSetUpcomingGames: (data: GameWeek[]) => void,
-  handleSetError: (e: ErrorType) => void,
-  error: ErrorType
-) => {
+export const fetchUpcomingGames = async () => {
   try {
     const upcomingGamesData = await fetchUpcomingGamesData();
-
     if (!upcomingGamesData) {
-      throw new Error("No Upcoming Games data");
+      console.error("No Upcoming Games data");
+      return new Error("No Upcoming Games data");
+    } else {
+      return upcomingGamesData;
     }
-
-    handleSetUpcomingGames(upcomingGamesData);
-    handleSetError({ error: false, text: "", message: "", name: "" });
   } catch (e) {
-    !error.error &&
-      handleSetError({
-        error: true,
-        text: "Something went wrong fetching Upcoming Games data 🙁",
-        message: (e as Error).message,
-        name: "fetchUpcomingGames",
-      });
-    throw e;
+    console.error("Error fetching Upcoming Games data from API", e);
+    return new Error("Error fetching data from the server ☹️");
   }
 };

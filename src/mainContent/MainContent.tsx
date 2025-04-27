@@ -1,8 +1,47 @@
 import Standings from "./sections/standings/Standings.tsx";
 import Leaderboard from "./sections/leaderboard/Leaderboard.tsx";
 import UpcomingGames from "./sections/upcomingGames/UpcomingGames.tsx";
+import { useEffect, useState, useCallback } from "react";
+
+import { StandingsType } from "./sections/standings/store.tsx";
+import { LeaderBoardsType } from "./sections/leaderboard/store.tsx";
+import { GameWeekType } from "./sections/upcomingGames/store.tsx";
+import { fetchStandings } from "./sections/standings/store.tsx";
+import { fetchLeaderboard } from "./sections/leaderboard/store.tsx";
+import { fetchUpcomingGames } from "./sections/upcomingGames/store.tsx";
 
 const MainContent = () => {
+  const [standings, setStandings] = useState<StandingsType | null | Error>(
+    null
+  );
+  const [leaderboard, setLeaderboard] = useState<
+    LeaderBoardsType | null | Error
+  >(null);
+  const [upcomingGames, setUpcomingGames] = useState<
+    GameWeekType[] | null | Error
+  >(null);
+
+  const handleFetchStandings = useCallback(async () => {
+    const standings = await fetchStandings();
+    setStandings(standings);
+  }, [setStandings]);
+
+  const handleFetchLeaderboard = useCallback(async () => {
+    const leaders = await fetchLeaderboard();
+    setLeaderboard(leaders);
+  }, [setLeaderboard]);
+
+  const handleFetchUpcomingGames = useCallback(async () => {
+    const upcomingGames = await fetchUpcomingGames();
+    setUpcomingGames(upcomingGames);
+  }, [setUpcomingGames]);
+
+  useEffect(() => {
+    handleFetchStandings();
+    handleFetchLeaderboard();
+    handleFetchUpcomingGames();
+  }, [handleFetchStandings, handleFetchLeaderboard, handleFetchUpcomingGames]);
+
   return (
     <main
       className={`dark:text-white flex flex-col justify-center align-center dark:bg-stone-900/99
@@ -13,11 +52,18 @@ const MainContent = () => {
         backgroundPosition: "center",
       }}
     >
-      <Standings />
-      <div className="flex flex-col 2xl:mr-5">
-        <Leaderboard />
-        <UpcomingGames />
-      </div>
+      <Standings
+        standings={standings}
+        handleFetchStandings={handleFetchStandings}
+      />
+      <Leaderboard
+        leaderboard={leaderboard}
+        handleFetchLeaderboard={handleFetchLeaderboard}
+      />
+      <UpcomingGames
+        upcomingGames={upcomingGames}
+        handleFetchUpcomingGames={handleFetchUpcomingGames}
+      />
     </main>
   );
 };

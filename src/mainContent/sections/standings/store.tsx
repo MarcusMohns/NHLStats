@@ -34,28 +34,6 @@ export type StandingsType = {
   Pacific: TeamType[];
 };
 
-export type ErrorType = {
-  error: boolean;
-  text: string;
-  message: string;
-  name: string;
-};
-
-const fetchStandingsData = async () => {
-  const standingsUrl =
-    "https://corsproxy.io/?url=https://api-web.nhle.com/v1/standings/now";
-  // Run it by https://corsproxy.io/ to bypass CORS
-
-  try {
-    const response = await fetch(standingsUrl);
-    const data = await response.json();
-    return data.standings;
-  } catch (e: unknown) {
-    console.error("Error fetching standings data from API", e);
-    throw e;
-  }
-};
-
 export const handleReduceStandings = (standingsData: TeamType[]) =>
   standingsData.reduce(
     // Add the teams into correct League, Conference and Division - then set to state
@@ -88,29 +66,34 @@ export const handleReduceStandings = (standingsData: TeamType[]) =>
     }
   );
 
-export const fetchStandings = async (
-  handleSetStandings: (data: StandingsType) => void,
-  setError: (error: ErrorType) => void,
-  error: ErrorType
-) => {
+const fetchStandingsData = async () => {
+  const standingsUrl =
+    "https://corsproxy.io/?url=https://api-web.nhle.com/v1/standings/now";
+  // Run it by https://corsproxy.io/ to bypass CORS
+
+  try {
+    const response = await fetch(standingsUrl);
+    const data = await response.json();
+    return data.standings;
+  } catch (e: unknown) {
+    console.error("Error fetching standings data from API", e);
+    throw e;
+  }
+};
+
+export const fetchStandings = async () => {
   try {
     const standingsData = await fetchStandingsData();
     if (!standingsData) {
-      throw new Error("No standings data");
+      console.error("No standings data");
+      return new Error("No standings data");
     } else {
-      const reducedStandings = handleReduceStandings(standingsData);
-      handleSetStandings(reducedStandings);
-      setError({ error: false, text: "", message: "", name: "" });
+      const standings = handleReduceStandings(standingsData);
+      return standings;
     }
   } catch (e) {
-    !error.error &&
-      setError({
-        error: true,
-        text: "Something went wrong fetching standings data 🙁",
-        message: (e as Error).message,
-        name: "fetchStandings",
-      });
-    throw e;
+    console.error("Error fetching standings data from API", e);
+    return new Error("Error fetching data from the server ☹️");
   }
 };
 

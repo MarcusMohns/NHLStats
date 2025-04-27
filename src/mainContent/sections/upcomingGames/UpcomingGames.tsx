@@ -1,52 +1,27 @@
-import { useEffect, useState, useCallback } from "react";
 import ErrorWithBtn from "../../components/ErrorWithBtn";
-import { ErrorType } from "../standings/store";
 import { spinner } from "../../../svgs";
-import { fetchUpcomingGames } from "./store";
-import { GameWeek } from "./store";
-
+import { GameWeekType } from "./store";
 import GameList from "./components/GameList";
 
-const UpcomingGames = () => {
-  const [upcomingGames, setUpcomingGames] = useState<null | GameWeek[]>(null);
-  const [error, setError] = useState<ErrorType>({
-    error: false,
-    text: "",
-    message: "",
-    name: "",
-  });
-
-  const handleSetUpcomingGames = useCallback(
-    (upComingGames: GameWeek[]) => {
-      setUpcomingGames(upComingGames);
-    },
-    [setUpcomingGames]
-  );
-
-  const handleSetError = useCallback(
-    (error: ErrorType) => {
-      setError(error);
-    },
-    [setError]
-  );
-
+type UpComingGamesProps = {
+  upcomingGames: GameWeekType[] | null | Error;
+  handleFetchUpcomingGames: () => Promise<void>;
+};
+const UpcomingGames = ({
+  upcomingGames,
+  handleFetchUpcomingGames,
+}: UpComingGamesProps) => {
   const locale = navigator.language;
   // gets the users locale to format the date correctly
 
-  useEffect(() => {
-    fetchUpcomingGames(handleSetUpcomingGames, handleSetError, error);
-  }, []);
-
-  if (error.error) {
+  if (upcomingGames instanceof Error)
+    // error
     return (
       <ErrorWithBtn
-        error={error}
-        action={() =>
-          fetchUpcomingGames(handleSetUpcomingGames, handleSetError, error)
-        }
+        action={() => handleFetchUpcomingGames()}
+        error={upcomingGames}
       />
     );
-  }
 
   if (!upcomingGames) {
     // Loading
