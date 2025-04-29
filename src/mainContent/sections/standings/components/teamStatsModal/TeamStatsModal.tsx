@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { TeamType, ErrorType } from "../../store";
+import { TeamType } from "../../store";
+import { ErrorType } from "../../../leaderboard/store";
 import Modal from "../../../../components/Modal";
 import Chip from "../../../../components/Chip";
 import SkaterCard from "./SkaterCard";

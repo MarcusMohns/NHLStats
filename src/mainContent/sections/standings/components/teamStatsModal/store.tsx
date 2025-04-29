@@ -1,4 +1,5 @@
-import { ErrorType, TeamType } from "../../store";
+import { TeamType } from "../../store";
+import { ErrorType } from "../../../leaderboard/store";
 import { sortFunctions } from "../../../../../utility/sortFunctions";
 
 export type GameType = {
