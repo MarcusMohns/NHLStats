@@ -1,5 +1,5 @@
 import Alert from "./Alert";
-import { ErrorType } from "../sections/standings/store";
+// import { ErrorType } from "../sections/standings/store";
 import { useState } from "react";
 
 const ErrorWithBtn = ({
@@ -7,10 +7,11 @@ const ErrorWithBtn = ({
   error,
 }: {
   action: () => Promise<void>;
-  error: ErrorType;
+  error: Error;
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const handleAction = async (action: () => Promise<void>) => {
+
+  const handleAction = async () => {
     setLoading(true);
     await action();
     setLoading(false);
@@ -23,9 +24,9 @@ const ErrorWithBtn = ({
       borderColor="border-red-500"
       textColor="text-red-700"
     >
-      <p>{error.text}</p>---<p>{error.message}</p>
+      <p>{error.message}</p>
       <button
-        onClick={() => handleAction(action)}
+        onClick={() => handleAction()}
         className={`border font-bold m-2 border-red-700 p-1 px-2 rounded hover:bg-red-500 hover:text-white cursor-pointer
             ${loading && "opacity-50 cursor-not-allowed bg-stone-500"}
             `}

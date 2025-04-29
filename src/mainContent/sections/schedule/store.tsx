@@ -60,7 +60,7 @@ export type GameType = {
   ticketsLinkFr?: string;
 };
 
-export type GameWeek = {
+export type GameWeekType = {
   date: string;
   dayAbbrev: string;
   numberOfGames: number;
@@ -77,43 +77,32 @@ export const weekDays = [
   "Saturday",
 ];
 
-const fetchUpcomingGamesData = async () => {
-  const upcomingGamesUrl =
+const fetchScheduleData = async () => {
+  const scheduleUrl =
     // Run it by https://corsproxy.io/ to bypass CORS
     "https://corsproxy.io/?url=https://api-web.nhle.com/v1/schedule/now";
 
   try {
-    const response = await fetch(upcomingGamesUrl);
+    const response = await fetch(scheduleUrl);
     const { gameWeek } = await response.json();
     return gameWeek;
   } catch (e: unknown) {
-    console.error("Error fetching Upcoming Games from API", e);
+    console.error("Error fetching schedule from API", e);
     throw e;
   }
 };
 
-export const fetchUpcomingGames = async (
-  handleSetUpcomingGames: (data: GameWeek[]) => void,
-  handleSetError: (e: ErrorType) => void,
-  error: ErrorType
-) => {
+export const fetchSchedule = async () => {
   try {
-    const upcomingGamesData = await fetchUpcomingGamesData();
-
-    if (!upcomingGamesData) {
-      throw new Error("No Upcoming Games data");
+    const scheduleData = await fetchScheduleData();
+    if (!scheduleData) {
+      console.error("No schedule data");
+      return new Error("No schedule data");
+    } else {
+      return scheduleData;
     }
-
-    handleSetUpcomingGames(upcomingGamesData);
-    handleSetError({ error: false, text: "", message: "", name: "" });
   } catch (e) {
-    !error.error &&
-      handleSetError({
-        error: true,
-        text: "Something went wrong fetching Upcoming Games data 🙁",
-        message: (e as Error).message,
-        name: "fetchUpcomingGames",
-      });
-    throw e;
+    console.error("Error fetching schedule data from API", e);
+    return new Error("Error fetching data from the server ☹️");
   }
 };

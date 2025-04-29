@@ -22,7 +22,7 @@ const Game = ({
   handlePrevWeekDay,
 }: GameProps) => {
   return (
-    <div key={game.id} className="flex flex-col">
+    <div key={game.id} className="flex flex-col sm:mx-7">
       {weekDay !== prevWeekDay.current && (
         // Since New Date recalculates time and day based on users timezone we won't be able to use the Weekday provided in API
         // check weekDay and our Ref to see if it's a new day
@@ -38,21 +38,27 @@ const Game = ({
         </div>
       )}
 
-      <div className="flex flex-row align-center justify-center shadow-sm bg-white dark:bg-stone-800 dark:shadow-stone-800 p-2 mt-1 rounded">
+      <div className="flex flex-row align-center justify-center shadow-sm bg-stone-100 dark:bg-stone-800 dark:shadow-stone-800 p-2 mt-1 rounded">
         {game.gameState === "LIVE" ? (
           <LiveChip gameCenterLink={game.gameCenterLink} />
-        ) : (
-          <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min ">
+        ) : game.gameState === "FUT" ? (
+          <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min">
             {formattedDateTime}
+          </p>
+        ) : (
+          <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min">
+            Completed
           </p>
         )}
         <Matchup
           homeTeamAbbrev={game.homeTeam.abbrev}
           homeTeamLogo={game.homeTeam.logo}
           homeTeamDarkLogo={game.homeTeam.darkLogo}
+          homeTeamScore={game.homeTeam.score}
           awayTeamAbbrev={game.awayTeam.abbrev}
           awayTeamLogo={game.awayTeam.logo}
           awayTeamDarkLogo={game.awayTeam.darkLogo}
+          awayTeamScore={game.awayTeam.score}
         />
         <LinkOut
           linkOutStyles="flex items-center h-full "

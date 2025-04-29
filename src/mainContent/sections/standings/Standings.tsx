@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import LeagueTable from "./components/tables/LeagueTable.tsx";
 import ConferenceTable from "./components/tables/ConferenceTable.tsx";
 import DivisionTable from "./components/tables/DivisionTable.tsx";
@@ -7,55 +7,41 @@ import startViewTransitionWrapper from "../../../utility/startViewTransitionWrap
 import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
 import { spinner } from "../../../svgs.tsx";
-import { StandingsType, ErrorType, headers } from "./store";
-import fetchStandings from "./store";
+import { StandingsType, headers } from "./store";
 
-const Standings = () => {
-  const [standings, setStandings] = useState<StandingsType | null>(null);
+type StandingsProps = {
+  standings: StandingsType | Error | null;
+  handleFetchStandings: () => Promise<void>;
+};
+
+const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
   const [selectedTable, setSelectedTable] = useState<string>("League");
-  const [error, setError] = useState<ErrorType>({
-    error: false,
-    text: "",
-    message: "",
-    name: "",
-  });
-
-  const handleSetStandings = useCallback(
-    (data: StandingsType) => setStandings(data),
-    []
-  );
   const handleSelectedTable = (standing: string) => {
     startViewTransitionWrapper(() => setSelectedTable(standing));
   };
-  const handleSetError = useCallback((e: ErrorType) => setError(e), []);
 
-  useEffect(() => {
-    fetchStandings(handleSetStandings, handleSetError, error);
-  }, []);
-
-  if (error.error)
+  if (standings instanceof Error)
+    // error
     return (
-      <ErrorWithBtn
-        action={() => fetchStandings(handleSetStandings, handleSetError, error)}
-        error={error}
-      />
+      <ErrorWithBtn action={() => handleFetchStandings()} error={standings} />
     );
 
   if (!standings) {
-    // 'loading'
+    // loading
     return (
-      <div className="relative w-full sm:h-668.75 h-screen sm:p-3 2xl:mx-3 rounded bg-stone-100 dark:bg-stone-900 animate-pulse">
+      <div className="relative w-full sm:h-668.75 h-screen sm:p-3 2xl:mx-3 rounded animate-pulse">
         {spinner}
       </div>
     );
   }
+
   const standingsProps = {
     headers,
     selectedTable,
   };
   return (
-    <section className="standings w-full relative sm:p-3 2xl:mx-3 rounded bg-stone-100 dark:bg-stone-900 h-max">
-      <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-4 text-2xl uppercase leading-tight tracking-wide select-none">
+    <section className="standings sm:p-3 2xl:mb-5 rounded h-max lg:w-3/4 lg:mx-auto">
+      <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         Standings
       </h1>
       <SelectTableButtons
@@ -96,7 +82,7 @@ const Standings = () => {
         />
       )}
       <div className="text-sm font-semibold uppercase p-3">
-        ❌ = Eliminated ✔️ = Qualifed
+        ❌ = Eliminated ✔️ = Qualified
       </div>
     </section>
   );
