@@ -9,15 +9,22 @@ const SelectTabButtons = ({
   handleSelectedTab,
 }: SelectTabButtonsProps) => {
   return (
-    <ul className="fixed bottom-0 left-0 z-2 border-t md:border-none bg-stone-200 dark:bg-stone-700 md:bg-transparent md:dark:bg-transparent py-3 md:p-0 md:static flex flex-row justify-center md:justify-start w-full md:w-max text-sm sm:text-base font-bold md:mb-12 border-solid border-b-2 border-gray-300 dark:border-stone-600 gap-5">
+    <ul
+      className="fixed bottom-0 left-0 z-2 border-t md:border-t-0 border-b-2 border-stone-300 dark:border-stone-700 bg-gray-200 dark:bg-gray-700 md:bg-transparent md:dark:bg-transparent 
+    p-3 md:p-0 md:static flex flex-row justify-center md:justify-start w-full md:w-max text-xs sm:text-base md:text-lg font-bold md:mb-12 
+    gap-3 md:gap-5 leading-tight tracking-wide select-none"
+    >
       {buttons.map((button) => (
-        <li className="md:text-3xl" key={button}>
+        <li className="md:text-2xl mx-auto" key={button}>
           <button
             onClick={() => handleSelectedTab(button)}
-            className={`cursor-pointer
-               ${button === selectedTab && " border-b-2 md:border-b-3"}`}
+            className={`cursor-pointer uppercase
+               ${
+                 button === selectedTab &&
+                 "border-b-2 border-stone-500 dark:border-stone-100"
+               }`}
           >
-            {button.toUpperCase()}
+            {button}
           </button>
         </li>
       ))}

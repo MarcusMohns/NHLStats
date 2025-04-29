@@ -39,8 +39,8 @@ const Leaderboard = ({
     );
   }
   return (
-    <section className="leaderboard h-max shadow-md rounded sm:p-3 2xl:mb-5 bg-stone-100 dark:bg-stone-900 md:w-3/4 md:mx-auto">
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl mx-2 uppercase leading-tight tracking-wide select-none">
+    <section className="leaderboard h-max rounded sm:p-3 2xl:mb-5 md:w-3/4 md:mx-auto">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         Leaderboard
       </h2>
       <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5 select-none">
@@ -59,7 +59,7 @@ const Leaderboard = ({
         selectedTable={selectedLeaderboard}
         handleSelectedTable={handleSelectedTable}
       />
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none">
         {selectedLeaderboard}
       </h2>
       <PlayerCardList players={leaderboard[selectedLeaderboard]} />

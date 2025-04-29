@@ -4,7 +4,7 @@ import LinkOut from "../../../components/LinkOut";
 
 const PlayerCard = ({ player }: { player: PlayerType }) => {
   return (
-    <div className="flex flex-row items-center py-2 shadow-sm my-3 bg-white dark:bg-stone-800 rounded w-full">
+    <div className="flex flex-row items-center py-2 shadow-sm my-3 bg-stone-100 dark:bg-stone-800 rounded w-full">
       <p className="font-bold text-2xl sm:text-5xl sm:p-3 p-0 pl-3 w-30 sm:w-max md:w-50">
         {player.position === "G" && player.value.toString().length > 3
           ? // If Goalie & value is greater than 3 digits, fix decimals
@@ -13,7 +13,7 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
       </p>
       <div className="flex flex-row items-center w-full">
         <div className="flex flex-col-reverse sm:flex-row justify-start items-center w-min sm:w-full grow">
-          <p className="flex items-center font-bold justify-center text-xl xl:text-xl mx-2 text-center w-full gap-2">
+          <div className="flex items-center font-bold justify-center text-xl xl:text-xl mx-2 text-center w-full gap-2">
             <ImageAndLoading
               imgSrc={player.headshot}
               height="h-16 md:h-20"
@@ -24,7 +24,7 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
             <p className="md:w-50">
               {player.firstName.default} {player.lastName.default}
             </p>
-          </p>
+          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center text-lg mr-2">

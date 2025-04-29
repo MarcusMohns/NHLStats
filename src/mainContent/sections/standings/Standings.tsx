@@ -29,7 +29,7 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
   if (!standings) {
     // loading
     return (
-      <div className="relative w-full sm:h-668.75 h-screen sm:p-3 2xl:mx-3 rounded bg-stone-100 dark:bg-stone-900 animate-pulse">
+      <div className="relative w-full sm:h-668.75 h-screen sm:p-3 2xl:mx-3 rounded animate-pulse">
         {spinner}
       </div>
     );
@@ -40,8 +40,8 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
     selectedTable,
   };
   return (
-    <section className="standings w-full relative sm:p-3 2xl:mx-3 rounded bg-stone-100 dark:bg-stone-900 h-max">
-      <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none">
+    <section className="standings sm:p-3 2xl:mb-5 rounded h-max lg:w-3/4 lg:mx-auto">
+      <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         Standings
       </h1>
       <SelectTableButtons

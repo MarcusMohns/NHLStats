@@ -20,15 +20,13 @@ const Schedule = ({ schedule, handleFetchSchedule }: ScheduleProps) => {
   if (!schedule) {
     // Loading
     return (
-      <div className="relative bg-stone-100 dark:bg-stone-900 shadow-md rounded h-235 animate-pulse">
-        {spinner}
-      </div>
+      <div className="relative rounded h-235 animate-pulse">{spinner}</div>
     );
   }
 
   return (
-    <section className="schedule bg-stone-100 dark:bg-stone-900 shadow-md rounded h-max md:w-3/4 md:mx-auto sm:p-3">
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-2xl uppercase leading-tight tracking-wide select-none">
+    <section className="schedule rounded h-max md:w-3/4 md:mx-auto sm:p-3">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-2xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         Schedule
       </h2>
       <GameList schedule={schedule} locale={locale} />
