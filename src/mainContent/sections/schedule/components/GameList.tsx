@@ -5,11 +5,11 @@ import Game from "./Game";
 import { useCallback } from "react";
 
 type GameListType = {
-  upcomingGames: GameWeekType[];
+  schedule: GameWeekType[];
   locale: string;
 };
 
-const GameList = ({ upcomingGames, locale }: GameListType) => {
+const GameList = ({ schedule, locale }: GameListType) => {
   // Setup ref here to keep track of the previous day in the Game component
   const prevWeekDay = useRef<string>("");
   const handlePrevWeekDay = useCallback((weekDay: string) => {
@@ -21,15 +21,10 @@ const GameList = ({ upcomingGames, locale }: GameListType) => {
   }, []);
 
   return (
-    <>
-      {upcomingGames.map((gameDay) => (
+    <div className="flex flex-col w-full align-center justify-center content-center">
+      {schedule.map((gameDay) => (
         <div key={gameDay.date}>
           {gameDay.games.map((game) => {
-            if (game.gameOutcome) {
-              // Skip games that have already happened
-              return null;
-            }
-
             const date = new Date(game.startTimeUTC);
             // Create a new Date object from the game start time given in iso8601 (not UTC)
             // This will translate the date and time to the users timezone
@@ -59,7 +54,7 @@ const GameList = ({ upcomingGames, locale }: GameListType) => {
           })}
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
