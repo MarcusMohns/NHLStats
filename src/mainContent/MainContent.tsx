@@ -12,7 +12,7 @@ import { fetchStandings } from "./sections/standings/store.tsx";
 import { fetchLeaderboard } from "./sections/leaderboard/store.tsx";
 import { fetchSchedule } from "./sections/schedule/store.tsx";
 import Playoffs from "./sections/playoffs/Playoffs.tsx";
-import { fetchPlayoffs } from "./sections/playoffs/store.tsx";
+// import { fetchPlayoffs } from "./sections/playoffs/store.tsx";
 
 const MainContent = () => {
   const [selectedTab, setSelectedTab] = useState<string>("Standings");
@@ -24,7 +24,7 @@ const MainContent = () => {
     LeaderBoardsType | null | Error
   >(null);
   const [schedule, setSchedule] = useState<GameWeekType[] | null | Error>(null);
-  const [playoffs, setPlayoffs] = useState<any[] | null | Error>(null);
+  // const [playoffs, setPlayoffs] = useState<any[] | null | Error>(null);
 
   const handleSelectedTab = (button: string) =>
     startViewTransitionWrapper(() => setSelectedTab(button));
@@ -44,10 +44,10 @@ const MainContent = () => {
     setSchedule(schedule);
   }, [setSchedule]);
 
-  const handleFetchPlayoffs = useCallback(async () => {
-    const schedule = await fetchPlayoffs();
-    setPlayoffs(schedule);
-  }, [setPlayoffs]);
+  // const handleFetchPlayoffs = useCallback(async () => {
+  //   const schedule = await fetchPlayoffs();
+  //   setPlayoffs(schedule);
+  // }, [setPlayoffs]);
 
   useEffect(() => {
     handleFetchStandings();
