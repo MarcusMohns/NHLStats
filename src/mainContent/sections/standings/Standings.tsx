@@ -41,7 +41,7 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
   };
   return (
     <section className="standings w-full relative sm:p-3 2xl:mx-3 rounded bg-stone-100 dark:bg-stone-900 h-max">
-      <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-4 text-2xl uppercase leading-tight tracking-wide select-none">
+      <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none">
         Standings
       </h1>
       <SelectTableButtons

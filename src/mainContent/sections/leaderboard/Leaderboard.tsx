@@ -10,7 +10,6 @@ type LeaderboardProps = {
   leaderboard: LeaderBoardsType | Error | null;
   handleFetchLeaderboard: () => Promise<void>;
 };
-
 const Leaderboard = ({
   leaderboard,
   handleFetchLeaderboard,
@@ -34,14 +33,14 @@ const Leaderboard = ({
   if (!leaderboard) {
     // loading
     return (
-      <div className="relative w-full h-271.25 sm:w-125 shadow-md rounded sm:p-3 2xl:mb-5 bg-stone-100 dark:bg-stone-900 animate-pulse">
+      <div className="relative w-full h-271.25 shadow-md rounded sm:p-3 2xl:mb-5 bg-stone-100 dark:bg-stone-900 animate-pulse">
         {spinner}
       </div>
     );
   }
   return (
-    <section className="leaderboard w-full sm:w-125 h-max shadow-md rounded sm:p-3 2xl:mb-5 bg-stone-100 dark:bg-stone-900">
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl uppercase leading-tight tracking-wide select-none">
+    <section className="leaderboard h-max shadow-md rounded sm:p-3 2xl:mb-5 bg-stone-100 dark:bg-stone-900 md:w-3/4 md:mx-auto">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 sm:px-2 text-2xl mx-2 uppercase leading-tight tracking-wide select-none">
         Leaderboard
       </h2>
       <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5 select-none">
