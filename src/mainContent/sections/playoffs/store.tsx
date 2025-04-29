@@ -7,7 +7,7 @@ const fetchPlayoffsData = async () => {
     const data = await response.json();
     return data;
   } catch (e) {
-    console.error("Error fetching leaders data from API", e);
+    console.error("Error fetching playoffs data from API", e);
     throw e;
   }
 };

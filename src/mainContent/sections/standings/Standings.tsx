@@ -82,7 +82,7 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
         />
       )}
       <div className="text-sm font-semibold uppercase p-3">
-        ❌ = Eliminated ✔️ = Qualifed
+        ❌ = Eliminated ✔️ = Qualified
       </div>
     </section>
   );
