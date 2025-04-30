@@ -41,13 +41,13 @@ const Game = ({
       <div className="flex flex-row align-center justify-center shadow-sm bg-stone-100 dark:bg-stone-800 dark:shadow-stone-800 p-2 mt-1 rounded">
         {game.gameState === "LIVE" ? (
           <LiveChip gameCenterLink={game.gameCenterLink} />
-        ) : game.gameState === "FUT" ? (
+        ) : game.gameState === "OFF" ? (
           <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min">
-            {formattedDateTime}
+            Completed
           </p>
         ) : (
           <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min">
-            Completed
+            {formattedDateTime}
           </p>
         )}
         <Matchup
