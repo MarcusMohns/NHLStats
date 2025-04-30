@@ -1,4 +1,4 @@
-import { GameType } from "../store";
+import { GameType } from "../../../types";
 import LinkOut from "../../../../../components/LinkOut";
 import LiveChip from "../../../../../components/LiveChip";
 

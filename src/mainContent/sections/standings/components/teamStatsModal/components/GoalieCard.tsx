@@ -1,4 +1,4 @@
-import { GoalieType } from "../store";
+import { GoalieType } from "../../../types";
 import { puck } from "../../../../../../svgs";
 import ImageAndLoading from "../../../../../../utility/ImageAndLoading";
 import LinkOut from "../../../../../components/LinkOut";

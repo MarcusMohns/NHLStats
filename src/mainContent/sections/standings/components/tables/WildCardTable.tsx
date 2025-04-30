@@ -1,4 +1,4 @@
-import type { TeamType } from "../../store.tsx";
+import { TeamType, StandingsTableType } from "../../types.ts";
 import {
   reverseStandings,
   sortFunctions,
@@ -13,7 +13,7 @@ import {
 import StyledTable from "./StyledTable.tsx";
 import startViewTransitionWrapper from "../../../../../utility/startViewTransitionWrapper.ts";
 
-type WildCardTablePropTypes = {
+type WildCardTableProps = {
   central: TeamType[];
   atlantic: TeamType[];
   metropolitan: TeamType[];
@@ -22,10 +22,6 @@ type WildCardTablePropTypes = {
   eastern: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedTable: string;
-};
-type WildCardStateType = {
-  standings: TeamType[];
-  sortedBy: String;
 };
 
 const WildCardTable = ({
@@ -37,7 +33,7 @@ const WildCardTable = ({
   eastern,
   headers,
   selectedTable,
-}: WildCardTablePropTypes) => {
+}: WildCardTableProps) => {
   const topThreeCentral = central.slice(0, 3);
   const topThreeAtlantic = atlantic.slice(0, 3);
   const topThreeMetropolitan = metropolitan.slice(0, 3);
@@ -69,34 +65,35 @@ const WildCardTable = ({
     [western, teamsQualified]
   );
 
-  const [qualifiedCentral, setQualifiedCentral] = useState<WildCardStateType>({
+  const [qualifiedCentral, setQualifiedCentral] = useState<StandingsTableType>({
     // Qualified Teams from Central
     standings: topThreeCentral,
     sortedBy: "Points",
   });
-  const [qualifiedAtlantic, setQualifiedAtlantic] = useState<WildCardStateType>(
-    // Qualified Teams from Atlantic
-    {
-      standings: topThreeAtlantic,
-      sortedBy: "Points",
-    }
-  );
+  const [qualifiedAtlantic, setQualifiedAtlantic] =
+    useState<StandingsTableType>(
+      // Qualified Teams from Atlantic
+      {
+        standings: topThreeAtlantic,
+        sortedBy: "Points",
+      }
+    );
 
   // States
   const [qualifiedMetropolitan, setQualifiedMetropolitan] =
-    useState<WildCardStateType>({
+    useState<StandingsTableType>({
       standings: topThreeMetropolitan,
       sortedBy: "Points",
     });
-  const [qualifiedPacific, setQualifiedPacific] = useState<WildCardStateType>({
+  const [qualifiedPacific, setQualifiedPacific] = useState<StandingsTableType>({
     standings: topThreePacific,
     sortedBy: "Points",
   });
-  const [unqualifiedWest, setUnqualifiedWest] = useState<WildCardStateType>({
+  const [unqualifiedWest, setUnqualifiedWest] = useState<StandingsTableType>({
     standings: WesternWildCards,
     sortedBy: "Points",
   });
-  const [unqualifiedEast, setUnqualifiedEast] = useState<WildCardStateType>({
+  const [unqualifiedEast, setUnqualifiedEast] = useState<StandingsTableType>({
     standings: EasternWildCards,
     sortedBy: "Points",
   });
@@ -105,7 +102,7 @@ const WildCardTable = ({
     (oldStandings: TeamType[], sortBy: string, argument: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
       // Sort newStandings by sortBy argument
-      let stateSetter: Dispatch<SetStateAction<WildCardStateType>> | undefined;
+      let stateSetter: Dispatch<SetStateAction<StandingsTableType>> | undefined;
       switch (argument) {
         // Set which state is to be updated
         case "Central":

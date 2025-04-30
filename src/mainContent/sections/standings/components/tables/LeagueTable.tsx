@@ -1,4 +1,4 @@
-import type { TeamType } from "../../store.tsx";
+import { TeamType, StandingsTableType } from "../../types.ts";
 import StyledTable from "./StyledTable.tsx";
 import { useState, useCallback } from "react";
 import {
@@ -12,16 +12,13 @@ type LeagueTablePropTypes = {
   headers: { full: string[]; abbreviated: string[] };
   selectedTable: string;
 };
-type LeagueStateType = {
-  standings: TeamType[];
-  sortedBy: String;
-};
+
 const LeagueTable = ({
   league,
   headers,
   selectedTable,
 }: LeagueTablePropTypes) => {
-  const [leagueState, setLeagueState] = useState<LeagueStateType>({
+  const [leagueState, setLeagueState] = useState<StandingsTableType>({
     standings: league,
     sortedBy: "Points",
   });

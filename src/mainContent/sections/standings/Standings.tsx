@@ -7,7 +7,8 @@ import startViewTransitionWrapper from "../../../utility/startViewTransitionWrap
 import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
 import { spinner } from "../../../svgs.tsx";
-import { StandingsType, headers } from "./store";
+import { StandingsType } from "./types";
+import { headers } from "./store.tsx";
 
 type StandingsProps = {
   standings: StandingsType | Error | null;
@@ -41,7 +42,7 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
   };
   return (
     <section className="standings sm:p-3 2xl:mb-5 rounded h-max lg:w-3/4 lg:mx-auto">
-      <h1 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
+      <h1 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-2xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         Standings
       </h1>
       <SelectTableButtons

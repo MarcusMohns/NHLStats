@@ -1,16 +1,18 @@
+type AlertProps = {
+  messageHeader: string;
+  bgColor: string;
+  borderColor: string;
+  textColor: string;
+  children: React.ReactNode;
+};
+
 const Alert = ({
   messageHeader,
   bgColor,
   borderColor,
   textColor,
   children,
-}: {
-  messageHeader: string;
-  bgColor: string;
-  borderColor: string;
-  textColor: string;
-  children: React.ReactNode;
-}) => {
+}: AlertProps) => {
   return (
     <div
       className={`${bgColor} border-l-4 ${borderColor} ${textColor} p-4 w-max m-auto`}

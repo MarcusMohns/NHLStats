@@ -15,13 +15,12 @@ const linkOutIcon = (
   </svg>
 );
 
-export const LinkOut = ({
-  hrefString,
-  linkOutStyles,
-}: {
+type LinkOutProps = {
   hrefString: string;
   linkOutStyles: string;
-}) => (
+};
+
+export const LinkOut = ({ hrefString, linkOutStyles }: LinkOutProps) => (
   <a className={linkOutStyles} href={hrefString} target="_blank">
     {linkOutIcon}
   </a>

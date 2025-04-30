@@ -1,4 +1,4 @@
-import type { TeamType } from "../../store.tsx";
+import type { TeamType } from "../../types.tsx";
 import StyledTable from "./StyledTable.tsx";
 import { useCallback, useState, SetStateAction, Dispatch } from "react";
 import {
@@ -6,6 +6,7 @@ import {
   sortFunctions,
 } from "../../../../../utility/sortFunctions.ts";
 import startViewTransitionWrapper from "../../../../../utility/startViewTransitionWrapper.ts";
+import { StandingsTableType } from "../../types.tsx";
 
 type DivisionTablePropTypes = {
   central: TeamType[];
@@ -16,11 +17,6 @@ type DivisionTablePropTypes = {
   selectedTable: string;
 };
 
-type DivisionStateType = {
-  standings: TeamType[];
-  sortedBy: String;
-};
-
 const DivisionTable = ({
   central,
   atlantic,
@@ -29,21 +25,20 @@ const DivisionTable = ({
   headers,
   selectedTable,
 }: DivisionTablePropTypes) => {
-  const [centralState, setCentralState] = useState<DivisionStateType>({
+  const [centralState, setCentralState] = useState<StandingsTableType>({
     standings: central,
     sortedBy: "Points",
   });
-  const [atlanticState, setAtlanticState] = useState<DivisionStateType>({
+  const [atlanticState, setAtlanticState] = useState<StandingsTableType>({
     standings: atlantic,
     sortedBy: "Points",
   });
-  const [metropolitanState, setMetropolitanState] = useState<DivisionStateType>(
-    {
+  const [metropolitanState, setMetropolitanState] =
+    useState<StandingsTableType>({
       standings: metropolitan,
       sortedBy: "Points",
-    }
-  );
-  const [pacificState, setPacificState] = useState<DivisionStateType>({
+    });
+  const [pacificState, setPacificState] = useState<StandingsTableType>({
     standings: pacific,
     sortedBy: "Points",
   });
@@ -52,7 +47,7 @@ const DivisionTable = ({
     (oldStandings: TeamType[], sortBy: string, argument: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
       // Sort newStandings by sortBy argument
-      let stateSetter: Dispatch<SetStateAction<DivisionStateType>> | undefined;
+      let stateSetter: Dispatch<SetStateAction<StandingsTableType>> | undefined;
       switch (argument) {
         // Set which state is to be updated
         case "Central":

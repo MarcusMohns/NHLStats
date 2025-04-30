@@ -1,4 +1,4 @@
-import { TeamType } from "../mainContent/sections/standings/store";
+import { TeamType } from "../mainContent/sections/standings/types";
 
 export const sortByStreak = (standings: TeamType[]) =>
   standings.toSorted((a: TeamType, b: TeamType) => {

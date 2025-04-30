@@ -4,10 +4,9 @@ import Schedule from "./sections/schedule/Schedule.tsx";
 import SelectTabButtons from "./components/SelectTabButtons.tsx";
 import startViewTransitionWrapper from "../utility/startViewTransitionWrapper.ts";
 import { useEffect, useState, useCallback } from "react";
-
-import { StandingsType } from "./sections/standings/store.tsx";
-import { LeaderBoardsType } from "./sections/leaderboard/store.tsx";
-import { GameWeekType } from "./sections/schedule/store.tsx";
+import { StandingsType } from "./sections/standings/types.ts";
+import { LeaderBoardsType } from "./sections/leaderboard/types.ts";
+import { GameWeekType } from "./sections/schedule/types.ts";
 import { fetchStandings } from "./sections/standings/store.tsx";
 import { fetchLeaderboard } from "./sections/leaderboard/store.tsx";
 import { fetchSchedule } from "./sections/schedule/store.tsx";

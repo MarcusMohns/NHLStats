@@ -1,13 +1,12 @@
 import Alert from "./Alert";
 import { useState } from "react";
 
-const ErrorWithBtn = ({
-  action,
-  error,
-}: {
+type ErrorWithBtnProps = {
   action: () => Promise<void>;
   error: Error;
-}) => {
+};
+
+const ErrorWithBtn = ({ action, error }: ErrorWithBtnProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleAction = async () => {

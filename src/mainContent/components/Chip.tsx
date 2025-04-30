@@ -1,14 +1,11 @@
 import { ReactElement } from "react";
 
-const Chip = ({
-  color,
-  bgColor,
-  children,
-}: {
+type ChipProps = {
   color: string;
   bgColor: string;
   children: ReactElement | string | number;
-}) => {
+};
+const Chip = ({ color, bgColor, children }: ChipProps) => {
   return (
     <div
       className={`flex justify-center items-center ${color} ${bgColor} rounded-full px-2 text-xs font-semibold text-sm`}

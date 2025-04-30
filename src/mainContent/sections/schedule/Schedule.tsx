@@ -1,6 +1,6 @@
 import ErrorWithBtn from "../../components/ErrorWithBtn";
 import { spinner } from "../../../svgs";
-import { GameWeekType } from "./store";
+import { GameWeekType } from "./types";
 import GameList from "./components/GameList";
 
 type ScheduleProps = {

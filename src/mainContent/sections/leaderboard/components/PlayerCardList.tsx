@@ -1,4 +1,4 @@
-import { PlayerType, GoalieType } from "../store";
+import { PlayerType, GoalieType } from "../types";
 import PlayerCard from "./PlayerCard";
 
 const PlayerCardList = ({

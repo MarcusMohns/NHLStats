@@ -1,11 +1,11 @@
 import CloseButton from "./CloseButton";
 
-type ModalType = {
+type ModalProps = {
   closeModal: () => void;
   children: React.ReactNode;
 };
 
-const Modal = ({ closeModal, children }: ModalType) => {
+const Modal = ({ closeModal, children }: ModalProps) => {
   return (
     <div
       className={`modal relative z-10`}

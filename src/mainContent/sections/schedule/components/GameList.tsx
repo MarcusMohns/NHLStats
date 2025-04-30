@@ -1,15 +1,15 @@
 import { useRef } from "react";
 import { weekDays } from "../store";
-import { GameWeekType } from "../store";
+import { GameWeekType } from "../types";
 import Game from "./Game";
 import { useCallback } from "react";
 
-type GameListType = {
+type GameListProps = {
   schedule: GameWeekType[];
   locale: string;
 };
 
-const GameList = ({ schedule, locale }: GameListType) => {
+const GameList = ({ schedule, locale }: GameListProps) => {
   // Setup ref here to keep track of the previous day in the Game component
   const prevWeekDay = useRef<string>("");
   const handlePrevWeekDay = useCallback((weekDay: string) => {

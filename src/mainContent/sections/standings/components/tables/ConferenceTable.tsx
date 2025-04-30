@@ -1,4 +1,4 @@
-import type { TeamType } from "../../store.tsx";
+import type { TeamType } from "../../types.ts";
 import StyledTable from "./StyledTable.tsx";
 import { useState, useCallback, Dispatch, SetStateAction } from "react";
 import {
@@ -6,17 +6,13 @@ import {
   sortFunctions,
 } from "../../../../../utility/sortFunctions.ts";
 import startViewTransitionWrapper from "../../../../../utility/startViewTransitionWrapper.ts";
+import { StandingsTableType } from "../../types.ts";
 
-type ConferenceTablePropTypes = {
+type ConferenceTableProps = {
   eastern: TeamType[];
   western: TeamType[];
   headers: { full: string[]; abbreviated: string[] };
   selectedTable: string;
-};
-
-type ConferenceStateType = {
-  standings: TeamType[];
-  sortedBy: String;
 };
 
 const ConferenceTable = ({
@@ -24,12 +20,12 @@ const ConferenceTable = ({
   western,
   headers,
   selectedTable,
-}: ConferenceTablePropTypes) => {
-  const [easternState, setEasternState] = useState<ConferenceStateType>({
+}: ConferenceTableProps) => {
+  const [easternState, setEasternState] = useState<StandingsTableType>({
     standings: eastern,
     sortedBy: "Points",
   });
-  const [westernState, setWesternState] = useState<ConferenceStateType>({
+  const [westernState, setWesternState] = useState<StandingsTableType>({
     standings: western,
     sortedBy: "Points",
   });
@@ -38,9 +34,7 @@ const ConferenceTable = ({
     (oldStandings: TeamType[], sortBy: string, argument: string) => {
       const newStandings = sortFunctions[sortBy](oldStandings);
       // Sort newStandings by sortBy argument
-      let stateSetter:
-        | Dispatch<SetStateAction<ConferenceStateType>>
-        | undefined;
+      let stateSetter: Dispatch<SetStateAction<StandingsTableType>> | undefined;
       switch (argument) {
         // Set which state is to be updated
         case "Western":

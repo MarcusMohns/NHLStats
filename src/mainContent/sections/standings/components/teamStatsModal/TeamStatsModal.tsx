@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { TeamType } from "../../store";
+import { TeamType, TeamStatsType } from "../../types";
 import Modal from "../../../../components/Modal";
 import Chip from "../../../../components/Chip";
 import SkaterCard from "./components/SkaterCard";
@@ -8,7 +8,7 @@ import TeamStatsModalSkeleton from "./components/TeamStatsModalSkeleton";
 import TeamThisWeekSchedule from "./components/TeamThisWeekSchedule";
 import ErrorWithBtn from "../../../../components/ErrorWithBtn";
 import LinkOut from "../../../../components/LinkOut";
-import { fetchTeamAndGames, TeamStatsType } from "./store";
+import { fetchTeamAndGames } from "./store";
 
 type ModalProps = {
   handleCloseModal: () => void;

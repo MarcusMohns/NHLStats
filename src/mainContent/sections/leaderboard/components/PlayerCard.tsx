@@ -1,4 +1,4 @@
-import { PlayerType } from "../store";
+import { PlayerType } from "../types";
 import ImageAndLoading from "../../../../utility/ImageAndLoading";
 import LinkOut from "../../../components/LinkOut";
 

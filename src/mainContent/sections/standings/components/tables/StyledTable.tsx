@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { TeamType } from "../../store.tsx";
+import { TeamType } from "../../types.ts";
+
 import TeamStatsModal from "../teamStatsModal/TeamStatsModal.tsx";
 import startViewTransitionWrapper from "../../../../../utility/startViewTransitionWrapper.ts";
 import TableRow from "./TableRow.tsx";
