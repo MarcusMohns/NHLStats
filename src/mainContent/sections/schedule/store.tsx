@@ -97,7 +97,7 @@ export const fetchSchedule = async () => {
     const scheduleData = await fetchScheduleData();
     if (!scheduleData) {
       console.error("No schedule data");
-      return new Error("No schedule data");
+      throw new Error("No schedule data");
     } else {
       return scheduleData;
     }
