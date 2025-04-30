@@ -1,8 +1,9 @@
-import { SkaterType } from "./store";
-import ImageAndLoading from "../../../../../utility/ImageAndLoading";
-import LinkOut from "../../../../components/LinkOut";
+import { GoalieType } from "../store";
+import { puck } from "../../../../../../svgs";
+import ImageAndLoading from "../../../../../../utility/ImageAndLoading";
+import LinkOut from "../../../../../components/LinkOut";
 
-const SkaterCard = ({ player }: { player: SkaterType }) => {
+const GoalieCard = ({ player }: { player: GoalieType }) => {
   return (
     <div className="flex flex-row shadow-sm bg-white dark:bg-stone-800 rounded p-2 mt-2 w-full w-24 h-24">
       <ImageAndLoading
@@ -12,33 +13,31 @@ const SkaterCard = ({ player }: { player: SkaterType }) => {
         minHeight="min-h-20"
         minWidth="min-w-20"
       />
+
       <div className="flex w-full flex-col items-center justify-center">
         <div className="flex w-full text-md uppercase font-bold mb-2">
           <p className="ml-auto pl-6">
             {player.firstName.default} {player.lastName.default}
           </p>
+
           <LinkOut
             linkOutStyles="ml-auto w-6"
             hrefString={` https://www.nhl.com/player/${player.playerId}`}
           />
         </div>
         <div className="grid grid-flow-col grid-rows-2 gap-1 font-medium">
-          <div className="pc-points text-start sm:mx-3">
-            🎯Points: {player.points}{" "}
+          <div className="flex flex-row items-center justify-start text-start sm:mx-3">
+            {puck}S: {player.savePercentage.toFixed(2)}%
           </div>
-          <div className="pc-goals text-start sm:mx-3">
-            🥅Goals: {player.goals}
+          <div className="text-start sm:mx-3">
+            🥅GAA: {player.goalsAgainstAverage.toFixed(2)}
           </div>
-          <div className="pc-assists text-start sm:mx-3">
-            🤝Assists: {player.assists}{" "}
-          </div>
-          <div className="pc-plusminus text-start sm:mx-3">
-            ± Plus/Minus: {player.plusMinus}
-          </div>
+          <div className="text-start sm:mx-3">🧤Saves: {player.saves} </div>
+          <div className="text-start sm:mx-3">🏒SA: {player.shotsAgainst}</div>
         </div>
       </div>
     </div>
   );
 };
 
-export default SkaterCard;
+export default GoalieCard;
