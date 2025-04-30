@@ -1,5 +1,4 @@
 import { TeamType } from "../../store";
-import { ErrorType } from "../../../leaderboard/store";
 import { sortFunctions } from "../../../../../utility/sortFunctions";
 
 export type GameType = {
@@ -142,7 +141,7 @@ export type TeamStatsType = {
   topGoalie: GoalieType;
 };
 
-const fetchData = async (urlString: string) => {
+const fetchTeamData = async (urlString: string) => {
   const url = urlString;
   try {
     const response = await fetch(url);
@@ -154,17 +153,13 @@ const fetchData = async (urlString: string) => {
   }
 };
 
-export const fetchTeamsAndGames = async (
-  handleSetModal: (team: TeamStatsType) => void,
-  handleSetError: (error: ErrorType) => void,
-  team: TeamType
-) => {
+export const fetchTeamAndGames = async (team: TeamType) => {
   const teamUrl = `https://corsproxy.io/?url=https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/now`;
   const gamesUrl = `https://corsproxy.io/?url=https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`;
   // Run both by https://corsproxy.io/ to bypass CORS
   try {
-    const teamData = await fetchData(teamUrl);
-    const gamesThisWeekData = await fetchData(gamesUrl);
+    const teamData = await fetchTeamData(teamUrl);
+    const gamesThisWeekData = await fetchTeamData(gamesUrl);
     if (!teamData || !gamesThisWeekData) throw new Error("Error getting data");
 
     const playersByPoints = sortFunctions.Points(teamData.skaters);
@@ -172,19 +167,14 @@ export const fetchTeamsAndGames = async (
     const topSkaters = playersByPoints.slice(0, 2);
     const topGoalie = goaliesByPercentage[0];
 
-    handleSetModal({
+    return {
       ...teamData,
       topSkaters: topSkaters,
       topGoalie: topGoalie,
       games: gamesThisWeekData.games,
-    });
+    };
   } catch (e) {
-    handleSetError({
-      error: true,
-      text: "Something went wrong getting team info 🙁",
-      message: (e as Error).message,
-      name: "fetchAndSetTeamsAndWeeklyStats",
-    });
-    throw e;
+    console.error("Error fetching team data from API", e);
+    return new Error("Error fetching data from the server ☹️");
   }
 };
