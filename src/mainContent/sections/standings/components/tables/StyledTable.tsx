@@ -56,11 +56,11 @@ const StyledTable = ({
         <TeamStatsModal handleCloseModal={handleCloseModal} team={modal.team} />
       )}
 
-      <h2 className="font-bold dark:text-stone-300 my-5 pt-3 px-1 text-lg uppercase leading-tight tracking-wide select-none dark:border-stone-700">
+      <h2 className="font-bold dark:text-stone-300 my-5 pt-3 px-1 text-lg uppercase leading-tight tracking-wide select-none">
         {tableName}
       </h2>
       <table
-        className="dark:bg-stone-900 shadow-lg w-full text-sm text-left rtl:text-right"
+        className="dark:bg-stone-900 shadow-lg dark:shadow-sm  w-full text-sm text-left rtl:text-right"
         cellSpacing="5"
       >
         <thead className="bg-gray-300 dark:bg-stone-800">
