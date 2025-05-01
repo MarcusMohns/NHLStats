@@ -4,11 +4,11 @@ import Modal from "../../../../components/Modal";
 import Chip from "../../../../components/Chip";
 import SkaterCard from "./components/SkaterCard";
 import GoalieCard from "./components/GoalieCard";
-import TeamStatsModalSkeleton from "./components/TeamStatsModalSkeleton";
 import TeamThisWeekSchedule from "./components/TeamThisWeekSchedule";
 import ErrorWithBtn from "../../../../components/ErrorWithBtn";
 import LinkOut from "../../../../components/LinkOut";
 import { fetchTeamAndGames } from "./store";
+import { spinner } from "../../../../../svgs";
 
 type ModalProps = {
   handleCloseModal: () => void;
@@ -42,12 +42,14 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
     <Modal closeModal={handleCloseModal}>
       {!modal ? (
         // Render loading spinner inside the modal if data is not available
-        <TeamStatsModalSkeleton />
+        <div className="flex flex-col items-center justify-center content-center h-180 bg-stone-100 dark:bg-stone-800 animate-pulse">
+          {spinner}
+        </div>
       ) : modal instanceof Error ? (
         // Render error message inside the modal if data fetch fails
         <ErrorWithBtn action={() => handleFetchTeamAndGames()} error={modal} />
       ) : (
-        <div>
+        <div className="h-180">
           <h1 className="flex flex-row align-center justify-center items-center text-2xl/7 font-bold sm:truncate sm:text-3xl sm:tracking-tight">
             {team.teamName.default}
             <LinkOut
@@ -62,7 +64,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
             <img
               src={team.teamLogo}
               alt={team.teamName.default}
-              className="w-30 rounded-sm shadow-xl bg-slate-200 dark:hidden mr-2"
+              className="w-30 rounded-sm shadow-xl bg-gray-200 dark:hidden mr-2"
             />
             <img
               src={team.teamLogoDark}
@@ -70,7 +72,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
             />
             <div className="flex flex-column gap-1 flex-wrap">
               {Chips.map((chip) => (
-                <Chip color="text-white" bgColor="bg-slate-600" key={chip.name}>
+                <Chip color="text-white" bgColor="bg-gray-600" key={chip.name}>
                   <p>
                     {chip.name}: {chip.value}
                   </p>
@@ -98,13 +100,10 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
           <h2 className="font-medium text-left ml-2 text-xl">
             This Weeks Games
           </h2>
-          {modal.games.map((game) => (
-            <TeamThisWeekSchedule
-              key={game.id}
-              game={game}
-              teamAbbrev={team.teamAbbrev.default}
-            />
-          ))}
+          <TeamThisWeekSchedule
+            games={modal.games}
+            teamAbbrev={team.teamAbbrev.default}
+          />
         </div>
       )}
     </Modal>
