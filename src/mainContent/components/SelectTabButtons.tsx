@@ -24,7 +24,7 @@ const SelectTabButtons = ({
 
   return (
     <ul
-      className="fixed bottom-0 left-0 z-2 bg-slate-300 dark:bg-stone-700 md:bg-transparent md:dark:bg-transparent 
+      className="fixed bottom-0 left-0 z-2 bg-gray-200 dark:bg-stone-700 md:bg-transparent md:dark:bg-transparent 
     p-2 md:p-0 md:static flex flex-row justify-center md:justify-start w-full md:w-max md:mb-12 
    gap-2 md:gap-5 leading-tight tracking-wide select-none border-b-2 border-stone-300 dark:border-stone-700"
     >

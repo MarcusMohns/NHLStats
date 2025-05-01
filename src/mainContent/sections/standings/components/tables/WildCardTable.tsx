@@ -20,7 +20,6 @@ type WildCardTableProps = {
   pacific: TeamType[];
   western: TeamType[];
   eastern: TeamType[];
-  headers: { full: string[]; abbreviated: string[] };
   selectedTable: string;
 };
 
@@ -31,7 +30,6 @@ const WildCardTable = ({
   pacific,
   western,
   eastern,
-  headers,
   selectedTable,
 }: WildCardTableProps) => {
   const topThreeCentral = central.slice(0, 3);
@@ -148,7 +146,6 @@ const WildCardTable = ({
 
   const tableProps = {
     handleSort,
-    headers,
     selectedTable,
   };
 

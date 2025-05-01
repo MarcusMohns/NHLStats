@@ -9,7 +9,7 @@ const Navbar = ({ toggleDarkMode, darkMode }: NavbarProps) => {
   return (
     <div
       className="flex w-full flex-direction:row align-center items-center p-4  
-    bg-slate-300 sm:bg-gradient-to-r from-slate-300 via-slate-500 to-slate-200 dark:bg-stone-700 sm:dark:bg-gradient-to-r dark:from-stone-800 dark:via-stone-900 dark:to-stone-800"
+    bg-gray-200 sm:bg-gradient-to-r from-gray-300 via-gray-500 to-gray-200 dark:bg-stone-700 sm:dark:bg-gradient-to-r dark:from-stone-800 dark:via-stone-900 dark:to-stone-800"
     >
       <div className="rounded bg-stone-900 dark:bg-stone-700 p-1 text-white">
         🏒

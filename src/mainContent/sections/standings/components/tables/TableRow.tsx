@@ -27,27 +27,44 @@ const TableRow = ({
     }`}
   >
     <td className="text-center">{team.rank}</td>
-    <th className="flex flex-col sm:flex-row flex-wrap w-full sm:justify-start items-center sm:px-2 py-2 sm:py-3 w-fit">
-      <img
-        src={team.teamLogo}
-        className={`team-logo h-8 w-8 sm:h-12 sm:w-12 dark:hidden`}
-        alt={`${team.teamName.default} logo`}
-      />
-      <img
-        src={
-          // Capitals dark logo is outdated so skip it for now
-          team.teamName.default === "Washington Capitals"
-            ? team.teamLogo
-            : team.teamLogoDark
-        }
-        className={`team-logo-dark h-8 w-8 sm:h-12 sm:w-12 hidden dark:block `}
-        alt={`${team.teamName.default} logo`}
-      />
+    <th className="flex wrap flex-col sm:flex-row flex-wrap w-full sm:justify-start items-center sm:px-2 py-2 sm:py-3 w-fit">
+      <div className="flex flex-row items-center">
+        <img
+          src={team.teamLogo}
+          className={`team-logo h-8 w-8 sm:h-12 sm:w-12 dark:hidden`}
+          alt={`${team.teamName.default} logo`}
+        />
+        <img
+          src={
+            // Capitals dark logo is outdated so skip it for now
+            team.teamName.default === "Washington Capitals"
+              ? team.teamLogo
+              : team.teamLogoDark
+          }
+          className={`team-logo-dark h-8 w-8 sm:h-12 sm:w-12 hidden dark:block `}
+          alt={`${team.teamName.default} logo`}
+        />
+        <span className="text-green-600 dark:text-green-500">
+          {team.clinchIndicator ? (
+            team.clinchIndicator === "e" ? (
+              // If Clinched a playoff spot, show a green check mark
+              <span className="text-red-600 dark:text-red-500">🗴</span>
+            ) : (
+              // If eliminated, show a red check mark
+              <span className="text-green-600 dark:text-green-500">🗸</span>
+            )
+          ) : (
+            ""
+          )}
+        </span>
+      </div>
       <p className="hidden md:block text-center">{team.teamName.default}</p>
-      <p className="sm:block md:hidden text-center">
-        {team.teamCommonName.default}
+      <p className="sm:block md:hidden text-center w-max break-words">
+        {/* // Utah Hockey Club isn't privded a shortened name in the API, manually render it for now */}
+        {team.teamCommonName.default === "Utah Hockey Club"
+          ? "Utah"
+          : team.teamCommonName.default}
       </p>
-      {team.clinchIndicator ? (team.clinchIndicator === "e" ? "❌" : "✔️") : ""}
     </th>
     <td className="text-center">{team.points}</td>
     <td className="text-center">{team.gamesPlayed}</td>
@@ -58,7 +75,7 @@ const TableRow = ({
     <td className={`text-center hidden md:table-cell vertical-align: center`}>
       {team.l10Wins} - {team.l10Losses} - {team.l10OtLosses}
     </td>
-    <td className="text-center">
+    <td className="text-center hidden md:table-cell">
       {team.streakCode}
       {team.streakCount >= 3
         ? team.streakCode === "W"

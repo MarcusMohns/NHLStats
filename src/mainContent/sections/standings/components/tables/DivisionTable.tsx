@@ -13,7 +13,6 @@ type DivisionTablePropTypes = {
   atlantic: TeamType[];
   metropolitan: TeamType[];
   pacific: TeamType[];
-  headers: { full: string[]; abbreviated: string[] };
   selectedTable: string;
 };
 
@@ -22,7 +21,6 @@ const DivisionTable = ({
   atlantic,
   metropolitan,
   pacific,
-  headers,
   selectedTable,
 }: DivisionTablePropTypes) => {
   const [centralState, setCentralState] = useState<StandingsTableType>({
@@ -85,7 +83,6 @@ const DivisionTable = ({
 
   const tableProps = {
     handleSort,
-    headers,
     selectedTable,
   };
 

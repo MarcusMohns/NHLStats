@@ -8,7 +8,6 @@ import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
 import { spinner } from "../../../svgs.tsx";
 import { StandingsType } from "./types";
-import { headers } from "./store.tsx";
 
 type StandingsProps = {
   standings: StandingsType | Error | null;
@@ -36,10 +35,6 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
     );
   }
 
-  const standingsProps = {
-    headers,
-    selectedTable,
-  };
   return (
     <section className="standings sm:p-5 2xl:mb-5 rounded h-max">
       <h1 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
@@ -51,13 +46,13 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
         selectedTable={selectedTable}
       />
       {selectedTable === "League" && (
-        <LeagueTable league={standings.League} {...standingsProps} />
+        <LeagueTable league={standings.League} selectedTable={selectedTable} />
       )}
       {selectedTable === "Conference" && (
         <ConferenceTable
           eastern={standings.Eastern}
           western={standings.Western}
-          {...standingsProps}
+          selectedTable={selectedTable}
         />
       )}
 
@@ -67,7 +62,7 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
           atlantic={standings.Atlantic}
           metropolitan={standings.Metropolitan}
           pacific={standings.Pacific}
-          {...standingsProps}
+          selectedTable={selectedTable}
         />
       )}
       {/* rendered slightly different, needs parts of the other tables */}
@@ -79,7 +74,7 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
           pacific={standings.Pacific}
           eastern={standings.Eastern}
           western={standings.Western}
-          {...standingsProps}
+          selectedTable={selectedTable}
         />
       )}
       <div className="text-sm font-semibold uppercase p-3">

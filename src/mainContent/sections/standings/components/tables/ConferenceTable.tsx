@@ -11,14 +11,12 @@ import { StandingsTableType } from "../../types.ts";
 type ConferenceTableProps = {
   eastern: TeamType[];
   western: TeamType[];
-  headers: { full: string[]; abbreviated: string[] };
   selectedTable: string;
 };
 
 const ConferenceTable = ({
   eastern,
   western,
-  headers,
   selectedTable,
 }: ConferenceTableProps) => {
   const [easternState, setEasternState] = useState<StandingsTableType>({
@@ -61,7 +59,6 @@ const ConferenceTable = ({
 
   const tableProps = {
     handleSort,
-    headers,
     selectedTable,
   };
 

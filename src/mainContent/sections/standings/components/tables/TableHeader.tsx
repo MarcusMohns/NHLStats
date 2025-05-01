@@ -32,7 +32,9 @@ const TableHeader = ({
   return (
     <th
       className={`text-gray-500 dark:text-stone-300 text-center p-2 relative select-none ${
-        header === "Last 10" ? "hidden md:table-cell" : ""
+        header === "Last 10" || header === "Streak"
+          ? "hidden md:table-cell"
+          : ""
       }`}
     >
       <button

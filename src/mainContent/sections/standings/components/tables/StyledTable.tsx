@@ -5,6 +5,7 @@ import TeamStatsModal from "../teamStatsModal/TeamStatsModal.tsx";
 import startViewTransitionWrapper from "../../../../../utility/startViewTransitionWrapper.ts";
 import TableRow from "./TableRow.tsx";
 import TableHeader from "./TableHeader.tsx";
+import { headers } from "../../store.tsx";
 
 type StyledTableProps = {
   standings: TeamType[];
@@ -13,13 +14,11 @@ type StyledTableProps = {
     sortBy: string,
     argument: string
   ) => void;
-  headers: { full: string[]; abbreviated: string[] };
   tableName: string;
   selectedTable: string;
 };
 const StyledTable = ({
   standings,
-  headers,
   tableName,
   handleSort,
   selectedTable,

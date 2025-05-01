@@ -9,15 +9,10 @@ import startViewTransitionWrapper from "../../../../../utility/startViewTransiti
 
 type LeagueTablePropTypes = {
   league: TeamType[];
-  headers: { full: string[]; abbreviated: string[] };
   selectedTable: string;
 };
 
-const LeagueTable = ({
-  league,
-  headers,
-  selectedTable,
-}: LeagueTablePropTypes) => {
+const LeagueTable = ({ league, selectedTable }: LeagueTablePropTypes) => {
   const [leagueState, setLeagueState] = useState<StandingsTableType>({
     standings: league,
     sortedBy: "Points",
@@ -41,7 +36,6 @@ const LeagueTable = ({
     <StyledTable
       standings={leagueState.standings}
       handleSort={handleSort}
-      headers={headers}
       tableName={"League"}
       selectedTable={selectedTable}
     />
