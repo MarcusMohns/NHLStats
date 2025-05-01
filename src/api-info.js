@@ -7,3 +7,11 @@
 // https://api-web.nhle.com/v1/club-stats-season/TOR
 
 // https://api-web.nhle.com/v1/club-stats/TOR/20232024/2
+
+// Playoffs
+
+// https://api-web.nhle.com/v1/playoff-series/carousel/20232024/
+
+// https://api-web.nhle.com/v1/playoff-series/carousel/20232024/
+
+// "https://api-web.nhle.com/v1/schedule/playoff-series/20232024/a"
