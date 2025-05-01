@@ -11,7 +11,6 @@ import { fetchStandings } from "./sections/standings/store.tsx";
 import { fetchLeaderboard } from "./sections/leaderboard/store.tsx";
 import { fetchSchedule } from "./sections/schedule/store.tsx";
 import Playoffs from "./sections/playoffs/Playoffs.tsx";
-// import { fetchPlayoffs } from "./sections/playoffs/store.tsx";
 
 const MainContent = () => {
   const [selectedTab, setSelectedTab] = useState<string>("Standings");
@@ -57,8 +56,8 @@ const MainContent = () => {
 
   return (
     <main
-      className={`dark:text-white flex flex-col justify-center align-center dark:bg-stone-900 sm:p-10
-    min-h-screen w-full md:pt-15`}
+      className={`dark:text-white flex flex-col justify-center align-center sm:p-10
+    min-h-screen w-full lg:w-3/4 mx-auto md:pt-15`}
     >
       <SelectTabButtons
         buttons={["Standings", "Leaderboard", "Schedule", "Playoffs"]}
