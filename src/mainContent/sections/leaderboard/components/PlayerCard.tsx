@@ -12,7 +12,7 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
           : player.value}
       </p>
       <div className="flex flex-row w-full items-center">
-        <div className="flex flex-col-reverse sm:flex-row w-full">
+        <div className="flex flex-col-reverse sm:flex-row mr-auto">
           <div className="flex items-center md:justify-center text-xl xl:text-2xl gap-3 2xl:ml-90">
             <ImageAndLoading
               imgSrc={player.headshot}
@@ -21,18 +21,18 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
               minHeight="min-h-16 md:min-h-20"
               minWidth="min-w-16 md:min-w-20"
             />
-            <p className="flex flex-row items-center gap-2 text-stone-600 dark:text-stone-200 font-bold">
+            <p className="flex flex-row items-center gap-2 text-stone-600 dark:text-stone-200 font-bold text-center">
               {player.firstName.default} {player.lastName.default}
             </p>
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center text-lg justify-around w-60">
-          <div className="flex flex-row gap-2">
+        <div className="flex flex-col sm:flex-row items-center text-lg justify-around xl:w-60">
+          <div className="flex flex-row gap-1 md:gap-2">
             <p className="bg-stone-200 dark:bg-stone-700 rounded p-1 text-base font-bold sm:text-2xl">
               {player.position}
             </p>
-            <p className="bg-stone-200 dark:bg-stone-700 rounded p-1 text-base font-bold sm:text-2xl min-w-13 text-center">
+            <p className="bg-stone-200 dark:bg-stone-700 rounded p-1 text-base font-bold sm:text-2xl md:w-13 text-center">
               #{player.sweaterNumber}
             </p>
           </div>
