@@ -8,6 +8,7 @@ import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
 import { spinner } from "../../../svgs.tsx";
 import { StandingsType } from "./types";
+import { xmarkIcon, checkmarkIcon } from "../../../svgs.tsx";
 
 type StandingsProps = {
   standings: StandingsType | Error | null;
@@ -77,8 +78,8 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
           selectedTable={selectedTable}
         />
       )}
-      <div className="text-sm font-semibold uppercase p-3">
-        ❌ = Eliminated ✔️ = Qualified
+      <div className="flex flex-row text-sm font-semibold uppercase p-3 gap-1">
+        {xmarkIcon} = Eliminated {checkmarkIcon} = Qualified
       </div>
     </section>
   );

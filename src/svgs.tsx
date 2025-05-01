@@ -140,3 +140,36 @@ export const playoffsIcon = (
     />
   </svg>
 );
+export const checkmarkIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth="4"
+    stroke="currentColor"
+    className="size-4 text-green-600 dark:text-green-500"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m4.5 12.75 6 6 9-13.5"
+    />
+  </svg>
+);
+
+export const xmarkIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth="4"
+    stroke="currentColor"
+    className="size-4 text-red-600 dark:text-red-500"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6 18 18 6M6 6l12 12"
+    />
+  </svg>
+);
