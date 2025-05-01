@@ -61,7 +61,7 @@ const Game = ({
           awayTeamScore={game.awayTeam.score}
         />
         <LinkOut
-          linkOutStyles="flex items-center h-full "
+          linkOutStyles="flex items-center h-auto"
           hrefString={`https://www.nhl.com${game.gameCenterLink}`}
         />
       </div>

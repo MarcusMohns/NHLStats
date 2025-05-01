@@ -23,15 +23,27 @@ const Matchup = ({
     <div className="flex flex-row items-center justify-center align-center dark:text-stone-300  text-stone-800 w-full flex-space-between font-bold">
       <p className="flex flex-row items-center justify-center min-w-20">
         {awayTeamAbbrev}
-        <img className="w-8 h-8 dark:hidden" src={awayTeamLogo} />
-        <img className="w-8 h-8 hidden dark:block" src={awayTeamDarkLogo} />
+        <img
+          className="w-8 h-8 md:w-12 md:h-12 dark:hidden"
+          src={awayTeamLogo}
+        />
+        <img
+          className="w-8 h-8 md:w-12 md:h-12 hidden dark:block"
+          src={awayTeamDarkLogo}
+        />
         {awayTeamScore}
       </p>
       <p className="w-5 mx-1">vs</p>
       {homeTeamScore}
       <p className="flex flex-row items-center justify-center min-w-20">
-        <img className="w-8 h-8 dark:hidden" src={homeTeamLogo} />
-        <img className="w-8 h-8 hidden dark:block" src={homeTeamDarkLogo} />
+        <img
+          className="w-8 h-8 md:w-12 md:h-12 dark:hidden"
+          src={homeTeamLogo}
+        />
+        <img
+          className="w-8 h-8 md:w-12 md:h-12 hidden dark:block"
+          src={homeTeamDarkLogo}
+        />
         {homeTeamAbbrev}
       </p>
     </div>

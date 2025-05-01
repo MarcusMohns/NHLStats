@@ -2,7 +2,7 @@ import { initialPlayoffsState } from "./store";
 
 const Playoffs = () => {
   return (
-    <section className="playoffs h-max  rounded sm:p-3 2xl:mb-5 md:w-3/4 md:mx-auto">
+    <section className="playoffs h-max  rounded sm:p-5 2xl:mb-5">
       <img
         src={initialPlayoffsState.bracketLogo}
         className="w-full h-40 object-contain rounded invert dark:invert-0"

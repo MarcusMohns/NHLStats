@@ -13,13 +13,13 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
       </p>
       <div className="flex flex-row items-center w-full">
         <div className="flex flex-col-reverse sm:flex-row justify-start items-center w-min sm:w-full grow">
-          <div className="flex items-center font-bold justify-center text-xl xl:text-xl mx-2 text-center w-full gap-2">
+          <div className="flex items-center font-bold justify-center text-xl xl:text-2xl mx-2 text-center w-full gap-2">
             <ImageAndLoading
               imgSrc={player.headshot}
-              height="h-16 md:h-20"
-              width="w-16 md:h-20"
-              minHeight="min-h-16 md:min-h-20"
-              minWidth="min-w-16 md:min-w-20"
+              height="h-16"
+              width="w-16"
+              minHeight="min-h-16"
+              minWidth="min-w-16"
             />
             <p className="md:w-50">
               {player.firstName.default} {player.lastName.default}
