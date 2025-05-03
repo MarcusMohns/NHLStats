@@ -56,7 +56,7 @@ const MainContent = () => {
 
   return (
     <main
-      className={`dark:text-white flex flex-col justify-center align-center sm:p-10
+      className={`dark:text-white flex flex-col justify-start align-center sm:p-10
     min-h-screen w-full lg:w-3/4 mx-auto md:pt-15`}
     >
       <SelectTabButtons

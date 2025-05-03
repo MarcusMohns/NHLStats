@@ -56,11 +56,8 @@ const TableRow = ({
           <span className="sm:hidden block">{playoffsIndicator}</span>
         </div>
         <p className="hidden md:block text-center">{team.teamName.default}</p>
-        <p className="sm:block md:hidden text-center w-max break-words">
-          {/* // Utah Hockey Club isn't privded a shortened name in the API, manually render it for now */}
-          {team.teamCommonName.default === "Utah Hockey Club"
-            ? "Utah"
-            : team.teamCommonName.default}
+        <p className="sm:block md:hidden text-center">
+          {team.teamAbbrev.default}
         </p>
         <span className="hidden sm:block pl-2">{playoffsIndicator}</span>
       </th>
