@@ -1,4 +1,5 @@
 import { TeamType } from "../types";
+import Team from "./Team.tsx";
 
 type ScoreboardProps = {
   awayTeam: TeamType;
@@ -14,17 +15,12 @@ const Scoreboard = ({
   homeTeamScore,
 }: ScoreboardProps) => {
   return (
-    <div>
-      <div className="flex flex-row items-center justify-center w-max border-b border-stone-300 dark:border-stone-700">
-        <img src={homeTeam.logo} alt="Home Team Logo" className="w-8 h-8" />
-        <p>{homeTeam.abbrev}</p>
-        <p className="text-lg text-stone-900 dark:text-stone-100">
-          {homeTeamScore}
-        </p>
+    <div className="flex flex-col items-center justify-center m-auto h-full p-3 px-5 text-center grow bg-stone-100 dark:bg-stone-800 rounded-lg border-2 border-gray-300 dark:border-stone-700">
+      <div className="flex flex-col w-full sm:flex-row items-center justify-center text-center border-b-2 border-gray-300 dark:border-stone-700">
+        <Team score={homeTeamScore} team={homeTeam} />
       </div>
-      <div className="flex flex-row items-center justify-center">
-        <img src={awayTeam.logo} alt="Away Team Logo" className="w-8 h-8" />
-        {awayTeam.abbrev} {awayTeamScore}
+      <div className="flex flex-col  sm:flex-row items-center justify-center text-center">
+        <Team score={awayTeamScore} team={awayTeam} />
       </div>
     </div>
   );
