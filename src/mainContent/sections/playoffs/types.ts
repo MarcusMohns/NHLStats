@@ -1,4 +1,10 @@
-export type SeriesDataType = {
+export type PlayoffsType = {
+  bracketLogo: string;
+  bracketLogoFr: string;
+  series: SeriesType[];
+};
+
+export type SeriesType = {
   seriesUrl?: string;
   seriesTitle: string;
   seriesAbbrev: string;
