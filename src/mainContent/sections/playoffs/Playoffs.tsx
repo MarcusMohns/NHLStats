@@ -11,7 +11,7 @@ const Playoffs = () => {
   const stanleyCupFinals = initialPlayoffsState.series[14];
 
   return (
-    <section className="playoffs h-max  rounded sm:p-5 2xl:mb-5 h-full">
+    <section className="playoffs h-max rounded lg:p-5 2xl:mb-5 h-full">
       <img
         src={initialPlayoffsState.bracketLogo}
         className="w-full h-40 object-contain rounded invert dark:invert-0"
@@ -27,14 +27,16 @@ const Playoffs = () => {
             <Series key={series.seriesUrl} series={series} />
           ))}
         </div>
-        <div className="grid grid-rows-1">
-          <Series series={westernFinals} />
-        </div>
-        <div className="grid grid-rows-1">
-          <Series series={stanleyCupFinals} />
-        </div>
-        <div className="grid grid-rows-1">
-          <Series series={easternFinals} />
+        <div className="grid grid-rows-3">
+          <div className="grid grid-rows-1">
+            <Series series={westernFinals} />
+          </div>
+          <div className="grid grid-rows-1">
+            <Series series={stanleyCupFinals} />
+          </div>
+          <div className="grid grid-rows-1">
+            <Series series={easternFinals} />
+          </div>
         </div>
         <div className="grid grid-rows-2 ">
           {roundTwoEastern.map((series) => (

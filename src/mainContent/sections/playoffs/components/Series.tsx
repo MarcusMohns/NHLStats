@@ -1,66 +1,31 @@
-const GameSeries = ({ series }: { series: SeriesType }) => {
-  console.log("series", series);
+import { SeriesDataType } from "../types";
+import Scoreboard from "./Scoreboard";
+
+const GameSeries = ({ series }: { series: SeriesDataType }) => {
   return (
-    <div className="flex items-center justify-center">
-      <div className="flex items-center justify-center border-1 border-stone-300 dark:border-stone-700 rounded h-max p-3 m-auto">
-        {series.seriesTitle}
-      </div>
-      <div className="flex items-center justify-center text-sm font-bold text-stone-500 dark:text-stone-400">
-        {series.bottomSeedTeam ? series.bottomSeedTeam.name.default : ""} vs{" "}
-        {series.topSeedTeam ? series.topSeedTeam.name.default : ""}
-      </div>
+    <div
+      className="flex items-center justify-center text-sm font-bold 
+    text-stone-500 dark:text-stone-400 border-1 
+    border-stone-300 dark:border-stone-700 rounded h-max p-2 m-auto"
+    >
+      {series.seriesUrl && series.bottomSeedTeam && series.topSeedTeam ? (
+        <div className="flex items-center justify-center">
+          <Scoreboard
+            awayTeam={series.bottomSeedTeam}
+            homeTeam={series.topSeedTeam}
+            awayTeamScore={series.bottomSeedWins}
+            homeTeamScore={series.topSeedWins}
+          />
+        </div>
+      ) : series.seriesLogo ? (
+        <img src={series.seriesLogo} alt="Series Logo" />
+      ) : (
+        <div className="flex items-center justify-center">
+          {series.seriesTitle}
+        </div>
+      )}
     </div>
   );
 };
 
 export default GameSeries;
-
-export type SeriesType = {
-  seriesUrl?: string;
-  seriesTitle: string;
-  seriesAbbrev: string;
-  seriesLetter: string;
-  playoffRound: number;
-  topSeedRank: number;
-  topSeedRankAbbrev?: string;
-  topSeedWins: number;
-  bottomSeedRank: number;
-  bottomSeedRankAbbrev?: string;
-  bottomSeedWins: number;
-  topSeedTeam?: {
-    id: number;
-    abbrev: string;
-    name: {
-      default: string;
-      fr?: string;
-    };
-    commonName: {
-      default: string;
-    };
-    placeNameWithPreposition: {
-      default: string;
-      fr?: string;
-    };
-    logo: string;
-    darkLogo: string;
-  };
-  bottomSeedTeam?: {
-    id: number;
-    abbrev: string;
-    name: {
-      default: string;
-      fr?: string;
-    };
-    commonName: {
-      default: string;
-    };
-    placeNameWithPreposition: {
-      default: string;
-      fr?: string;
-    };
-    logo: string;
-    darkLogo: string;
-  };
-  seriesLogo?: string;
-  seriesLogoFr?: string;
-};
