@@ -17,7 +17,7 @@ const Scoreboard = ({
   winningTeamId,
 }: ScoreboardProps) => {
   return (
-    <div className="flex flex-col border-2 bg-stone-100 dark:bg-stone-800 border-gray-300 dark:border-stone-700 rounded w-full h-auto w-auto">
+    <div className="flex flex-col border-2 bg-stone-100 dark:bg-stone-800 border-gray-300 dark:border-stone-700 rounded w-full h-auto">
       <div className="border-b-2 border-gray-300 dark:border-stone-700">
         <Team
           score={homeTeamScore}
