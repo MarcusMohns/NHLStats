@@ -43,7 +43,7 @@ const Game = ({
           <LiveChip gameCenterLink={game.gameCenterLink} />
         ) : game.gameState === "OFF" ? (
           <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min">
-            Completed
+            Done
           </p>
         ) : (
           <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min">
