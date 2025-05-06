@@ -20,6 +20,7 @@ export type SeriesType = {
   bottomSeedTeam?: TeamType;
   seriesLogo?: string;
   seriesLogoFr?: string;
+  winningTeamId?: number;
 };
 
 export type TeamType = {

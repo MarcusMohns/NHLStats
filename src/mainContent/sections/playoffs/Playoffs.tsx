@@ -1,7 +1,8 @@
-import Series from "./components/Series.tsx";
 import { spinner } from "../../../svgs.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
 import { PlayoffsType } from "./types.tsx";
+import Bracket from "./components/Bracket.tsx";
+import Finals from "./components/Finals.tsx";
 
 type PlayoffsProps = {
   playoffs: PlayoffsType | Error | null;
@@ -28,41 +29,37 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
   const roundOneWestern = playoffs.series.slice(4, 8);
   const roundTwoEastern = playoffs.series.slice(8, 10);
   const roundTwoWestern = playoffs.series.slice(10, 12);
-  const westernFinals = playoffs.series[12];
-  const easternFinals = playoffs.series[13];
+  const easternFinals = playoffs.series[12];
+  const westernFinals = playoffs.series[13];
   const stanleyCupFinals = playoffs.series[14];
 
   return (
     <section className="playoffs w-full flex flex-col">
+      <h2 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
+        Playoffs
+      </h2>
       <img
         src={playoffs.bracketLogo}
-        className="w-full h-auto object-contain rounded invert dark:invert-0"
+        className="invert dark:invert-0 w-100 mx-auto px-4"
       />
-      <div className="flex w-full h-auto justify-between align-between">
-        <div className="w-1/5 md:w-1/7 h-auto">
-          {roundOneWestern.map((series) => (
-            <Series key={series.seriesUrl} series={series} />
-          ))}
+      <div className="flex flex-col w-full">
+        <div className="flex sm:flex-row align-center justify-center">
+          <Bracket
+            roundOne={roundOneWestern}
+            roundTwo={roundTwoWestern}
+            direction="flex-row"
+          />
+          <div className="hidden xl:flex align-center justify-center">
+            <Finals series={[westernFinals, stanleyCupFinals, easternFinals]} />
+          </div>
+          <Bracket
+            roundOne={roundOneEastern}
+            roundTwo={roundTwoEastern}
+            direction="flex-row-reverse"
+          />
         </div>
-        <div className="w-1/5 md:w-1/7 align-center justify-around flex flex-col h-auto">
-          {roundTwoWestern.map((series) => (
-            <Series key={series.seriesUrl} series={series} />
-          ))}
-        </div>
-        <div className="flex flex-col align-center justify-center md:flex-row w-1/5 md:w-3/7 gap-2">
-          <Series series={westernFinals} />
-          <Series series={stanleyCupFinals} />
-          <Series series={easternFinals} />
-        </div>
-        <div className="w-1/5 md:w-1/7 align-center justify-around flex flex-col h-auto">
-          {roundTwoEastern.map((series) => (
-            <Series key={series.seriesUrl} series={series} />
-          ))}
-        </div>
-        <div className="w-1/5 md:w-1/7 h-full">
-          {roundOneEastern.map((series) => (
-            <Series key={series.seriesUrl} series={series} />
-          ))}
+        <div className="flex xl:hidden align-center justify-center">
+          <Finals series={[westernFinals, stanleyCupFinals, easternFinals]} />
         </div>
       </div>
     </section>
