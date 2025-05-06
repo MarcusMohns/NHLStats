@@ -14,13 +14,7 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
       <div className="flex flex-row w-full items-center">
         <div className="flex flex-col-reverse sm:flex-row mr-auto">
           <div className="flex items-center md:justify-center text-xl xl:text-2xl gap-3 2xl:ml-90">
-            <ImageAndLoading
-              imgSrc={player.headshot}
-              height="h-16 md:h-20"
-              width="w-16 md:w-20"
-              minHeight="min-h-16 md:min-h-20"
-              minWidth="min-w-16 md:min-w-20"
-            />
+            <ImageAndLoading imgSrc={player.headshot} />
             <p className="flex flex-row items-center gap-2 text-stone-600 dark:text-stone-200 font-bold text-center">
               {player.firstName.default} {player.lastName.default}
             </p>

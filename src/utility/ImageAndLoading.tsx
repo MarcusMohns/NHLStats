@@ -1,26 +1,12 @@
 import { spinner } from "../svgs";
 
-type ImageAndLoadingProps = {
-  imgSrc: string;
-  height: string;
-  width: string;
-  minHeight: string;
-  minWidth: string;
-};
-
-const ImageAndLoading = ({
-  imgSrc,
-  height,
-  width,
-  minHeight,
-  minWidth,
-}: ImageAndLoadingProps) => {
+const ImageAndLoading = ({ imgSrc }: { imgSrc: string }) => {
   return (
     <div
-      className={`relative ${height} ${width} ${minHeight} ${minWidth} rounded-full bg-gray-300 dark:bg-stone-700 shadow-md flex flex align-center justify-center`}
+      className={`relative w-20 h-auto my-auto mx-1 rounded-full bg-gray-300 dark:bg-stone-700 shadow-md flex align-center justify-center`}
     >
       <img
-        className="w-full h-full rounded-full invisible"
+        className="h-full w-full rounded-full invisible"
         loading="lazy"
         onLoad={(e) => {
           (e.target as HTMLImageElement).classList.remove("invisible");
