@@ -14,9 +14,8 @@ const Team = ({
       : "opacity-50";
   return (
     <div
-      className={`flex items-center justify-center text-center w-full
-        px-5 md:px-10 lg:px-6 
-flex items-center justify-center text-center ${opacityStyles}`}
+      className={`flex items-center justify-center
+        px-5 md:px-10 lg:px-6 ${opacityStyles}`}
     >
       <img
         src={team.logo}
@@ -28,7 +27,7 @@ flex items-center justify-center text-center ${opacityStyles}`}
         alt="Team Logo"
         className="w-11 h-11 hidden dark:block"
       />
-      <p className="dark:text-stone-200 md:text-base hidden sm:block">
+      <p className="font-bold tracking-wide leading-tight dark:text-stone-200 md:text-base hidden sm:block">
         {team.abbrev}
       </p>
       <p className="font-bold text-lg dark:text-stone-200 px-1">{score}</p>
