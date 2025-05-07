@@ -19,7 +19,7 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
   if (!playoffs) {
     // loading
     return (
-      <div className="relative flex items-center justify-center content-center h-300 sm:p-5 bg-stone-100 dark:bg-stone-800 animate-pulse">
+      <div className="relative flex md:items-center items-start pt-50 md:pt-0 justify-center content-center h-300 sm:p-5 bg-stone-100 dark:bg-stone-800 animate-pulse">
         {spinner}
       </div>
     );
@@ -43,6 +43,9 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
         className="invert dark:invert-0 w-200 mx-auto my-5 sm:my-0 px-4"
       />
       <div className="flex flex-col w-full">
+        <div className="flex xl:hidden align-center justify-center">
+          <Finals series={[westernFinals, stanleyCupFinals, easternFinals]} />
+        </div>
         <div className="flex align-center justify-center">
           <Bracket
             roundOne={roundOneWestern}
@@ -57,9 +60,6 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
             roundTwo={roundTwoEastern}
             direction="flex-row-reverse"
           />
-        </div>
-        <div className="flex xl:hidden align-center justify-center">
-          <Finals series={[westernFinals, stanleyCupFinals, easternFinals]} />
         </div>
       </div>
     </section>

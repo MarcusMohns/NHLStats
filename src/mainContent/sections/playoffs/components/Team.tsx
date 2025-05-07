@@ -11,7 +11,7 @@ const Team = ({
   const opacityStyles =
     team.id === winningTeamId || winningTeamId == undefined
       ? "opacity-100"
-      : "opacity-50";
+      : "opacity-40";
   return (
     <div
       className={`flex items-center justify-center
