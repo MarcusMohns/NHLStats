@@ -33,6 +33,7 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
           <img
             src={player.teamLogo}
             className="w-16 h-16 sm:w-22 sm:h-22 dark:hidden"
+            alt="Team Logo"
           />
           <img
             src={
@@ -42,6 +43,7 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
                 : `https://assets.nhle.com/logos/nhl/svg/${player.teamAbbrev}_dark.svg`
             }
             className="w-16 h-16 sm:w-22 sm:h-22 dark:block hidden"
+            alt="Team Logo"
           />
         </div>
         <LinkOut

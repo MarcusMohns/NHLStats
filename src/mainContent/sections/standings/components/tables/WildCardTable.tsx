@@ -46,7 +46,7 @@ const WildCardTable = ({
         ...topThreeMetropolitan,
         ...topThreePacific,
       ].map((team) => team.teamName.default),
-    [central, atlantic, metropolitan, pacific]
+    [topThreeCentral, topThreeAtlantic, topThreeMetropolitan, topThreePacific]
   );
 
   const EasternWildCards = useMemo(
@@ -134,7 +134,6 @@ const WildCardTable = ({
       );
     },
     [
-      reverseStandings,
       setQualifiedCentral,
       setQualifiedAtlantic,
       setQualifiedMetropolitan,

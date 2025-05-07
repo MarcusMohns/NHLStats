@@ -15,6 +15,7 @@ const ImageAndLoading = ({ imgSrc }: { imgSrc: string }) => {
           ).classList.add("invisible");
         }}
         src={imgSrc}
+        alt="Player Headshot"
       />
       {spinner}
     </div>

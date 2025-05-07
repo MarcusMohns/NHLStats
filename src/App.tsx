@@ -6,14 +6,20 @@ import startViewTransitionWrapper from "./utility/startViewTransitionWrapper.ts"
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const storedDarkMode = localStorage.getItem("darkMode");
-    return storedDarkMode
-      ? JSON.parse(storedDarkMode)
-      : // If theres a stored boolean for dark mode use it
-        window.matchMedia("(prefers-color-scheme: dark)").matches;
-    // Otherwise use the system preference
+    // Initialize dark mode state based on localStorage or system preference
+    try {
+      const storedDarkMode = localStorage.getItem("darkMode");
+      return storedDarkMode
+        ? JSON.parse(storedDarkMode)
+        : // If theres a stored boolean for dark mode use it
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+      // Otherwise use the system preference
+    } catch {
+      return "darkMode";
+    }
   });
 
+  // Toggle dark mode and persist the preference in localStorage
   const toggleDarkMode = () => {
     const newDarkModeState = !isDarkMode;
     localStorage.setItem("darkMode", JSON.stringify(newDarkModeState));
@@ -22,7 +28,7 @@ function App() {
 
   return (
     <div
-      className={`main-content ${isDarkMode ? "dark" : ""}  dark:bg-stone-900 `}
+      className={`main-content ${isDarkMode ? "dark" : ""}  dark:bg-stone-900`}
     >
       <Navbar darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <MainContent />

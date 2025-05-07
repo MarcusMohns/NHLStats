@@ -1,5 +1,6 @@
 import { TeamType } from "../mainContent/sections/standings/types";
 
+// Sorts by streak
 export const sortByStreak = (standings: TeamType[]) =>
   standings.toSorted((a: TeamType, b: TeamType) => {
     const streakPriority = (streakCode: string) => {
@@ -31,9 +32,10 @@ export const sortByStreak = (standings: TeamType[]) =>
     }
   });
 
+// Reverse the standings (typically called on the second click of the sort button)
 export const reverseStandings = (state: {
   standings: TeamType[];
-  sortedBy: String;
+  sortedBy: string;
 }) => {
   return {
     standings: state.standings.toReversed(),

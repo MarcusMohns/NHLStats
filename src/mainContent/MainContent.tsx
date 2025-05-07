@@ -45,8 +45,8 @@ const MainContent = () => {
   }, [setSchedule]);
 
   const handleFetchPlayoffs = useCallback(async () => {
-    const schedule = await fetchPlayoffs();
-    setPlayoffs(schedule);
+    const playoffs = await fetchPlayoffs();
+    setPlayoffs(playoffs);
   }, [setPlayoffs]);
 
   useEffect(() => {

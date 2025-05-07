@@ -40,7 +40,8 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
       </h2>
       <img
         src={playoffs.bracketLogo}
-        className="invert dark:invert-0 w-200 mx-auto my-5 sm:my-0 px-4"
+        className="invert dark:invert-0 w-[700px] mx-auto my-5 sm:my-0 px-4"
+        alt="Playoff bracket logo"
       />
       <div className="flex flex-col w-full">
         <div className="flex xl:hidden align-center justify-center">

@@ -26,9 +26,11 @@ const StyledTable = ({
   const tooltipRefs = useRef<Array<HTMLDialogElement>>([]);
   const toggleTooltip = (argument: string, idx: number) => {
     if (tooltipRefs.current[idx] !== null) {
-      argument === "show"
-        ? tooltipRefs.current[idx].show()
-        : tooltipRefs.current[idx].close();
+      if (argument === "show") {
+        tooltipRefs.current[idx].show();
+      } else {
+        tooltipRefs.current[idx].close();
+      }
     }
   };
 
@@ -63,7 +65,7 @@ const StyledTable = ({
         className="dark:bg-stone-900 shadow-lg dark:shadow-sm  w-full text-sm text-left rtl:text-right"
         cellSpacing="5"
       >
-        <thead className="bg-gray-300 dark:bg-stone-800">
+        <thead className="bg-stone-200 dark:bg-stone-800">
           <tr>
             {headers.full.map((header, idx) => (
               <TableHeader

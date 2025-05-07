@@ -9,20 +9,24 @@ const Navbar = ({ toggleDarkMode, darkMode }: NavbarProps) => {
   return (
     <div
       className="flex w-full flex-direction:row align-center items-center p-4  
-    bg-gray-200 sm:bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 dark:bg-stone-700 sm:dark:bg-gradient-to-r dark:from-stone-800 dark:via-stone-900 dark:to-stone-800"
+    bg-gray-200 dark:bg-stone-800"
     >
-      <div className="rounded bg-stone-900 dark:bg-stone-700 p-1 text-white">
+      <div
+        className="rounded bg-stone-900 dark:bg-stone-700 p-1 text-white"
+        aria-hidden="true"
+      >
         🏒
       </div>
       <h1 className="ml-2 content-center dark:text-white text-2xl leading-tight tracking-wide font-bold select-none">
         NHL Stats
       </h1>
-      <div
+      <button
         onClick={toggleDarkMode}
+        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
         className="content-center color-white text-black dark:text-white ml-auto cursor-pointer sm:mr-5"
       >
         {darkMode ? moon : sun}
-      </div>
+      </button>
     </div>
   );
 };

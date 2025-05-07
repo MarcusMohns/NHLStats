@@ -69,6 +69,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
             <img
               src={team.teamLogoDark}
               className="w-30 rounded-sm shadow-xl bg-stone-800 hidden dark:block mr-2"
+              alt={team.teamName.default}
             />
             <div className="flex flex-column gap-1 flex-wrap">
               {Chips.map((chip) => (

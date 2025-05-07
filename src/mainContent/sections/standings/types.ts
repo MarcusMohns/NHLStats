@@ -36,7 +36,7 @@ export type StandingsType = {
 
 export type StandingsTableType = {
   standings: TeamType[];
-  sortedBy: String;
+  sortedBy: string;
 };
 
 export type GameType = {
