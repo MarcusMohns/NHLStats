@@ -5,7 +5,7 @@ const linkOutIcon = (
     viewBox="0 0 24 24"
     strokeWidth="2"
     stroke="currentColor"
-    className="size-6"
+    className="size-5 sm:size-6"
   >
     <path
       strokeLinecap="round"
