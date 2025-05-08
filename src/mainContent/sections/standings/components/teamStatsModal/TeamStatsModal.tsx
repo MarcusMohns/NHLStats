@@ -42,7 +42,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
     <Modal closeModal={handleCloseModal}>
       {!modal ? (
         // Render loading spinner inside the modal if data is not available
-        <div className="flex flex-col items-center justify-center content-center h-180 bg-stone-100 dark:bg-stone-800 animate-pulse">
+        <div className="flex flex-col items-center justify-center content-center h-180">
           {spinner}
         </div>
       ) : modal instanceof Error ? (
