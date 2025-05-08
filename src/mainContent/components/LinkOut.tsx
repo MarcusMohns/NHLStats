@@ -21,7 +21,12 @@ type LinkOutProps = {
 };
 
 export const LinkOut = ({ hrefString, linkOutStyles }: LinkOutProps) => (
-  <a className={linkOutStyles} href={hrefString} target="_blank">
+  <a
+    className={linkOutStyles}
+    href={hrefString}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
     {linkOutIcon}
   </a>
 );

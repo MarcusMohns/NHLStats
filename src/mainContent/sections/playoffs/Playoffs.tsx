@@ -34,14 +34,14 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
   const stanleyCupFinals = playoffs.series[14];
 
   return (
-    <section className="playoffs w-full flex flex-col">
+    <section className="playoffs w-full flex flex-col h-max sm:p-5 2xl:mb-5 ">
       <h2 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         Playoffs
       </h2>
       <img
         src={playoffs.bracketLogo}
         className="invert dark:invert-0 w-[700px] mx-auto my-5 sm:my-0 px-4"
-        alt="Playoff bracket logo"
+        alt="NHL Playoff Bracket Logo"
       />
       <div className="flex flex-col w-full">
         <div className="flex xl:hidden align-center justify-center">

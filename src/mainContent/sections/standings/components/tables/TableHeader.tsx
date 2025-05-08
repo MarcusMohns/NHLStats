@@ -29,12 +29,12 @@ const TableHeader = ({
   toggleTooltip,
   tooltipRefs,
 }: TableHeaderProps) => {
+  // Hide headers for Last 10 and Streak on smaller screens
+  const HIDDEN_HEADERS = ["Last 10", "Streak"];
   return (
     <th
       className={`text-gray-500 dark:text-stone-300 text-center p-2 relative select-none ${
-        header === "Last 10" || header === "Streak"
-          ? "hidden md:table-cell"
-          : ""
+        HIDDEN_HEADERS.includes(header) ? "hidden md:table-cell" : ""
       }`}
     >
       <button
@@ -42,6 +42,7 @@ const TableHeader = ({
         onClick={() => handleSort(standings, header, tableName)}
         onMouseOver={() => toggleTooltip("show", idx)}
         onMouseOut={() => toggleTooltip("close", idx)}
+        aria-label={`Sort by ${header}`}
       >
         {/* Show full sized header on larger screens, abbreviated on smaller */}
         <p className="hidden 2xl:block">{header}</p>
@@ -53,7 +54,7 @@ const TableHeader = ({
             tooltipRefs.current[idx] = el;
           }
         }}
-        className="sm:inherited 2xl:hidden bg-gray-802000 border border-stone-200 rounded-sm p-2 text-black m-auto"
+        className="2xl:hidden bg-gray-802000 border border-stone-200 rounded-sm p-2 text-black m-auto"
       >
         <p>{header}</p>
       </dialog>

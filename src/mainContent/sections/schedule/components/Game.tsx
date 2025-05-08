@@ -32,7 +32,7 @@ const Game = ({
             {locale} {handlePrevWeekDay(weekDay)}
             {/* //   Set Ref to so we can compare it to weekDay next iteration (also returns weekDay)*/}
           </h2>
-          <p className="flex text-center align-end justify-end">
+          <p className="flex text-center justify-end">
             ({date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()})
           </p>
         </div>
@@ -63,6 +63,7 @@ const Game = ({
         <LinkOut
           linkOutStyles="flex items-center h-auto"
           hrefString={`https://www.nhl.com${game.gameCenterLink}`}
+          aria-label={`View game details for ${game.homeTeam.commonName} vs ${game.awayTeam.commonName}`}
         />
       </div>
     </div>

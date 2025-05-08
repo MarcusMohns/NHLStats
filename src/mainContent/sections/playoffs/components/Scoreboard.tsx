@@ -24,6 +24,8 @@ const Scoreboard = ({
      hover:border-stone-500 cursor-pointer"
       href={`https://www.nhl.com${url}`}
       target="_blank"
+      aria-label={`Detailed Game Information for ${homeTeam.name} vs ${awayTeam.name}`}
+      rel="noopener noreferrer"
     >
       <div className="border-b-2 border-gray-300 dark:border-stone-700">
         <Team

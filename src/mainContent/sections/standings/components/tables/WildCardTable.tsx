@@ -143,43 +143,50 @@ const WildCardTable = ({
     ]
   );
 
-  const tableProps = {
-    handleSort,
-    selectedTable,
-  };
-
   return (
     <>
       <StyledTable
         standings={qualifiedAtlantic.standings}
         tableName={"Atlantic"}
-        {...tableProps}
+        aria-label="Atlantic Division Wild Card Standings Table"
+        handleSort={handleSort}
+        selectedTable={selectedTable}
       />
       <StyledTable
         standings={qualifiedMetropolitan.standings}
         tableName={"Metropolitan"}
-        {...tableProps}
+        aria-label="Metropolitan Division Wild Card Standings Table"
+        handleSort={handleSort}
+        selectedTable={selectedTable}
       />
       <StyledTable
         standings={unqualifiedEast.standings}
         tableName={"Eastern"}
-        {...tableProps}
+        aria-label="Eastern Division Wild Card Standings Table"
+        handleSort={handleSort}
+        selectedTable={selectedTable}
       />
 
       <StyledTable
         standings={qualifiedCentral.standings}
         tableName={"Central"}
-        {...tableProps}
+        aria-label="Central Division Wild Card Standings Table"
+        handleSort={handleSort}
+        selectedTable={selectedTable}
       />
       <StyledTable
         standings={qualifiedPacific.standings}
         tableName={"Pacific"}
-        {...tableProps}
+        aria-label="Pacific Division Wild Card Standings Table"
+        handleSort={handleSort}
+        selectedTable={selectedTable}
       />
       <StyledTable
         standings={unqualifiedWest.standings}
         tableName={"Western"}
-        {...tableProps}
+        aria-label="Western Division Wild Card Standings Table"
+        handleSort={handleSort}
+        selectedTable={selectedTable}
       />
     </>
   );

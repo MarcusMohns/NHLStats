@@ -8,8 +8,7 @@ type ScheduleProps = {
   handleFetchSchedule: () => Promise<void>;
 };
 const Schedule = ({ schedule, handleFetchSchedule }: ScheduleProps) => {
-  const locale = navigator.language;
-  // gets the users locale to format the date correctly
+  const locale = navigator.language || "sv-SE";
 
   if (schedule instanceof Error)
     // error

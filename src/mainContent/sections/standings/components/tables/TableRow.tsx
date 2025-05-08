@@ -26,6 +26,8 @@ const TableRow = ({
   return (
     <tr
       onClick={() => handleOpenModal(team)}
+      role="button"
+      aria-label={`View details for ${team.teamName.default}`}
       className={`font-bold hover:bg-stone-200 dark:hover:bg-stone-800 cursor-pointer select-none border-b-2 ${
         (selectedTable === "Division" && team.rank === 3) ||
         (selectedTable === "Wild Card" &&
@@ -36,7 +38,7 @@ const TableRow = ({
       }`}
     >
       <td className="text-center">{team.rank}</td>
-      <th className="flex wrap flex-col sm:flex-row flex-wrap w-full sm:justify-start items-center sm:px-2 py-2 sm:py-3 w-fit">
+      <th className="flex wrap flex-col sm:flex-row flex-wrap w-full sm:justify-start items-center sm:px-2 py-2 sm:py-3">
         <div className="flex flex-row items-center">
           <img
             src={team.teamLogo}
@@ -67,7 +69,7 @@ const TableRow = ({
       <td className="text-center">{team.losses}</td>
       <td className="text-center">{team.otLosses}</td>
       <td className="text-center">{team.goalDifferential}</td>
-      <td className={`text-center hidden md:table-cell vertical-align: center`}>
+      <td className={`text-center hidden md:table-cell`}>
         {team.l10Wins} - {team.l10Losses} - {team.l10OtLosses}
       </td>
       <td className="text-center hidden md:table-cell">

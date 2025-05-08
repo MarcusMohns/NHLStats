@@ -64,6 +64,8 @@ const StyledTable = ({
       <table
         className="dark:bg-stone-900 shadow-lg dark:shadow-sm  w-full text-sm text-left rtl:text-right"
         cellSpacing="5"
+        role="table"
+        aria-label={`${tableName} Standings Table`}
       >
         <thead className="bg-stone-200 dark:bg-stone-800">
           <tr>

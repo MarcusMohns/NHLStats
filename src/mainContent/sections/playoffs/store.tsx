@@ -1,5 +1,6 @@
 const fetchPlayoffsData = async () => {
-  const playoffsUrl = `https://corsproxy.io/?url=https://api-web.nhle.com/v1/playoff-bracket/2025`;
+  const CORS_PROXY = "https://corsproxy.io/";
+  const playoffsUrl = `${CORS_PROXY}?url=https://api-web.nhle.com/v1/playoff-bracket/2025`;
   // Run it by https://corsproxy.io/ to bypass CORS
 
   try {

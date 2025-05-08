@@ -9,9 +9,9 @@ export const weekDays = [
 ];
 
 const fetchScheduleData = async () => {
-  const scheduleUrl =
-    // Run it by https://corsproxy.io/ to bypass CORS
-    "https://corsproxy.io/?url=https://api-web.nhle.com/v1/schedule/now";
+  const CORS_PROXY = "https://corsproxy.io/";
+  const scheduleUrl = `${CORS_PROXY}?url=https://api-web.nhle.com/v1/schedule/now`;
+  // Run it by https://corsproxy.io/ to bypass CORS
 
   try {
     const response = await fetch(scheduleUrl);

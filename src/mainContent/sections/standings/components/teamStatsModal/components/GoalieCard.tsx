@@ -16,17 +16,18 @@ const GoalieCard = ({ player }: { player: GoalieType }) => {
           <LinkOut
             linkOutStyles="ml-auto w-6"
             hrefString={` https://www.nhl.com/player/${player.playerId}`}
+            aria-label={`View NHL profile for ${player.firstName.default} ${player.lastName.default}`}
           />
         </div>
-        <div className="grid grid-flow-col grid-rows-2 gap-1 font-medium">
-          <div className="flex flex-row items-center justify-start text-start sm:mx-3">
+        <div className="grid grid-flow-col grid-rows-2 gap-1 font-medium text-start">
+          <div className="flex flex-row items-center justify-start sm:mx-3">
             {puck}S: {player.savePercentage.toFixed(2)}%
           </div>
-          <div className="text-start sm:mx-3">
+          <div className="sm:mx-3">
             🥅GAA: {player.goalsAgainstAverage.toFixed(2)}
           </div>
-          <div className="text-start sm:mx-3">🧤Saves: {player.saves} </div>
-          <div className="text-start sm:mx-3">🏒SA: {player.shotsAgainst}</div>
+          <div className="sm:mx-3">🧤Saves: {player.saves} </div>
+          <div className="sm:mx-3">🏒SA: {player.shotsAgainst}</div>
         </div>
       </div>
     </div>

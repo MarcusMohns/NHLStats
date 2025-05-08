@@ -14,11 +14,17 @@ const Leaderboard = ({
   leaderboard,
   handleFetchLeaderboard,
 }: LeaderboardProps) => {
-  const [selectedLeaderboard, setSelectedLeaderboard] =
+  const [selectedSkaterLeaders, setSelectedSkaterLeaders] =
     useState<string>("Points");
+  const [selectedGoalieLeaders, setSelectedGoalieLeaders] =
+    useState<string>("Save%");
 
-  const handleSelectedTable = useCallback((standing: string) => {
-    startViewTransitionWrapper(() => setSelectedLeaderboard(standing));
+  const handleSelectedSkaterLeaders = useCallback((standing: string) => {
+    startViewTransitionWrapper(() => setSelectedSkaterLeaders(standing));
+  }, []);
+
+  const handleSelectedGoalieLeaders = useCallback((standing: string) => {
+    startViewTransitionWrapper(() => setSelectedGoalieLeaders(standing));
   }, []);
 
   if (leaderboard instanceof Error)
@@ -39,30 +45,44 @@ const Leaderboard = ({
     );
   }
   return (
-    <section className="leaderboard h-max rounded sm:p-5 2xl:mb-5">
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
+    <section className="leaderboard flex flex-col h-max sm:p-5 2xl:mb-5 ">
+      <h2
+        className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-xl uppercase leading-tight tracking-wide select-none 
+      border-b border-gray-300 dark:border-stone-700"
+        aria-label="Leaderboard Section"
+      >
         Leaderboard
       </h2>
-      <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5 select-none">
-        Skaters
-      </h3>
-      <SelectTableButtons
-        buttons={["Points", "Assists", "Goals"]}
-        selectedTable={selectedLeaderboard}
-        handleSelectedTable={handleSelectedTable}
-      />
-      <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5 select-none">
-        Goalies
-      </h3>
-      <SelectTableButtons
-        buttons={["Shutouts", "Save%", "GAA"]}
-        selectedTable={selectedLeaderboard}
-        handleSelectedTable={handleSelectedTable}
-      />
-      <h2 className="font-bold dark:text-stone-300 my-5 py-1 px-2 text-2xl uppercase leading-tight tracking-wide select-none">
-        {selectedLeaderboard}
-      </h2>
-      <PlayerCardList players={leaderboard[selectedLeaderboard]} />
+      <div className="flex flex-col xl:flex-row w-full gap-5">
+        <div className="w-full">
+          <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5 select-none text-2xl px-2">
+            Skaters
+          </h3>
+          <SelectTableButtons
+            buttons={["Points", "Assists", "Goals"]}
+            selectedTable={selectedSkaterLeaders}
+            handleSelectedTable={handleSelectedSkaterLeaders}
+          />
+          <h2 className="font-bold dark:text-stone-300 my-3 py-1 px-2 text-xl uppercase leading-tight tracking-wide select-none">
+            {selectedSkaterLeaders}
+          </h2>
+          <PlayerCardList players={leaderboard[selectedSkaterLeaders]} />
+        </div>
+        <div className="w-full">
+          <h3 className="font-bold dark:text-stone-300 uppercase leading-tight tracking-wide mt-5 select-none text-2xl px-2">
+            Goalies
+          </h3>
+          <SelectTableButtons
+            buttons={["Save%", "Shutouts", "GAA"]}
+            selectedTable={selectedGoalieLeaders}
+            handleSelectedTable={handleSelectedGoalieLeaders}
+          />
+          <h2 className="font-bold dark:text-stone-300 my-3 py-1 px-2 text-xl uppercase leading-tight tracking-wide select-none">
+            {selectedGoalieLeaders}
+          </h2>
+          <PlayerCardList players={leaderboard[selectedGoalieLeaders]} />
+        </div>
+      </div>
     </section>
   );
 };

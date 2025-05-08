@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { TeamType, TeamStatsType } from "../../types";
 import Modal from "../../../../components/Modal";
 import Chip from "../../../../components/Chip";
@@ -18,16 +18,16 @@ type ModalProps = {
 const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
   const [modal, setModal] = useState<TeamStatsType | null | Error>(null);
 
-  const Chips = [
-    { name: "Rank", value: team.rank },
-    { name: "Points", value: team.points },
-    {
-      name: "Win Percentage",
-      value: `${(team.winPctg * 100).toFixed(1)}%`,
-    },
-    { name: "Conference", value: team.conferenceName },
-    { name: "Division", value: team.divisionName },
-  ];
+  const Chips = useMemo(
+    () => [
+      { name: "Rank", value: team.rank },
+      { name: "Points", value: team.points },
+      { name: "Win Percentage", value: `${(team.winPctg * 100).toFixed(1)}%` },
+      { name: "Conference", value: team.conferenceName },
+      { name: "Division", value: team.divisionName },
+    ],
+    [team]
+  );
 
   const handleFetchTeamAndGames = useCallback(async () => {
     const teamData = await fetchTeamAndGames(team);
@@ -36,7 +36,7 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
 
   useEffect(() => {
     handleFetchTeamAndGames();
-  }, []);
+  }, [handleFetchTeamAndGames]);
 
   return (
     <Modal closeModal={handleCloseModal}>
@@ -63,13 +63,13 @@ const TeamStatsModal = ({ handleCloseModal, team }: ModalProps) => {
           <div className="m-2 flex flex-row p-2">
             <img
               src={team.teamLogo}
-              alt={team.teamName.default}
+              alt={`Logo of ${team.teamName.default}`}
               className="w-30 rounded-sm shadow-xl bg-gray-200 dark:hidden mr-2"
             />
             <img
               src={team.teamLogoDark}
               className="w-30 rounded-sm shadow-xl bg-stone-800 hidden dark:block mr-2"
-              alt={team.teamName.default}
+              alt={`Dark mode logo of ${team.teamName.default}`}
             />
             <div className="flex flex-column gap-1 flex-wrap">
               {Chips.map((chip) => (

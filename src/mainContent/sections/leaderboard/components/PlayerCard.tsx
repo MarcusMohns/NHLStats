@@ -4,24 +4,24 @@ import LinkOut from "../../../components/LinkOut";
 
 const PlayerCard = ({ player }: { player: PlayerType }) => {
   return (
-    <div className="flex flex-row items-center py-2 shadow-sm my-3 bg-stone-100 dark:bg-stone-800 rounded w-full">
-      <p className="font-bold text-3xl sm:text-5xl w-15 md:w-30 shrink-0 text-center">
+    <div className="flex flex-row items-center justify-between py-2 shadow-sm my-3 bg-stone-100 dark:bg-stone-800 rounded w-full">
+      <p className="font-bold text-3xl sm:text-5xl shrink-0 text-center ml-1">
         {player.position === "G" && player.value.toString().length > 3
           ? // If Goalie & value is greater than 3 digits, fix decimals
-            player.value.toFixed(3)
+            player.value.toFixed(2)
           : player.value}
       </p>
-      <div className="flex flex-row w-full items-center">
-        <div className="flex flex-col-reverse sm:flex-row mr-auto">
-          <div className="flex items-center md:justify-center text-xl xl:text-2xl gap-3 2xl:ml-90">
+      <div className="flex flex-row justify-start items-center w-full">
+        <div className="flex flex-col-reverse sm:flex-row mx-auto">
+          <div className="flex items-center justify-start w-full">
             <ImageAndLoading imgSrc={player.headshot} />
-            <p className="flex flex-row items-center gap-2 text-stone-600 dark:text-stone-200 font-bold text-center">
+            <p className="flex flex-row items-center justify-start sm:justify-center text-stone-600 dark:text-stone-200 font-bold 2xl:w-50">
               {player.firstName.default} {player.lastName.default}
             </p>
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center text-lg justify-around xl:w-60">
+        <div className="flex flex-col sm:flex-row items-center justify-around text-lg ml-auto sm:ml-0">
           <div className="flex flex-row gap-1 md:gap-2">
             <p className="bg-stone-200 dark:bg-stone-700 rounded p-1 text-base font-bold sm:text-2xl">
               {player.position}
@@ -33,7 +33,7 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
           <img
             src={player.teamLogo}
             className="w-16 h-16 sm:w-22 sm:h-22 dark:hidden"
-            alt="Team Logo"
+            alt={`${player.teamName} Team Logo`}
           />
           <img
             src={
@@ -43,12 +43,13 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
                 : `https://assets.nhle.com/logos/nhl/svg/${player.teamAbbrev}_dark.svg`
             }
             className="w-16 h-16 sm:w-22 sm:h-22 dark:block hidden"
-            alt="Team Logo"
+            alt={`${player.teamName} Team Logo`}
           />
         </div>
         <LinkOut
           linkOutStyles="mb-auto mr-1"
-          hrefString={` https://www.nhl.com/player/${player.id}`}
+          hrefString={`https://www.nhl.com/player/${player.id}`}
+          aria-label={`View ${player.firstName.default}'s profile on NHL.com`}
         />
       </div>
     </div>

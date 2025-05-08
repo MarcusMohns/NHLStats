@@ -14,19 +14,16 @@ const SkaterCard = ({ player }: { player: SkaterType }) => {
           <LinkOut
             linkOutStyles="ml-auto w-6"
             hrefString={` https://www.nhl.com/player/${player.playerId}`}
+            aria-label={`View NHL profile for ${player.firstName.default} ${player.lastName.default}`}
           />
         </div>
-        <div className="grid grid-flow-col grid-rows-2 gap-1 font-medium">
-          <div className="pc-points text-start sm:mx-3">
-            🎯Points: {player.points}{" "}
-          </div>
-          <div className="pc-goals text-start sm:mx-3">
-            🥅Goals: {player.goals}
-          </div>
-          <div className="pc-assists text-start sm:mx-3">
+        <div className="grid grid-flow-col grid-rows-2 gap-1 font-medium text-start">
+          <div className="pc-points  sm:mx-3">🎯Points: {player.points} </div>
+          <div className="pc-goals  sm:mx-3">🥅Goals: {player.goals}</div>
+          <div className="pc-assists  sm:mx-3">
             🤝Assists: {player.assists}{" "}
           </div>
-          <div className="pc-plusminus text-start sm:mx-3">
+          <div className="pc-plusminus  sm:mx-3">
             ± Plus/Minus: {player.plusMinus}
           </div>
         </div>

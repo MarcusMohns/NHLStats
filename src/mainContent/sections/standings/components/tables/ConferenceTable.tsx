@@ -54,25 +54,24 @@ const ConferenceTable = ({
         )
       );
     },
-    [setEasternState, setWesternState, reverseStandings]
+    [setEasternState, setWesternState]
   );
-
-  const tableProps = {
-    handleSort,
-    selectedTable,
-  };
 
   return (
     <>
       <StyledTable
         standings={easternState.standings}
         tableName={"Eastern"}
-        {...tableProps}
+        aria-label="Eastern Conference Standings Table"
+        handleSort={handleSort}
+        selectedTable={selectedTable}
       />
       <StyledTable
         standings={westernState.standings}
         tableName={"Western"}
-        {...tableProps}
+        aria-label="Western Conference Standings Table"
+        handleSort={handleSort}
+        selectedTable={selectedTable}
       />
     </>
   );

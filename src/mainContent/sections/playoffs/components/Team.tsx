@@ -19,12 +19,12 @@ const Team = ({
     >
       <img
         src={team.logo}
-        alt="Team Logo"
+        alt={`${team.name} Logo`}
         className="w-11 h-11 block dark:hidden"
       />
       <img
         src={team.darkLogo}
-        alt="Team Logo"
+        alt={`${team.name} Logo`}
         className="w-11 h-11 hidden dark:block"
       />
       <p className="font-bold tracking-wide leading-tight dark:text-stone-200 md:text-base hidden sm:block">

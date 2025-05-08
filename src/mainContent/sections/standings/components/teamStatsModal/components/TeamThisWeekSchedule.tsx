@@ -33,27 +33,27 @@ ${
       : game.awayTeam.score > game.homeTeam.score
       ? "bg-green-200 dark:bg-green-800 win"
       : "bg-red-200 dark:bg-red-500 loss"
-    : "bg-gray-100 dark:bg-stone-800"
+    : "bg-gray-100 dark:bg-stone-800 tbd"
 }
 `}
         >
           {game.gameState === "LIVE" ? (
             <LiveChip gameCenterLink={game.gameCenterLink} />
           ) : (
-            <p className="date self-start min-w-25">{game.gameDate}</p>
+            <p className="date min-w-25">{game.gameDate}</p>
           )}
-          <div className="match w-full flex flex-row self-center justify-center align-center">
+          <div className="match w-full flex flex-row self-center justify-center">
             <div className="team flex flex-row">
               <p className="team-name">{game.homeTeam.abbrev}</p>
               <img
                 src={game.homeTeam.logo}
                 className="w-10 dark:hidden"
-                alt={game.homeTeam.abbrev}
+                alt={`Logo of ${game.homeTeam.abbrev}`}
               />
               <img
                 src={game.homeTeam.darkLogo}
                 className="w-10 hidden dark:block"
-                alt={game.homeTeam.abbrev}
+                alt={`Logo of ${game.homeTeam.abbrev}`}
               />
               <p className="home-team-score min-w-2">
                 {game.homeTeam.score !== undefined ? game.homeTeam.score : "-"}
@@ -67,12 +67,12 @@ ${
               <img
                 src={game.awayTeam.logo}
                 className="w-10 dark:hidden"
-                alt={game.awayTeam.abbrev}
+                alt={`Logo of ${game.awayTeam.abbrev}`}
               />
               <img
                 src={game.awayTeam.darkLogo}
                 className="w-10 hidden dark:block"
-                alt={game.awayTeam.abbrev}
+                alt={`Logo of ${game.awayTeam.abbrev}`}
               />
               <p>{game.awayTeam.abbrev}</p>
             </div>

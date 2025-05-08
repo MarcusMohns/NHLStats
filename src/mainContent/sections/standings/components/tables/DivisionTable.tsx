@@ -72,41 +72,38 @@ const DivisionTable = ({
         )
       );
     },
-    [
-      reverseStandings,
-      setCentralState,
-      setAtlanticState,
-      setMetropolitanState,
-      setPacificState,
-    ]
+    [setCentralState, setAtlanticState, setMetropolitanState, setPacificState]
   );
-
-  const tableProps = {
-    handleSort,
-    selectedTable,
-  };
 
   return (
     <>
       <StyledTable
         standings={centralState.standings}
         tableName={"Central"}
-        {...tableProps}
+        handleSort={handleSort}
+        selectedTable={selectedTable}
+        aria-label="Central Division Standings Table"
       />
       <StyledTable
         standings={atlanticState.standings}
         tableName={"Atlantic"}
-        {...tableProps}
+        handleSort={handleSort}
+        selectedTable={selectedTable}
+        aria-label="Atlantic Division Standings Table"
       />
       <StyledTable
         standings={metropolitanState.standings}
         tableName={"Metropolitan"}
-        {...tableProps}
+        handleSort={handleSort}
+        selectedTable={selectedTable}
+        aria-label="Metropolitan Division Standings Table"
       />
       <StyledTable
         standings={pacificState.standings}
         tableName={"Pacific"}
-        {...tableProps}
+        handleSort={handleSort}
+        selectedTable={selectedTable}
+        aria-label="Pacific Division Standings Table"
       />
     </>
   );

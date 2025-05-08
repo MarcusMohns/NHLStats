@@ -6,7 +6,7 @@ const fetchTeamData = async (urlString: string) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    return await data;
+    return data;
   } catch (e: unknown) {
     console.error("Error fetching team data from API", e);
     throw e;
@@ -14,8 +14,9 @@ const fetchTeamData = async (urlString: string) => {
 };
 
 export const fetchTeamAndGames = async (team: TeamType) => {
-  const teamUrl = `https://corsproxy.io/?url=https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/now`;
-  const gamesUrl = `https://corsproxy.io/?url=https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`;
+  const CORS_PROXY = "https://corsproxy.io/";
+  const teamUrl = `${CORS_PROXY}?url=https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/now`;
+  const gamesUrl = `${CORS_PROXY}?url=https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`;
   // Run both by https://corsproxy.io/ to bypass CORS
   try {
     const teamData = await fetchTeamData(teamUrl);
