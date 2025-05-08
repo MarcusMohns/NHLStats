@@ -17,9 +17,9 @@ const Navbar = ({ toggleDarkMode, darkMode }: NavbarProps) => {
       >
         🏒
       </div>
-      <h1 className="ml-2 content-center dark:text-white text-2xl leading-tight tracking-wide font-bold select-none">
+      <div className="ml-2 content-center dark:text-white text-2xl leading-tight tracking-wide font-bold select-none">
         NHL Stats
-      </h1>
+      </div>
       <button
         onClick={toggleDarkMode}
         aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
