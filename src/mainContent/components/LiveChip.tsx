@@ -5,6 +5,8 @@ const LiveChip = ({ gameCenterLink }: { gameCenterLink: string }) => {
         className="text-white underline ml-auto flex flex-row text-xs items-center"
         href={`https://www.nhl.com${gameCenterLink}`}
         target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Game Center"
       >
         Live
       </a>
