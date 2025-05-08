@@ -6,9 +6,9 @@ import WildCardTable from "./components/tables/WildCardTable.tsx";
 import startViewTransitionWrapper from "../../../utility/startViewTransitionWrapper.ts";
 import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
-import { spinner } from "../../../svgs.tsx";
 import { StandingsType } from "./types";
 import { xmarkIcon, checkmarkIcon } from "../../../svgs.tsx";
+import SectionLoading from "../../components/SectionLoading.tsx";
 
 type StandingsProps = {
   standings: StandingsType | Error | null;
@@ -29,15 +29,11 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
 
   if (!standings) {
     // loading
-    return (
-      <div className="relative flex items-center justify-center content-center h-300 sm:p-5 bg-stone-100 dark:bg-stone-800 animate-pulse">
-        {spinner}
-      </div>
-    );
+    return <SectionLoading heading={"Standings"} />;
   }
 
   return (
-    <section className="standings sm:p-5 2xl:mb-5 rounded h-max">
+    <section className="standings h-max sm:p-5">
       <h1 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         Standings
       </h1>

@@ -1,8 +1,8 @@
-import { spinner } from "../../../svgs.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
 import { PlayoffsType } from "./types.tsx";
 import Bracket from "./components/Bracket.tsx";
 import Finals from "./components/Finals.tsx";
+import SectionLoading from "../../components/SectionLoading.tsx";
 
 type PlayoffsProps = {
   playoffs: PlayoffsType | Error | null;
@@ -18,11 +18,7 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
 
   if (!playoffs) {
     // loading
-    return (
-      <div className="relative flex md:items-center items-start pt-50 md:pt-0 justify-center content-center h-300 sm:p-5 bg-stone-100 dark:bg-stone-800 animate-pulse">
-        {spinner}
-      </div>
-    );
+    return <SectionLoading heading={"Playoffs"} />;
   }
 
   const roundOneEastern = playoffs.series.slice(0, 4);
@@ -34,7 +30,7 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
   const stanleyCupFinals = playoffs.series[14];
 
   return (
-    <section className="playoffs w-full flex flex-col h-max sm:p-5 2xl:mb-5 ">
+    <section className="playoffs h-max sm:p-5">
       <h2 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
         Playoffs
       </h2>
