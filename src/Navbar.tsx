@@ -7,7 +7,7 @@ type NavbarProps = {
 
 const Navbar = ({ toggleDarkMode, darkMode }: NavbarProps) => {
   return (
-    <div
+    <nav
       className="flex w-full flex-direction:row align-center items-center p-4  
     bg-gray-200 dark:bg-stone-800"
     >
@@ -17,9 +17,9 @@ const Navbar = ({ toggleDarkMode, darkMode }: NavbarProps) => {
       >
         🏒
       </div>
-      <div className="ml-2 content-center dark:text-white text-2xl leading-tight tracking-wide font-bold select-none">
+      <h1 className="ml-2 content-center dark:text-white text-2xl leading-tight tracking-wide font-bold select-none">
         NHL Stats
-      </div>
+      </h1>
       <button
         onClick={toggleDarkMode}
         aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
@@ -27,7 +27,7 @@ const Navbar = ({ toggleDarkMode, darkMode }: NavbarProps) => {
       >
         {darkMode ? moon : sun}
       </button>
-    </div>
+    </nav>
   );
 };
 

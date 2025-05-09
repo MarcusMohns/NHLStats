@@ -12,7 +12,7 @@ const PlayerCard = ({ player }: { player: PlayerType }) => {
           : player.value}
       </p>
       <div className="flex flex-row justify-start items-center w-full">
-        <div className="flex flex-col-reverse sm:flex-row mx-auto">
+        <div className="flex flex-col-reverse sm:flex-row ml-5 sm:mx-auto">
           <div className="flex items-center justify-start w-full">
             <ImageAndLoading imgSrc={player.headshot} />
             <p className="flex flex-row items-center justify-start sm:justify-center text-stone-600 dark:text-stone-200 font-bold 2xl:w-50">
