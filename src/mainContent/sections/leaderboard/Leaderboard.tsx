@@ -4,7 +4,7 @@ import startViewTransitionWrapper from "../../../utility/startViewTransitionWrap
 import ErrorWithBtn from "../../components/ErrorWithBtn";
 import PlayerCardList from "./components/PlayerCardList";
 import { LeaderBoardsType } from "./types";
-import SectionLoading from "../../components/SectionLoading.tsx";
+import LeaderboardSkeleton from "./components/LeaderboardSkeleton.tsx";
 
 type LeaderboardProps = {
   leaderboard: LeaderBoardsType | Error | null;
@@ -38,7 +38,7 @@ const Leaderboard = ({
 
   if (!leaderboard) {
     // loading
-    return <SectionLoading heading={"Leaderboard"} />;
+    return <LeaderboardSkeleton />;
   }
   return (
     <section className="leaderboard h-max sm:p-5">
@@ -59,7 +59,7 @@ const Leaderboard = ({
             selectedTable={selectedSkaterLeaders}
             handleSelectedTable={handleSelectedSkaterLeaders}
           />
-          <h2 className="font-bold dark:text-stone-300 my-3 py-1 px-2 text-xl uppercase leading-tight tracking-wide select-none">
+          <h2 className="font-bold dark:text-stone-300 my-5 pt-2 px-1 text-lg uppercase leading-tight tracking-wide select-none">
             {selectedSkaterLeaders}
           </h2>
           <PlayerCardList players={leaderboard[selectedSkaterLeaders]} />
@@ -73,7 +73,7 @@ const Leaderboard = ({
             selectedTable={selectedGoalieLeaders}
             handleSelectedTable={handleSelectedGoalieLeaders}
           />
-          <h2 className="font-bold dark:text-stone-300 my-3 py-1 px-2 text-xl uppercase leading-tight tracking-wide select-none">
+          <h2 className="font-bold dark:text-stone-300 my-5 pt-2 px-1 text-lg uppercase leading-tight tracking-wide select-none">
             {selectedGoalieLeaders}
           </h2>
           <PlayerCardList players={leaderboard[selectedGoalieLeaders]} />

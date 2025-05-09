@@ -8,7 +8,7 @@ import SelectTableButtons from "../../components/SelectTableButtons.tsx";
 import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
 import { StandingsType } from "./types";
 import { xmarkIcon, checkmarkIcon } from "../../../svgs.tsx";
-import SectionLoading from "../../components/SectionLoading.tsx";
+import StandingsSkeleton from "./components/StandingsSkeleton.tsx";
 
 type StandingsProps = {
   standings: StandingsType | Error | null;
@@ -29,7 +29,7 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
 
   if (!standings) {
     // loading
-    return <SectionLoading heading={"Standings"} />;
+    return <StandingsSkeleton />;
   }
 
   return (

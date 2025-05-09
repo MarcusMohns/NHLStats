@@ -2,7 +2,7 @@ import ErrorWithBtn from "../../components/ErrorWithBtn.tsx";
 import { PlayoffsType } from "./types.tsx";
 import Bracket from "./components/Bracket.tsx";
 import Finals from "./components/Finals.tsx";
-import SectionLoading from "../../components/SectionLoading.tsx";
+import PlayoffsSkeleton from "./components/PlayoffsSkeleton.tsx";
 
 type PlayoffsProps = {
   playoffs: PlayoffsType | Error | null;
@@ -18,7 +18,7 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
 
   if (!playoffs) {
     // loading
-    return <SectionLoading heading={"Playoffs"} />;
+    return <PlayoffsSkeleton />;
   }
 
   const roundOneEastern = playoffs.series.slice(0, 4);

@@ -1,8 +1,7 @@
 import ErrorWithBtn from "../../components/ErrorWithBtn";
 import { GameWeekType } from "./types";
 import GameList from "./components/GameList";
-import SectionLoading from "../../components/SectionLoading.tsx";
-
+import ScheduleSkeleton from "./components/ScheduleSkeleton.tsx";
 type ScheduleProps = {
   schedule: GameWeekType[] | null | Error;
   handleFetchSchedule: () => Promise<void>;
@@ -18,7 +17,7 @@ const Schedule = ({ schedule, handleFetchSchedule }: ScheduleProps) => {
 
   if (!schedule) {
     // loading
-    return <SectionLoading heading={"Schedule"} />;
+    return <ScheduleSkeleton />;
   }
 
   return (
