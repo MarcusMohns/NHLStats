@@ -33,7 +33,7 @@ const TableHeader = ({
   const HIDDEN_HEADERS = ["Last 10", "Streak"];
   return (
     <th
-      className={`text-gray-500 dark:text-stone-300 text-center p-2 relative select-none ${
+      className={`text-gray-600 dark:text-stone-300 text-center p-2 relative select-none ${
         HIDDEN_HEADERS.includes(header) ? "hidden md:table-cell" : ""
       }`}
     >
