@@ -21,7 +21,7 @@ const GameSeries = ({ series }: { series: SeriesType }) => {
           <img
             src={series.seriesLogo}
             alt={`${series.seriesAbbrev} Series Logo`}
-            className="md:w-50 w-auto invert dark:invert-0 max-w-35"
+            className="md:w-50 md:max-w-50 w-auto invert dark:invert-0 max-w-35"
           />
         </div>
       ) : (
