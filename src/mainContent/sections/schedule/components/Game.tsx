@@ -38,7 +38,11 @@ const Game = ({
         </div>
       )}
 
-      <div className="flex flex-row align-center justify-center shadow-sm bg-stone-100 dark:bg-stone-800 dark:shadow-stone-800 p-2 mt-1 rounded">
+      <div
+        className={`flex flex-row align-center justify-center shadow-sm bg-stone-100 dark:bg-stone-800 dark:shadow-stone-800 mt-1 sm:p-1 p-2 rounded ${
+          game.gameState === "OFF" ? "opacity-50" : ""
+        }`}
+      >
         {game.gameState === "LIVE" ? (
           <LiveChip gameCenterLink={game.gameCenterLink} />
         ) : game.gameState === "OFF" ? (
@@ -61,7 +65,7 @@ const Game = ({
           awayTeamScore={game.awayTeam.score}
         />
         <LinkOut
-          linkOutStyles="flex items-center h-auto"
+          linkOutStyles="flex items-center h-auto mr-1"
           hrefString={`https://www.nhl.com${game.gameCenterLink}`}
           aria-label={`View game details for ${game.homeTeam.commonName} vs ${game.awayTeam.commonName}`}
         />
