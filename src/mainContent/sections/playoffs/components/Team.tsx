@@ -27,7 +27,7 @@ const Team = ({
         alt={`${team.name} Logo`}
         className="w-11 h-11 hidden dark:block"
       />
-      <p className="font-bold tracking-wide leading-tight dark:text-stone-200 md:text-base text-xs sm:block">
+      <p className="font-bold tracking-wide leading-tight dark:text-stone-200 md:text-base text-xs">
         {team.abbrev}
       </p>
       <p className="font-bold text-lg dark:text-stone-200 px-1">{score}</p>

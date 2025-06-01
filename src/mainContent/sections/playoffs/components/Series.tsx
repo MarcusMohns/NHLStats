@@ -3,7 +3,9 @@ import Scoreboard from "./Scoreboard";
 
 const GameSeries = ({ series }: { series: SeriesType }) => {
   return (
-    <div className={`flex flex-col text-center justify-center mx-2 my-1`}>
+    <div
+      className={`flex flex-col text-center justify-center md:mx-2 mx-1 my-1`}
+    >
       <p className="font-bold dark:text-stone-300 leading-tight tracking-wide select-none text-sm">
         {series.seriesAbbrev}
       </p>

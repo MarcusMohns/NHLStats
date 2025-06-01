@@ -48,7 +48,7 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
           <Bracket
             roundOne={roundOneWesternTop}
             roundTwo={roundTwoWesternTop}
-            direction="flex-row md:border-none border-r-2 border-gray-300 dark:border-stone-700"
+            direction="flex-row lg:border-none border-r-2 border-gray-300 dark:border-stone-700"
           />
 
           <Bracket
@@ -64,7 +64,7 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
           <Bracket
             roundOne={roundOneWesternBottom}
             roundTwo={roundTwoWesternBottom}
-            direction="flex-row md:border-none border-r-2 border-gray-300 dark:border-stone-700"
+            direction="flex-row lg:border-none border-r-2 border-gray-300 dark:border-stone-700"
           />
           <Bracket
             roundOne={roundOneEasternBottom}
