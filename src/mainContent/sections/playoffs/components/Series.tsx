@@ -3,7 +3,7 @@ import Scoreboard from "./Scoreboard";
 
 const GameSeries = ({ series }: { series: SeriesType }) => {
   return (
-    <div className={`flex flex-col text-center justify-center m-1 md:m-2`}>
+    <div className={`flex flex-col text-center justify-center mx-2 my-1`}>
       <p className="font-bold dark:text-stone-300 leading-tight tracking-wide select-none text-sm">
         {series.seriesAbbrev}
       </p>
@@ -17,7 +17,7 @@ const GameSeries = ({ series }: { series: SeriesType }) => {
           url={series.seriesUrl}
         />
       ) : series.seriesLogo ? (
-        <div className="border-2 p-2 rounded border-gray-300 dark:border-stone-700">
+        <div className="border-1 lg:border-2 p-2 rounded border-gray-300 dark:border-stone-700">
           <img
             src={series.seriesLogo}
             alt={`${series.seriesAbbrev} Series Logo`}

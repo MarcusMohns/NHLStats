@@ -20,11 +20,15 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
     // loading
     return <PlayoffsSkeleton />;
   }
+  const roundOneEasternTop = playoffs.series.slice(0, 2);
+  const roundOneEasternBottom = playoffs.series.slice(2, 4);
+  const roundOneWesternTop = playoffs.series.slice(4, 6);
+  const roundOneWesternBottom = playoffs.series.slice(6, 8);
+  const roundTwoEasternTop = playoffs.series[8];
+  const roundTwoEasternBottom = playoffs.series[9];
+  const roundTwoWesternTop = playoffs.series[10];
+  const roundTwoWesternBottom = playoffs.series[11];
 
-  const roundOneEastern = playoffs.series.slice(0, 4);
-  const roundOneWestern = playoffs.series.slice(4, 8);
-  const roundTwoEastern = playoffs.series.slice(8, 10);
-  const roundTwoWestern = playoffs.series.slice(10, 12);
   const easternFinals = playoffs.series[12];
   const westernFinals = playoffs.series[13];
   const stanleyCupFinals = playoffs.series[14];
@@ -40,21 +44,31 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
         alt="NHL Playoff Bracket Logo"
       />
       <div className="flex flex-col w-full">
-        <div className="flex xl:hidden align-center justify-center">
+        <div className="flex align-center justify-center">
+          <Bracket
+            roundOne={roundOneWesternTop}
+            roundTwo={roundTwoWesternTop}
+            direction="flex-row md:border-none border-r-2 border-gray-300 dark:border-stone-700"
+          />
+
+          <Bracket
+            roundOne={roundOneEasternTop}
+            roundTwo={roundTwoEasternTop}
+            direction="flex-row-reverse"
+          />
+        </div>
+        <div className="flex align-center justify-center my-5 lg:my-0">
           <Finals series={[westernFinals, stanleyCupFinals, easternFinals]} />
         </div>
         <div className="flex align-center justify-center">
           <Bracket
-            roundOne={roundOneWestern}
-            roundTwo={roundTwoWestern}
-            direction="flex-row"
+            roundOne={roundOneWesternBottom}
+            roundTwo={roundTwoWesternBottom}
+            direction="flex-row md:border-none border-r-2 border-gray-300 dark:border-stone-700"
           />
-          <div className="hidden xl:flex align-center justify-center">
-            <Finals series={[westernFinals, stanleyCupFinals, easternFinals]} />
-          </div>
           <Bracket
-            roundOne={roundOneEastern}
-            roundTwo={roundTwoEastern}
+            roundOne={roundOneEasternBottom}
+            roundTwo={roundTwoEasternBottom}
             direction="flex-row-reverse"
           />
         </div>
