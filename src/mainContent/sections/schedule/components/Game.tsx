@@ -21,6 +21,8 @@ const Game = ({
   prevWeekDay,
   handlePrevWeekDay,
 }: GameProps) => {
+  const GAME_OVER = game.gameState === "OFF" || game.gameState === "FINAL";
+  const GAME_LIVE = game.gameState === "LIVE" || game.gameState === "CRIT";
   return (
     <div key={game.id} className="flex flex-col sm:mx-7">
       {weekDay !== prevWeekDay.current && (
@@ -40,12 +42,12 @@ const Game = ({
 
       <div
         className={`flex flex-row align-center justify-center shadow-sm bg-stone-100 dark:bg-stone-800 dark:shadow-stone-800 mt-1 sm:p-1 p-2 rounded ${
-          game.gameState === "OFF" ? "opacity-50" : ""
+          GAME_OVER ? "opacity-50" : ""
         }`}
       >
-        {game.gameState === "LIVE" ? (
+        {GAME_LIVE ? (
           <LiveChip gameCenterLink={game.gameCenterLink} />
-        ) : game.gameState === "OFF" ? (
+        ) : GAME_OVER ? (
           <p className="flex items-center bg-stone-200 text-sm font-bold px-1 dark:bg-stone-700 rounded w-min">
             Done
           </p>
