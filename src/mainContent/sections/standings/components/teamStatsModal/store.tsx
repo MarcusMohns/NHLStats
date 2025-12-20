@@ -19,8 +19,14 @@ export const fetchTeamAndGames = async (team: TeamType) => {
   const gamesUrl = `${CORS_PROXY}?url=https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`;
   // Run both by https://corsproxy.io/ to bypass CORS
   try {
-    const teamData = await fetchTeamData(teamUrl);
-    const gamesThisWeekData = await fetchTeamData(gamesUrl);
+    const teamDataPromise = fetchTeamData(teamUrl);
+    const gamesThisWeekDataPromise = fetchTeamData(gamesUrl);
+
+    const [teamData, gamesThisWeekData] = await Promise.all([
+      teamDataPromise,
+      gamesThisWeekDataPromise,
+    ]);
+
     if (!teamData || !gamesThisWeekData) throw new Error("Error getting data");
 
     const playersByPoints = sortFunctions.Points(teamData.skaters);
