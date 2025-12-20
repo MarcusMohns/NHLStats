@@ -8,6 +8,6 @@ export const startViewTransitionWrapper = (stateSetFunc: () => void) =>
           stateSetFunc();
         });
       })
-    : // Not supported by all browsers (specifically Firefox), so it falls back to a normal state update
+    : // Not supported by older browsers (specifically Firefox), so it falls back to a normal state update
       stateSetFunc();
 export default startViewTransitionWrapper;
