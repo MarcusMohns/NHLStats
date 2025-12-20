@@ -19,21 +19,22 @@ const fetchPlayerLeadersData = async (
 
 export const fetchLeaderboard = async () => {
   try {
-    const leaders = {
-      Goals: await fetchPlayerLeadersData("goals", "skater", 5),
-      Assists: await fetchPlayerLeadersData("assists", "skater", 5),
-      Points: await fetchPlayerLeadersData("points", "skater", 5),
-      GAA: await fetchPlayerLeadersData("goalsAgainstAverage", "goalie", 5),
-      "Save%": await fetchPlayerLeadersData("savePctg", "goalie", 5),
-      Shutouts: await fetchPlayerLeadersData("shutouts", "goalie", 5),
-    };
+    const fetchPromises = [
+      fetchPlayerLeadersData("goals", "skater", 5),
+      fetchPlayerLeadersData("assists", "skater", 5),
+      fetchPlayerLeadersData("points", "skater", 5),
+      fetchPlayerLeadersData("goalsAgainstAverage", "goalie", 5),
+      fetchPlayerLeadersData("savePctg", "goalie", 5),
+      fetchPlayerLeadersData("shutouts", "goalie", 5),
+    ];
+    const leaders = await Promise.all(fetchPromises);
     if (
-      !leaders.Goals ||
-      !leaders.Assists ||
-      !leaders.Points ||
-      !leaders.GAA ||
-      !leaders["Save%"] ||
-      !leaders.Shutouts
+      !leaders[0] ||
+      !leaders[1] ||
+      !leaders[2] ||
+      !leaders[3] ||
+      !leaders[4] ||
+      !leaders[5]
     ) {
       console.error("Incomplete leaderboard data");
       return new Error("Incomplete leaderboard data");
