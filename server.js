@@ -18,19 +18,19 @@ app.use((req, res, next) => {
 });
 
 // Proxy API calls to NHL API - MUST be before static middleware
-app.get("/api/nhl/*", async (req, res) => {
+app.use("/api/nhl/", async (req, res, next) => {
   try {
-    // Extract the path after /api/nhl/
-    let apiPath = req.path.slice("/api/nhl".length);
+    // Get the full path from the original URL
+    const apiPath = req.originalUrl.replace("/api/nhl", "");
 
     // Make sure we have the path
-    if (!apiPath || apiPath === "") {
+    if (!apiPath || apiPath === "" || apiPath === "/") {
       return res.status(400).json({ error: "No API path provided" });
     }
 
     const url = `https://api-web.nhle.com/v1${apiPath}`;
 
-    console.log(`[PROXY] Request path: ${req.path}`);
+    console.log(`[PROXY] Request path: ${req.originalUrl}`);
     console.log(`[PROXY] API path: ${apiPath}`);
     console.log(`[PROXY] Full URL: ${url}`);
 
