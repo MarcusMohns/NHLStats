@@ -6,8 +6,7 @@ const fetchTeamData = async (urlString: string) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    const parsedData = JSON.parse(data.contents);
-    return parsedData;
+    return data;
   } catch (e: unknown) {
     console.error("Error fetching team data from API", e);
     throw e;
@@ -15,9 +14,8 @@ const fetchTeamData = async (urlString: string) => {
 };
 
 export const fetchTeamAndGames = async (team: TeamType) => {
-  const CORS_PROXY = "https://api.allorigins.win/get";
-  const teamUrl = `${CORS_PROXY}?url=${encodeURIComponent(`https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/now`)}`;
-  const gamesUrl = `${CORS_PROXY}?url=${encodeURIComponent(`https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`)}`;
+  const teamUrl = `/api/nhl/club-stats/${team.teamAbbrev.default}/now`;
+  const gamesUrl = `/api/nhl/club-schedule/${team.teamAbbrev.default}/week/now`;
   // Run both by cors proxy to bypass CORS
   try {
     const teamDataPromise = fetchTeamData(teamUrl);

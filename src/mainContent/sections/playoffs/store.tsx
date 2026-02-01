@@ -1,13 +1,11 @@
 const fetchPlayoffsData = async () => {
-  const CORS_PROXY = "https://api.allorigins.win/get";
-  const playoffsUrl = `${CORS_PROXY}?url=${encodeURIComponent("https://api-web.nhle.com/v1/playoff-bracket/2025")}`;
+  const playoffsUrl = "/api/nhl/playoff-bracket/2025";
   // Run it by cors proxy to bypass CORS
 
   try {
     const response = await fetch(playoffsUrl);
     const data = await response.json();
-    const parsedData = JSON.parse(data.contents);
-    return parsedData;
+    return data;
   } catch (e) {
     console.error("Error fetching playoffs data from API", e);
     throw e;

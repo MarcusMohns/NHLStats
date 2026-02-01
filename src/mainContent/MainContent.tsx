@@ -3,7 +3,7 @@ import Leaderboard from "./sections/leaderboard/Leaderboard.tsx";
 import Schedule from "./sections/schedule/Schedule.tsx";
 import SelectTabButtons from "./components/SelectTabButtons.tsx";
 import startViewTransitionWrapper from "../utility/startViewTransitionWrapper.ts";
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { StandingsType } from "./sections/standings/types.ts";
 import { LeaderBoardsType } from "./sections/leaderboard/types.ts";
 import { GameWeekType } from "./sections/schedule/types.ts";
@@ -18,7 +18,7 @@ const MainContent = () => {
   const [selectedTab, setSelectedTab] = useState<string>("Standings");
 
   const [standings, setStandings] = useState<StandingsType | null | Error>(
-    null
+    null,
   );
   const [leaderboard, setLeaderboard] = useState<
     LeaderBoardsType | null | Error
@@ -48,18 +48,6 @@ const MainContent = () => {
     const playoffs = await fetchPlayoffs();
     setPlayoffs(playoffs);
   }, [setPlayoffs]);
-
-  useEffect(() => {
-    handleFetchStandings();
-    handleFetchLeaderboard();
-    handleFetchSchedule();
-    handleFetchPlayoffs();
-  }, [
-    handleFetchStandings,
-    handleFetchLeaderboard,
-    handleFetchSchedule,
-    handleFetchPlayoffs,
-  ]);
 
   return (
     <main

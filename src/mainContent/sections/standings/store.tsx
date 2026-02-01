@@ -33,15 +33,13 @@ export const handleReduceStandings = (standingsData: TeamType[]) =>
   );
 
 const fetchStandingsData = async () => {
-  const CORS_PROXY = "https://api.allorigins.win/get";
-  const standingsUrl = `${CORS_PROXY}?url=${encodeURIComponent("https://api-web.nhle.com/v1/standings/now")}`;
+  const standingsUrl = "/api/nhl/standings/now";
   // Run it by cors proxy to bypass CORS
 
   try {
     const response = await fetch(standingsUrl);
     const data = await response.json();
-    const parsedData = JSON.parse(data.contents);
-    return parsedData.standings;
+    return data.standings;
   } catch (e: unknown) {
     console.error("Error fetching standings data from API", e);
     throw e;
