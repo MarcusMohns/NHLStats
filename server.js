@@ -10,7 +10,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.static("dist"));
 
 // Debug middleware - log all requests
 app.use((req, res, next) => {
@@ -18,7 +17,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Proxy API calls to NHL API
+// Proxy API calls to NHL API - MUST be before static middleware
 app.get("/api/nhl/*", async (req, res) => {
   try {
     // Extract the path after /api/nhl/
@@ -57,6 +56,9 @@ app.get("/api/nhl/*", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+// Serve static files AFTER API routes
+app.use(express.static("dist"));
 
 // Fallback to index.html for SPA routing
 app.get("*", (req, res) => {
