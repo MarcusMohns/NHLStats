@@ -14,10 +14,10 @@ const fetchTeamData = async (urlString: string) => {
 };
 
 export const fetchTeamAndGames = async (team: TeamType) => {
-  const CORS_PROXY = "https://corsproxy.io/";
-  const teamUrl = `${CORS_PROXY}?url=https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/now`;
-  const gamesUrl = `${CORS_PROXY}?url=https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`;
-  // Run both by https://corsproxy.io/ to bypass CORS
+  const CORS_PROXY = "https://api.allorigins.win/raw";
+  const teamUrl = `${CORS_PROXY}?url=${encodeURIComponent(`https://api-web.nhle.com/v1/club-stats/${team.teamAbbrev.default}/now`)}`;
+  const gamesUrl = `${CORS_PROXY}?url=${encodeURIComponent(`https://api-web.nhle.com/v1/club-schedule/${team.teamAbbrev.default}/week/now`)}`;
+  // Run both by cors proxy to bypass CORS
   try {
     const teamDataPromise = fetchTeamData(teamUrl);
     const gamesThisWeekDataPromise = fetchTeamData(gamesUrl);

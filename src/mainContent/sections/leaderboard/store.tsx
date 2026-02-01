@@ -1,11 +1,13 @@
 const fetchPlayerLeadersData = async (
   category: string,
   goalieOrSkater: string,
-  limit: number = 5
+  limit: number = 5,
 ) => {
-  const CORS_PROXY = "https://corsproxy.io/";
-  const leadersUrl = `${CORS_PROXY}?url=https://api-web.nhle.com/v1/${goalieOrSkater}-stats-leaders/current?categories=${category}&limit=${limit}`;
-  // Run it by https://corsproxy.io/ to bypass CORS
+  const CORS_PROXY = "https://api.allorigins.win/raw";
+  const leadersUrl = `${CORS_PROXY}?url=${encodeURIComponent(
+    `https://api-web.nhle.com/v1/${goalieOrSkater}-stats-leaders/current?categories=${category}&limit=${limit}`,
+  )}`;
+  // Run it by cors proxy to bypass CORS
 
   try {
     const response = await fetch(leadersUrl);
