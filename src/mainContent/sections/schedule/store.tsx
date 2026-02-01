@@ -9,14 +9,15 @@ export const weekDays = [
 ];
 
 const fetchScheduleData = async () => {
-  const CORS_PROXY = "https://api.allorigins.win/raw";
+  const CORS_PROXY = "https://api.allorigins.win/get";
   const scheduleUrl = `${CORS_PROXY}?url=${encodeURIComponent("https://api-web.nhle.com/v1/schedule/now")}`;
   // Run it by cors proxy to bypass CORS
 
   try {
     const response = await fetch(scheduleUrl);
-    const { gameWeek } = await response.json();
-    return gameWeek;
+    const data = await response.json();
+    const parsedData = JSON.parse(data.contents);
+    return parsedData.gameWeek;
   } catch (e) {
     console.error("Error fetching schedule from API", e);
     throw e;

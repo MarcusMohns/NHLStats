@@ -3,7 +3,7 @@ const fetchPlayerLeadersData = async (
   goalieOrSkater: string,
   limit: number = 5,
 ) => {
-  const CORS_PROXY = "https://api.allorigins.win/raw";
+  const CORS_PROXY = "https://api.allorigins.win/get";
   const leadersUrl = `${CORS_PROXY}?url=${encodeURIComponent(
     `https://api-web.nhle.com/v1/${goalieOrSkater}-stats-leaders/current?categories=${category}&limit=${limit}`,
   )}`;
@@ -12,7 +12,8 @@ const fetchPlayerLeadersData = async (
   try {
     const response = await fetch(leadersUrl);
     const data = await response.json();
-    return data[category];
+    const parsedData = JSON.parse(data.contents);
+    return parsedData[category];
   } catch (e) {
     console.error("Error fetching leaders data from API", e);
     throw e;
