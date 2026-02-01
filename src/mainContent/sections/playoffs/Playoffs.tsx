@@ -3,6 +3,7 @@ import { PlayoffsType } from "./types.tsx";
 import Bracket from "./components/Bracket.tsx";
 import Finals from "./components/Finals.tsx";
 import PlayoffsSkeleton from "./components/PlayoffsSkeleton.tsx";
+import { useEffect } from "react";
 
 type PlayoffsProps = {
   playoffs: PlayoffsType | Error | null;
@@ -10,6 +11,10 @@ type PlayoffsProps = {
 };
 
 const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
+  useEffect(() => {
+    if (!playoffs) handleFetchPlayoffs();
+  }, [handleFetchPlayoffs, playoffs]);
+
   if (playoffs instanceof Error)
     // Error
     return (

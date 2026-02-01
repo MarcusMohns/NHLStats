@@ -2,12 +2,17 @@ import ErrorWithBtn from "../../components/ErrorWithBtn";
 import { GameWeekType } from "./types";
 import GameList from "./components/GameList";
 import ScheduleSkeleton from "./components/ScheduleSkeleton.tsx";
+import { useEffect } from "react";
 type ScheduleProps = {
   schedule: GameWeekType[] | null | Error;
   handleFetchSchedule: () => Promise<void>;
 };
 const Schedule = ({ schedule, handleFetchSchedule }: ScheduleProps) => {
   const locale = navigator.language || "sv-SE";
+
+  useEffect(() => {
+    if (!schedule) handleFetchSchedule();
+  }, [handleFetchSchedule, schedule]);
 
   if (schedule instanceof Error)
     // error

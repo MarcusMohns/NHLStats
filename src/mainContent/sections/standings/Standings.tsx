@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LeagueTable from "./components/tables/LeagueTable.tsx";
 import ConferenceTable from "./components/tables/ConferenceTable.tsx";
 import DivisionTable from "./components/tables/DivisionTable.tsx";
@@ -20,6 +20,10 @@ const Standings = ({ standings, handleFetchStandings }: StandingsProps) => {
   const handleSelectedTable = (standing: string) => {
     startViewTransitionWrapper(() => setSelectedTable(standing));
   };
+
+  useEffect(() => {
+    if (!standings) handleFetchStandings();
+  }, [handleFetchStandings, standings]);
 
   if (standings instanceof Error)
     // error

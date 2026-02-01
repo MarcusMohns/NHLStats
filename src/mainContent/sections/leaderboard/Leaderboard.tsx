@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import SelectTableButtons from "../../components/SelectTableButtons";
 import startViewTransitionWrapper from "../../../utility/startViewTransitionWrapper";
 import ErrorWithBtn from "../../components/ErrorWithBtn";
@@ -26,6 +26,10 @@ const Leaderboard = ({
   const handleSelectedGoalieLeaders = useCallback((standing: string) => {
     startViewTransitionWrapper(() => setSelectedGoalieLeaders(standing));
   }, []);
+
+  useEffect(() => {
+    if (!leaderboard) handleFetchLeaderboard();
+  }, [handleFetchLeaderboard, leaderboard]);
 
   if (leaderboard instanceof Error)
     // Error
