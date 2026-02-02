@@ -33,8 +33,9 @@ export const handleReduceStandings = (standingsData: TeamType[]) =>
   );
 
 const fetchStandingsData = async () => {
-  const standingsUrl = "/api/nhl/standings/now";
-  // Run it by cors proxy to bypass CORS
+  const CORS_PROXY = "https://cloudflare-cors-anywhere.marcus-312.workers.dev";
+  const apiUrl = "https://api-web.nhle.com/v1/standings/now";
+  const standingsUrl = `${CORS_PROXY}/?${encodeURIComponent(apiUrl)}`;
 
   try {
     const response = await fetch(standingsUrl);

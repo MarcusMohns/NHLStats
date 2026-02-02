@@ -3,7 +3,10 @@ const fetchPlayerLeadersData = async (
   goalieOrSkater: string,
   limit: number = 5,
 ) => {
-  const leadersUrl = `/api/nhl/${goalieOrSkater}-stats-leaders/current?categories=${category}&limit=${limit}`;
+  const CORS_PROXY = "https://cloudflare-cors-anywhere.marcus-312.workers.dev";
+  const leadersUrl = `${CORS_PROXY}/?${encodeURIComponent(
+    `https://api-web.nhle.com/v1/${goalieOrSkater}-stats-leaders/current?categories=${category}&limit=${limit}`,
+  )}`;
   // Run it by cors proxy to bypass CORS
 
   try {

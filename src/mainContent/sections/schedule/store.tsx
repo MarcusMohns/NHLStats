@@ -9,7 +9,8 @@ export const weekDays = [
 ];
 
 const fetchScheduleData = async () => {
-  const scheduleUrl = "/api/nhl/schedule/now";
+  const CORS_PROXY = "https://cloudflare-cors-anywhere.marcus-312.workers.dev";
+  const scheduleUrl = `${CORS_PROXY}/?${encodeURIComponent("https://api-web.nhle.com/v1/schedule/now")}`;
   // Run it by cors proxy to bypass CORS
 
   try {
