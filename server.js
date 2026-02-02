@@ -20,6 +20,18 @@ app.use((req, res, next) => {
 // Proxy API calls to NHL API - MUST be before static middleware
 app.use("/api/nhl/", async (req, res, next) => {
   try {
+    // Ensure CORS headers are always present for proxied responses
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization, X-Requested-With",
+    );
+
+    // Handle preflight
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(204);
+    }
     // Get the full path from the original URL
     const apiPath = req.originalUrl.replace("/api/nhl", "");
 
@@ -49,8 +61,11 @@ app.use("/api/nhl/", async (req, res, next) => {
         .json({ error: `NHL API error: ${response.statusText}` });
     }
 
-    const data = await response.json();
-    res.json(data);
+    // Forward content-type and status from NHL API where possible
+    const contentType =
+      response.headers.get("content-type") || "application/json";
+    const bodyText = await response.text();
+    res.status(response.status).set("Content-Type", contentType).send(bodyText);
   } catch (error) {
     console.error("[PROXY] Error:", error.message);
     res.status(500).json({ error: "Server error" });
