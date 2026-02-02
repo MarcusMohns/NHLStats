@@ -34,9 +34,9 @@ export const handleReduceStandings = (standingsData: TeamType[]) =>
 
 const fetchStandingsData = async () => {
   const CORS_PROXY = "https://cloudflare-cors-anywhere.marcus-312.workers.dev";
-  const apiUrl = "https://api-web.nhle.com/v1/standings/now";
-  const standingsUrl = `${CORS_PROXY}/?${encodeURIComponent(apiUrl)}`;
-
+  const standingsUrl = `${CORS_PROXY}/?${encodeURIComponent(
+    "https://api-web.nhle.com/v1/standings/now",
+  )}`;
   try {
     const response = await fetch(standingsUrl);
     const data = await response.json();
