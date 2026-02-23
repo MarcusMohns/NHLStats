@@ -38,8 +38,6 @@ const Playoffs = ({ playoffs, handleFetchPlayoffs }: PlayoffsProps) => {
   const westernFinals = playoffs.series[13];
   const stanleyCupFinals = playoffs.series[14];
 
-  console.log(stanleyCupFinals);
-
   return (
     <section className="playoffs h-max sm:p-5">
       <h2 className="font-bold dark:text-stone-300 my-5 py-1 mx-2 text-xl uppercase leading-tight tracking-wide select-none border-b border-gray-300 dark:border-stone-700">
